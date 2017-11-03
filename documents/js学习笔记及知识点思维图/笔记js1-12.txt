@@ -1,0 +1,204 @@
+ 1.使用引用类型创建对象然后再创建属性和值，
+	var aaa=new Object();  
+	aaa.name="张三";
+	aaa.set=ture;
+	aaa.age=18;
+
+	var aaa={name:'张三',sex:false,age:18}; //直接创建多属性对象
+	alert(aaa.name);
+	for (var i in aaa)｛ alert(i);alert(aaa[i]);｝    //迭代对象属性,前面是弹出属性，后面是值
+2.使用function引用类型创建的对象，也叫函数
+	function func1（aaa）｛ //不调用 的话是不执行,可以有参数，也可以没有，
+	alert(aaa);
+}
+	func1();
+	var aaa=function(a1,a2){
+		alert(a1+a2);
+	}
+	aaa(3,5);
+	//return返回数据给调用他的函数函数并且return后面的语句不执行
+	var aaa=function(a1,a2){
+		return a1+a2;
+	}
+	alert(aaa(3,5));
+
+3.全局变量可以在整个文件 里使用，包括函数，函数内的局部变量只能在函数内使用
+ 	 var t1=100;
+  function func1(t2){
+  	 var t2=200;
+  	 alert(t2);
+     alert(t1);//全局变量可以使用
+  }	
+  func1();
+  alert(t2);//会报错提示未定义，因为t2局部变量不用使用，
+
+  函数有默认的长度length 参数的数量，比如func1(a.a).length的值是2
+
+ 	var arr1=new Array();
+  	arr1[1]='aaa';
+  	arr1[5]=new Array();
+  	arr1[5][1]='arr2';
+  	arr1[8]='ccc';
+  	arr1['ddd']='dddd';
+  	for (i in arr1) {  //迭代这个数组
+  		console.log(arr1[i][i]);   //arr[i]是取数组的值，i是索引
+  	}
+
+
+	var arr2=Array(  //数组二种定义方法，可以重新赋值
+  		'111',
+  		false,
+  		18
+  	);
+  	arr2[1]=222;
+  		var arr2=Array(
+  		[name]='111',
+  		[sex]='333',
+  		[age]='18'
+  	);
+  	alert(arr2[0]+arr2[1]+arr2[2]);
+  	
+
+  	var arr3=['aaa',bbbb,['cccc','ddd']]; //这样也可以
+
+
+  	var obj2={  //对象中可以包含对象，元素和数组
+  		name:'张三',
+  		sex:'男',
+  		family:{
+  			father:'张d大',
+  			mather:'张妈'
+  		},
+  		teacher:[[0]='李老师',[1]='张老师'] //注意对象和数组的标识符号问题
+  	};
+  alert(obj2.family.mather);
+
+
+     var obj3={
+     	name:'张三',
+     	test:function(){
+     		alert(this.name);
+     	}
+     }
+     delete obj3.test;//删除对象的元素
+     alert(obj3.test);  //访问test的方法要加（），删除了再访问undefied
+     alert('name' in obj3);//元素还在就ture不在就false
+     var arr2=Array(
+  		[name]='111',
+  		[sex]='333',
+  		[age]='18'
+  	);
+     alert(arr2.join('--'));//join函数把数组元素取出来合成一个字符串，--是分隔符
+
+		var s1="abcdefghijklmn";
+		alert(s1.substring(2,5));//substring取字符的子字符，从第n个字条开始，2，4代表取第二个以后到第四个
+
+运算符 
+1.+ - * / %取余  alert(5%2);//1	
+2. ++自增+1  --自减1  前++先自增，再参与其他的操作  后++先参与其他的操作，再自增
+var a=10;
+alert(a++); //10
+alert(++a);//11  如果赋值了再输出，结果是一样的。11
+
+3.> >= < <=  == !=  ===横等于 !== 数值和类型都要比较
+10=='10'; ture 只比值，不比类型
+10==='10' false
+
+4.&&逻辑与 左右 二边都true才是true  ||左右二边有一边是true就是true
+
+5.+号还可能链接字符串  var a='aaa', var b='bbb'  alert(a+b);
+
+6 ?:  问号前面的真？执行我：执行我（问号前面的假） alert(1<2?'真':'假');
+
+流程语句  控制语句运行顺序
+1.if(条件)｛ 一条语句 ｝   条件为真才执行后面的语句 ,如果为假不执行后面的语句 ..当一个执行了就结束不执行后面的else if
+比如下面的输出优秀，就不会执行到及格
+var a=80;
+if(a=100){
+	alert('满分');
+}else if(a>=80){
+	alert('优秀');
+}else if(a>=60){
+	alert('及格');
+}else{
+	alert('不及格');
+}
+
+2.for语句 首先执行一次初始化语句    再执行条件判断  如果真就执行｛｝内的语句块，然后回到括号内执行自增语句  然后再执行条件判断语句，依此循环，当条件为假时结束循环
+for(var i=0;i<10;i++){
+	alert(i);
+}
+
+3.while循环，注意里面如果没有a--会成为死循环，因为条件为真，执行｛｝里的语句，然后再会判断条件真假
+var a=5;
+while (a>0) {
+	alert(a);
+	a--;
+}
+
+4.break跳出循环继续其他的循环样关操作
+var a=5;
+while (a>0) {
+	a--;//这句如果放下面的会死循环。因为54输出后3跳出循环不执行下面，一直是3，一直执行break;
+	if(a==3){
+	break; //输出54后就跳出循环
+	}
+	alert(a);
+	
+}
+5.continue跳出本次循环，后面还会继续
+var a=5;
+while (a>0) {
+	a--;
+	if(a==3){
+	continue; //跳出本次循环，后面还会继续，输出54 21 
+	}
+	alert(a);
+	
+}
+6.switch语句 switch（）里的参数与case后面的参数对比 ，如果相等就执行alert ，一j旦成功就执行后面的case，所有每个case后面的要加break;因为通常匹配了就要停止了。条件满足了
+var a=2;
+switch (a){
+	case 1:alert('1');break;
+	case 2:alert('2');break;
+	case 3:alert('3');break;
+	default :alert('未匹配到');
+}
+
+try catch语句  把可能出错的代码放在try语句里,如果try语句里的没有错，就不会执行catch里的语句，如果try里的语句是错的（普通逻辑错误，不能是语法错误），则立即中止，然后会执行catch里的语句。。finilly不管前面是不是出错，都会执行
+try {
+	var a=3;
+	alert(a);//alert(a1)会出错。输出catch里的语句。因为a1不存在
+} catch(e) {
+	// statements
+	alert("上面的语句是错的");
+}finally{
+	alert('不管前面是不是错的，我都要执行')
+}
+
+setTimeout延迟执行   第一个参数函数名，第二个延迟时间 ，ms
+clearTimeout取消延迟执行
+function fun1(){
+	alert('延迟二秒');
+}
+setTimeout(fun1, 2000); //这里如果用fun1()立马执行，所以只取函数名
+clearTimeout(fun1,2000); //只管本身，不管前面。就算放在上一句前面 也不影响上一句执行
+setInterval(fun1, 1000);//定时执行一秒一次
+
+文档对象模型
+	元素层次关系  父子  祖先与后辈 兄弟同辈
+	文档对象模型DOM理解成html的一个文档，里面保存了文档信息，通过它可以修改文档信息
+	注意document.getElementsByClassName返回的是集合，引用 是要加【】  ID不用是唯一的。
+	获取以后可以访问对象的属性比如html tagName  还可以通过style设置属性  也可以改变对象的属性比如
+	class1成为class2然后用class2的CSS属性
+	var aaa=document.getElementsByClassName('div1');
+     alert(aaa[0].tagName);//div
+
+     var aaa=document.getElementById('image1');
+	alert(aaa.tagName);
+
+	var aaa=document.getElementById('div2');
+	aaa.className='class2' //然后可以用.css2的CSS样式 
+
+	aaa.style.height='200px';//这样可以设置CSS属性因为上面获取了对象
+	aaa.style.fontSize='200px';//与css font-size略有不同， JS是这样规定

@@ -1,0 +1,223 @@
+第八章：jQuery特效
+
+一、基础特效
+    1、hide方法
+        隐藏匹配的元素
+        hide( [duration ] [, easing ] [, complete ] )
+        不传参数表示立刻隐藏
+        可传参数说明：
+            duration：一个字符串或者数字决定动画将运行多久(如果不传第一个参数，但是传了后面的参数那么该参数默认值为400)
+                      字符串 'fast' 和 'slow' 分别代表200和600毫秒 
+            easing： 一个字符串，表示过渡使用哪种缓动函数(默认: swing)
+                     jQuery自身提供"linear" 和 "swing" 其他过渡效果可以使用相关的插件实现
+            complete：在动画完成时执行的函数      
+                      函数内部的this指向执行动画的DOM元素
+    2、show方法
+      显示匹配的元素
+      show( [duration ] [, easing ] [, complete ] )
+    3、toggle方法
+        显示或隐藏匹配元素
+        使用说明：
+        1）toggle( [duration ] [, easing ] [, complete ] )
+        2）toggle(Boolean)
+              一个布尔值，使用 true 来显示元素，或者 false 隐藏它
+二、滑动特效
+    1、slideDown方法
+        用滑动动画显示匹配元素
+        slideDown( [duration ] [, easing ] [, complete ] )
+    2、slideUp方法
+        用滑动动画隐藏匹配元素
+        slideUp( [duration ] [, easing ] [, complete ] )
+    3、slideToggle方法
+        用滑动动画显示或隐藏匹配元素
+        slideToggle( [duration ] [, easing ] [, complete ] )
+三、淡入淡出特效
+    1、fadeOut方法
+        通过淡出的方式隐藏匹配元素
+        fadeOut( [duration ] [, easing ] [, complete ] ) 
+    2、fadeIn方法
+        通过淡入的方式显示匹配元素
+        fadeIn( [duration ] [, easing ] [, complete ] )
+    3、fadeTo方法
+        调整匹配元素的透明度
+        fadeTo( duration, opacity [, easing ] [, complete ] )
+        可传参数说明：
+              opacity
+              类型: Number
+              0和1之间的数字表示目标元素的不透明度
+    4、fadeToggle方法
+        通过匹配的元素的不透明度动画，来显示或隐藏它们
+        fadeToggle( [duration ] [, easing ] [, complete ] )
+        $('#div1').hide(1000,function(){//显示 第二个参数linear和swing不能用，是不是版本问题
+           // $('#div1').show(1000,function(){//隐藏
+           $('#div1').toggle(1000,function(){//替换
+          console.log('成功了');
+        })*/
+        //2.滑动特效
+/*        $('#div1').slideToggle(3000, function() { //滑动显示隐藏slideDownslideUp 时间不用引号
+          console.log('成功');
+        });*/
+            //3.淡入淡出特效fadeIn fadeOut fadeTo fadeToggle
+/*    $('#div1').fadeToggle(3000, function() { //滑动显示隐藏slideDownslideUp 时间不用引号
+          console.log('成功')
+        
+四、定制特效
+    1、animate方法
+      根据一组 CSS 属性，执行自定义动画
+      animate( properties [, duration ] [, easing ] [, complete ] )
+      可传参数说明：
+        properties：
+                    一个CSS属性和值的对象,动画将根据这组对象移动
+                    值也可以是：+= 或 -=开始的值，那么目标值就是以这个属性的当前值加上或者减去给定的数字来计算的
+                    比如：left: '+=50'
+                    注意：
+                    .所有用于动画的属性必须是数字的（例如，width, height或者left可以执行动画），除非另有说明
+                    .除了样式属性， 一些非样式的属性，如scrollTop 和 scrollLeft，以及自定义属性，也可应用于动画！
+                    .要设置整个页面的滚动条不可以将document或者window传入$函数，必须将html,body一起传入才可得到各个浏览器
+                     的兼容即：$('html,body')，这就是规定，这么用就ok了！
+                    .CSS简写属性（例如font,  border等）没有得到充分的支持，即设置时不要用简写方式！
+                     并且， 对于这些属性预设值最好不要是"auto" 。
+        duration： 一个字符串或者数字决定动画将运行多久(默认: 400)
+                          默认值: "normal"， 三种预定速度的字符串("slow", "normal", 或 "fast")或表示动画时长的毫秒数值(如：1000)
+        easing： 一个字符串，表示过渡使用哪种缓动函数(默认: swing)
+                       jQuery自身提供"linear" 和 "swing"
+        complete：在动画完成时执行的函数      
+                           函数内部的this指向执行动画的DOM元素
+
+        //4.animate动画 注意属性数组写法方法，比如border和background这里不认
+/*        $('#div1').animate({width:'200px',height:'200px',borderWidth:'10px'}          
+        ,3000
+        ,function(){
+          console.log('动画完成')
+        }
+       )*/
+五、创建并管理队列
+    队列：函数队列
+          函数在排队，优点，第一个全部执行完成了，第二个才会开始执行，依次，后面都是一样的，不会混乱！
+    1、queue方法
+        在匹配的元素上创建函数队列（替换已有队列），或向函数队列中添加函数
+        queue方法用于，在匹配的元素上，创建队列、替换已有队列、向已有队列中继续添加函数！
+        1）怎么在匹配的元素上创建函数队列
+           jQuery对象.queue('sunshengli',函数数组);
+        2）替换已有队列
+            jQuery对象.queue('已有队列名称',函数数组);
+        3）向已有队列中继续添加函数
+            jQuery对象.queue('已有队列名称',function(next){});
+        4）获取，指定元素上指定队列中函数的个数
+            jQuery对象.queue('已有的队列名称').length;
+    2、dequeue方法
+        执行匹配元素队列的下一个函数
+        当dequeue()被调用的时候，列队中的下一个函数将从这个列队中被移除，然后再执行。
+        dequeue( [queueName ] )
+        参数：
+              queueName：一个含有队列名的字符串。（默认是fx，标准的效果队列）
+    3、clearQueue方法
+        从列队中移除所有未执行的项
+        clearQueue( [queueName ] )
+        queueName：一个含有队列名的字符串。默认是fx，标准的效果队列
+        当clearQueue()方法被访问的时候，所有在这个列队中未执行的函数将被移除 。
+        这个方法类似stop(true)然而stop()方法只适用在动画中,clearQueue()还可以用来移除用queue()方法添加到队里中的任何函数
+    
+    补充：
+        默认情况下，我们在同一个元素上执行的动画方法，会被自动的放入该元素下的fx队列中！
+        fx队列会自动执行里面的第一个方法，当前的动画方法执行完之后还会自动执行fx队列中的下一个方法。
+        
+        非动画方法，并不会被放入fx队列中！
+        $(document).queue('queue1',[
+        function(next){
+        $(document).queue('queue1',function(next){
+          console.log('4');
+          //next();//等于于下面 this代表当前执行元素的DOM对象..函数接受一个参数，代表队列中的下一个函数
+          $(this).dequeue('queue1');//等于于$(document).dequere('queue1')
+        });
+        $(document).queue('queue1',function(next){
+          console.log('5');
+        });
+        console.log('0');
+        next();
+       },
+       function(next){
+        console.log('1');
+        next();
+       },
+       function(next){
+        console.log('2')
+        next();
+       },
+      function(next){
+        console.log('3')
+        next();
+       }]);
+        $('#button1').on('click',function(next){
+          $(document).dequeue('queue1');
+          console.log($(document).dequeue('queue1').length+'个元素');
+          }
+          )*/
+
+
+           $('#button1').click(function() {
+          $('#div1')
+          .hide(1000)
+          .show('fast')
+          .animate({
+            marginLeft: '+=200',
+            marginTop: '+=200'},
+            2000, function() {
+            $(this).css('background', 'red');
+          })
+          .queue(function(next){//这个在最后执行，动画是播放完一个自动播放下一个动画，不需要next
+            $(this).animate({
+              marginTop: '+=100'},
+              'fast', function(next) {
+              $(this).css('background', 'yellow');
+
+            });
+            next();//这里只是执行下个动画，上面是创建了一个队列，但并不是马上执行
+          })
+          .animate({'marginLeft':'-=200',
+            'marginTop':'-=200'
+              },2000,
+              function(){
+                $(this).css('background', 'pink');
+              }
+              );
+        });*/
+
+        //这种方法也能实现多个元素动画一步一步执行，但推荐下面队列形式
+      /*    $('#button1').click(function() {
+          $('#div1').animate({'marginTop':'+=100'},1000,function() {
+          $('#div2').animate({'marginTop':'+=100'},1000,function() {
+          $('#div3').animate({'marginTop':'+=100'},1000,function() {
+          $('#div4').animate({'marginTop':'+=100'},1000)
+          }); 
+          }); 
+          }); 
+        
+        });*/
+         $(document).queue('queue1',[
+          function(next){
+            $('#div1').animate({'marginTop':'+=100'},1000,function(){next()});
+            //next();//next放在这里执行，1和2会一起动画。放在这里不用等上面执行完一段时间的动画就执行？放在上面就要等动画执行完才执行这个回调函数？
+            
+          },
+          function(next){
+            $('#div2').animate({'marginTop':'+=100'},1000,function(){next()});
+            //$(this).clearQueue('queue1');清除队列，后面的不再执行了
+            //$(this).stop('queue1');//结果这个和下一个一起动画
+            
+          },
+          function(next){
+            $('#div3').animate({'marginTop':'+=100'},1000,function(){next()});
+          },
+          function(next){
+            $('#div4').animate({'marginTop':'+=100'},1000,function(){next()});
+          
+          }
+
+          ]);
+         $('#button1').click(function() {
+          $(document).dequeue('queue1');
+          
+        });
+        
+        

@@ -1,0 +1,329 @@
+﻿13 初探jQuery是一个重要的函数，简写成$,是jQuery的入口。
+/*	//例子
+	$(function(){
+		alert('dddd');
+	})*/
+/*	//设置div属性例子
+	$(function(){
+		var div1=document.getElementById('div1');
+		div1.style.background='red';
+		div1.style.height='100px';
+	})*/
+
+/*	jQuery.noConflict();//让jquery放弃简写符号$这时再用$会报错，说$不是一个函数，此时只能用jQuery
+	jQuery(function(){
+		var div1=document.getElementById('div1');
+		div1.style.background='red';
+		div1.style.height='100px';
+	})*/
+
+	var jq=jQuery.noConflict();//把不能用简写赋值给一个参数，再用这个简写参数就好了
+	jq(function(){
+		var div1=document.getElementById('div1');
+		div1.style.background='red';
+		div1.style.height='100px';
+	})
+
+	//为了防止页面没加载完成就执行了脚本 语言，可以使用以下二种方法解决就会等页面加载完成后再执行脚本
+	$(document).ready(function() {  //这个函数会等到页面加载完成后再执行，并且可以有多个这样的函数，不会冲突
+
+		alert('用document.readyfunction');
+	})
+	$(function() {  //这个函数会等到页面加载完成后再执行，并且可以有多个这样的函数，不会冲突
+		alert('直接使用$function{}');
+	})
+
+	14选择器
+	1核心 选择器   * 所有元素  . 类名 #id 如#aaa p  id为aaa标签下的p *=  ~=属性中有一个是右边值的就可以  比如class有多个值
+	2属性选择器 
+	$['attr']  $['attr=""'] 等  ^=以某某开头 $=结尾  *=  ~=属性中有一个是右边值的就可以  比如class有多个值
+	|=val属性值是或者属性值为连字符分隔的值列表并且第一个值是字符串var的元素
+	alert($('[href="http://www.baidu.com"]').length);
+	alert($('[href$="cn"').length);//href以cn结尾的链接
+	alert($('[class|="cn"').length);//会选择cn或者cn-XXX的class元素
+	[][][]复合选择器多个属性都要满足
+	alert($('[class|="cn" [id]="id1"').length);
+	可以配合其他选择器使用
+	$('p[class="div1"]').length;
+
+	15选择器
+	3.关系选择器
+	aaa bbb  aaa标签下的bbb标签
+	//alert($('div p').length);//div下的p元素
+		//alert($('div>p').length);//只匹配子元素p元素
+		//alert($('div+p').length);//只匹配紧接在div元素后面的p元素
+		//alert($('div~p').length);//只匹配紧接在div元素后面的所有同辈p
+	4.伪元素和伪类选择器
+	：checked :enabled :disabled :focus :first-child第一个孩子
+	:last:child nth-child(n)第n个子元素从1开始算的
+	 father child:nth-of-type(n)同属于同一个父元素下的第几个元素从1开始
+	:only-child
+	:root html文档中就是整个<html></html>
+	$(':checked').length;
+	alert($('ul li:first-child').css('font-size','100px'));
+
+	16 反选择器 :not()  复合选择器 ：a,b,c  jquery自带选择器 ：contains() :last first
+
+	17 搜索范围多加一个参数，可以是jq对象，可以是html对象，或者html对象元素数组
+	/*		var $div1=$('#div1');//这个不能放在$function外面，因为没有引用jq这个使用是不对的
+		var div1=document.getElementsByClassName('class1');
+		alert($('p',$div1).length);
+		//alert('ddd'.length);*/
+		//alert($('p',$('#div1')).length);
+
+			   $('#div1 p').each(function(i) {  //循环一个元素数组each
+	   	   // alert(i); //i代表循环的元素的序号从0开始
+	   		//alert(this.id);//this代表当前元素
+	   		if(this.id=='p2'){
+	   			//return true;  //相当于for循环的continue停止当前循环执行下一次循环，所以不会输出p2
+	   			//return false;  //相当于for循环的break停止所有循环，所以不会输出p2p3p4
+	   		}
+	   		alert(this.id);
+	   });
+
+	   var $vars=$('#div1 p');
+	   //alert($vars['1']);//===alert($vars.get(1)); //get函数取得元素数组的第几个元素
+
+	   问题思考：
+	   1.jq对象怎么得到普通的html对象
+	   get(index),toArray(); [index]  var a11=$('p')[0];
+	   2.dom对象怎么转换成jq对象
+	   加$符号 var $aaa=$(document.getElementById('div1'))
+	   3.迭代处理jq对象内含的html元素
+	   each();
+       4.修改多个元素
+       $('p').css('background','red');
+       5.链式方法调用 
+       $('p').css('background','red').size();
+       $('p').css('background','red').css('color','yellow');
+
+       jQuery 对象是通过 jQuery 包装DOM 对象后产生的对象。jQuery 对象是 jQuery 独有的，其可以使用 jQuery 里的方法，但是不能使用 DOM 的方法；例如： $("#img").attr("src","test.jpg"); 这里的 $("#img")就是 jQuery 对象。
+		DOM对象就是Javascript 固有的一些对象操作。DOM 对象能使用Javascript 固有的方法，但是不能使用 jQuery 里的方法。例如：document.getElementById("img").src = “test.jpg"；这里的document.getElementById("img") 就是DOM 对象。
+		$("#img").attr("src","test.jpg"); 和 document.getElementById("img").src = "test.jpg"; 是等价的，是正确的，但是 $("#img").src = "test.jpg" ；或者 document.getElementById("img").attr("src","test.jpg"); 都是错误的。
+		再说一个例子，就是this, 在写 jQuery 时经常这样写： this.attr("src","test.jpg")；可是就是出错，其实this 是DOM对象，而.attr("src","test.jpg") 是 jQuery 方法，所以出错了。要解决这个问题就要将 DOM对象转换成 jQuery 对象，例如 $(this).attr("src","test.jpg");
+		1. DOM 对象转成 jQuery 对象
+		对于已经是一个 DOM 对象，只需要用 $() 把DOM对象包装起来，就可以获得一个 jQuery 对象了，$(DOM 对象) 注： var是定义变量
+		如：
+		var v = document.getElementById("v"); //DOM对象
+		var $v = $(v); //jQuery 对象
+		转换后，就可以任意使用 jQuery 的方法。
+		2. jQuery 对象转成 DOM 对象
+		两种转换方式讲一个 jQuery 对象转换成 DOM 对象： [index] 和 .get(index)；
+		(1) jQuery 对象是一个数据对象，可以通过 [index] 的方法，来得到相应的 DOM 对象。
+		如： 
+		var $v = $("#v"); //jQuery 对象
+		var v = $v[0]; //DOM 对象
+		alert(v.checked); //检测这个checkbox是否被选中
+		(2) jQuery 本身提供，通过.get(index) 方法得到相应的 DOM 对象
+		如：
+		var $v = $("#v"); //jQuery 对象
+		var v = $v.get(0); //DOM对象 ( $v.get()[0] 也可以 )
+		alert(v.checked); //检测这个 checkbox 是否被选中
+		通过以上方法，可以任意的相互转换 jQuery 对象和 DOM 对象，需要再强调的是： DOM 对象才能使用DOM 中的方法，jQuery 对象是不可以使用DOM中的方法。
+
+		18 add() 不影响之前，只影响当前  
+		:first(); ：last() eq(index )过滤
+		silice(start,end) 选择子元素集
+
+		19.筛选结果集下和检测结果集
+		filter（）  可以传选择器 ，可以是dom对象，可以是元素集合，可以是函数
+		var $newList=$('ul li').filter(':gt(2)');过滤大于2的。。如果开始有8个，现在只有五个了
+		not与filter相反
+	   alert(
+	   $('.class1 p').filter(function(i) {
+	   	 if($(this).attr('id')=='p2'){  //js的话用this.id就好了
+	   	 	return false;
+	   	 }else {
+	   	 	return true;
+	   	 }
+
+	   })
+	   .length);
+
+	   has()匹配后代元配 中有的元素集合  比如$('div').has('a'); 匹配div中有a的div..可以传选择器 ，可以是dom对象，可以是元素集合，可以是函数
+
+	   is（）检查结果集，如果函数内部有符号传入选择器的元素那么返回true否则是false
+	   alert($lis.is('#li3'));如果ul li中有id为li3并且可以有不在li3元素集中的元素也返回true,只要有一个满足就好了
+	   多个或者一个元素符号能匹配就是true..所有假才是false.
+        var $var2=$('#div1 p').is(function(i){
+     	if($(this).attr('id')=='p32'){
+     		return false;
+     	}else{
+     		return true;
+     	}
+     })
+       alert($var2);
+
+       20根据现有结果集得到另一个结果集上
+       children()  所有子元素不含孙子元素   alert($('#div1').children().length);
+       find()  寻找后代元素包括孙子元素 相当于取交集  alert($('#div1').find('p').length);
+       offSetParent() 寻找最近的第一个设置了position属性的父元素。该方法仅对可见元素有效。
+       parent()父亲元素  $('#a1').parent('div').css('background','red');
+       parents()祖先元素  $('#p3').parents('#div4').css('background','red');
+       parentsUntil()找祖先元素直到但不包括遇到的的那个元素为止 $('a1').parentsUntil('body').css('background','red'); a1到body之间的设置背景色。
+       $('#p3').parentsUntil('body','#div3').css('background','red'); 不包括body但范围#div3是算整个div3包括的。
+
+       21.根据现有结果集得到另一个结果集下
+       next()获得紧接着的下一个兄弟元素，如果（）加入选择器，只匹配兄弟是选择器的元素
+       nextAll()查找当前元素的所有同辈
+       nextUtil()查找兄弟元素，直到遇到XX为止
+       prev()获得紧接着的上一个兄弟元素，如果（）加入选择器，只匹配兄弟是选择器的元素
+       prevAll()获得当前元素所有之前的同辈元素
+       prevUntil()获取直到某特性的所有之前的同辈元素。
+       //$('#p4').prevAll().css('background', 'red');
+  		$('#p4').prevUntil('#p2').css('background', 'red');
+  		siblings()取得一个包含匹配的元素集合中的每一个元素的所有 唯一 同辈元素的元素集合
+  		end()获得上一个结果集
+  		//$('body').find('div').css('background','red').end().find('p').css('background','blue');
+  		addback()原结果集与当前结果组和集
+  		$('#ul1').children().addBack().css('border','1px solid red');
+  		如果不加addBack的话只有li加边框，加了addBack那么ul和li都加了边框
+    22.添加子元素，创建新元素
+    append(); 在匹配的元素结尾处添加元素对象（文字，html标签，style属性，jq对象，函数），在添加的标签内，移动过来，不是克隆。
+    clone（）复制，原对象还在
+    $('.p233').append(function(index,html){
+   	//alert(this.id);
+   	   if(this.id=='p222'){
+   	 	return 'id为222的p';
+   	 }else{
+   	 	return 'id为223的p';
+   	 }
+  
+   })
+
+  prepend()放到对象前面 ，使用方法与append一样
+
+  23 添加元素 包裹元素
+	  appendTo同append只是顺序相反
+	  $('<div>ddd</div>').appendTo('body')
+	  prependTo同prepend 只是顺序相反
+	  wrap()给匹配的所有元素包裹一层元素
+	  $('p').wrap('<div style="color:red;"><div></div></div>')
+	  wrapAll 给所有匹配的元素外面包裹比如五个P外面一个DIV
+	  wrapInner 给匹配的元素  里面的 内容 外包裹一层
+	   // $('p').wrapInner('<div class="extra-wrapper"></div>');
+24 插入兄弟元素
+   after before 
+   $('p').after($itemNew);
+
+    var $itemNew=$('<div>div</div>');
+	 $itemNew.css('border','1px solid #ccc');
+	$('p').after($itemNew);
+	insertAfter insertBefore与after before使用方法一样，只是顺序不一样
+
+25替换 删除元素
+replaceWith方法 用提供的内容替换集合中所有匹配的元素并且返回被替换元素的集合
+replaceAll方法 用集合的匹配元素替换每个目标元素（
+1、detach()方法
+        从页面中去除所匹配的元素，返回调用该元素jQuery对象
+    2、empty()方法
+        从页面中移除匹配元素的所有后代元素（包括文本）
+    3、remove()方法
+        将匹配元素集合从页面中删除，返回调用该元素jQuery对象（同时移除元素上的事件处理函数及关联数据）
+        如果删除的元素，不需要删除关联数据和事件，请使用detach()
+        参数说明：
+              （可选）一个选择器用来过滤将被移除的匹配元素集合
+    4、unwrap()方法
+        将匹配元素集合的父级元素删除，保留自身（和兄弟元素，如果存在）在原来的位置
+
+26.处理元素属性
+    1、attr方法
+        获取匹配的元素集合中的第一个元素的属性的值  或 设置匹配元素指定的属性
+        使用说明：
+              1）只传一个参数的情况：
+                          1>字符串（属性名称）
+                                      只传一个字符串属性名称 表示获取匹配的元素集合中的第一个元素的属性的值
+                          2>属性 - 值 集合对象
+                                      一次性设置多个属性
+              2）传两个参数的情况:
+                          1>第一个参数：
+                                      字符串属性名称
+                          2>第二个参数：
+                                      ①属性的值
+                                      ②函数(index, attr)
+                                         这个函数返回用来设置的值，this指向当前的元素
+                                         接收表示元素在匹配集合中的索引位置的参数和表示元素上原来的 该属性 值的参数
+                                         return的数据就是这个属性的值
+    2、removeAttr方法
+        为匹配的元素集合中的每个元素中移除指定的属性
+        参数类型说明：
+                  要移除的属性名,它可以是一个空格分隔的多个属性
+    3、prop方法
+        prop也是用来获取和设置属性的值，但和attr也有一些使用场合的区别
+        1.添加属性名称该属性就会生效应该使用prop
+        2.prop()方法适用于Boolean值的属性
+        3.其他则使用attr
+        简单点说：我们建议以下属性使用prop方法
+        checked、readonly、selected、disabled、autofocus等
+    4、removeProp方法
+        删除自定义属性
+        对于原生的属性checked、selected、disabled等建议设置为false而不是直接删除
+        使用较少，因为我们一般直接prop方法设置为false就可以了！
+
+    27二、处理class属性
+    1、addClass方法
+        为每个匹配的元素添加指定的样式类名
+        参数类型说明：
+        1）class名称（字符串）
+             每个匹配元素添加的一个或多个用空格隔开的样式名
+        2）function(index, currentClass)
+             有多少个匹配元素，这个函数就会执行多少次！
+             函数可以接受到两个参数：第一个是当前元素的序号、第二个是当前元素拥有class
+             函数内部this代表当前的html元素对象
+             return 的数据就是类名
+    2、hasClass方法
+        确定任何一个匹配元素是否含有给定的（样式）类，返回true或false
+        可用于多个拥有多个类名的元素
+        参数类型说明：
+        类名称
+    3、removeClass方法
+        移除集合中每个匹配元素上一个，多个或全部样式
+        1）class名称（字符串）
+             每个匹配元素移除的一个或多个用空格隔开的样式名
+        2）function(index, className)
+             有多少个匹配元素，这个函数就会执行多少次！
+             函数可以接受到两个参数：第一个是当前元素的序号、第二个是当前元素拥有class
+             函数内部this代表当前的html元素对象
+             返回一个或多个(用空格隔开)将要被移除的样式名
+    4、toggleClass方法
+        切换！如果存在（不存在）类就删除（添加）这个类
+        使用说明：
+        1）使用方式一：
+             不传参数
+             对已有的class进行切换！
+        2）使用方式二：
+             传入类型: String
+             在匹配的元素集合中的每个元素上用来切换的一个或多个（用空格隔开）样式类名
+        3）使用方式三
+             传入函数：
+                 Function( Integer index, String className ) 
+                 String className：当前元素拥有的class
+                 返回应该显示的样式
+        可以人工控制是应该加上指定的样式，还是移除指定的样式！
+        可以给该参数传第二个参数（布尔值），用来表示判断样式类是否应该被添加或删除：
+              true表示添加样式，false表示移除样式!
+
+
+    28三、处理css样式
+    1、css方法
+        获取匹配元素集合中的第一个元素的样式属性的值  或  设置每个匹配元素的一个或多个CSS属性
+        1）获取并设置单个css值
+            jQuery对象.css('css属性');
+            jQuery对象.css('css属性','值');
+        2）获取多个css属性
+            jQuery对象.css(css属性数组);
+        3）一次设置多个css样式属性
+            jQuery对象.css(css属性与值的对象);
+        4）以相对值设置样式属性
+            jQuery对象.css('css属性','+=10');//数字值之前加上+=或者-=
+            这种方式仅适用于数值单位表示的css属性
+        5）给第二个参数传入函数来设置样式属性
+            函数接受两个参数
+            第一个参数表示当前元素的序号
+            第二个参数表示当前元素当前属性的值
+            函数内部this代表当前的html元素对象
+            返回设置的样式
+            $('#div1').css('background',function(i,currentValue){
+                        return 设置的属性值;
+            });        
+     
