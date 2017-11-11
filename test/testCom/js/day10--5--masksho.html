@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li ,ol li {
+		list-style: none;
+	}
+  body{
+    height: 2000px;
+    overflow: visible;
+  }
+  .mask{
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity:0.5;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+  }
+  .show{
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin:-100px 0 0 -100px;
+    display: none;
+  }
+	</style>
+	
+
+</head>
+<body>
+<a href="javascript:;" id="login">注册</a>
+<a href="javascript:;">登陆</a>
+<div class="mask" id="mask"></div>
+<div class="show" id="show"></div>
+</body>
+	<script type="text/javascript" src="my.js"></script>
+<script type="text/javascript">
+$("login").onclick=function(event){
+  document.body.style.overflow="hidden";
+  var event=event||window.event;
+  show($("mask"));
+  show($("show"));
+  event.stopPropagation?event.stopPropagation():event.cancelBubble=true;
+}
+document.onclick=function(event){
+  var event=event||window.event;
+
+  var targetid=event.target?event.target.id:event.srcElement.id;
+  if(targetid!="show"){
+    document.body.style.overflow="visible";
+    hide($("mask"));
+    hide($("show"));
+  }
+  
+
+}
+</script>
+</html>

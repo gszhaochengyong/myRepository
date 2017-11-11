@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		//数组 push unshift pop shift 
+		var arr1=[1,3];
+		arr1.push(5);//[1,3,5]
+		console.log(arr1);
+		arr1.unshift(0)//[0,1,3,5]
+		console.log(arr1);
+		console.log(arr1.push(7,8));//push返回的是数组的长度6
+		arr1.pop();
+		console.log(arr1);//[0,1,3,5,7]之前加了7，8现在去掉8
+		arr1.shift();
+		console.log(arr1);//[1,3,5,7]
+		//join 数组转换成字符串/concat 连接数组 不会改变原数组，返回 转换后的字符串/连接的数组 
+		var join1=["aa","bb"];
+		var jion2=["cc"];
+		console.log(join1.join());//join参数可以加个符号，以什么符号来组成字符串，默认逗号  返回aa,bb
+		// split 字符串转换成数组 参数是以什么符号分隔，如果不匹配则默认逗号，就只有一个元素的数组了
+		var str="aa-bb-cc";
+		console.log(str.split('-'));//返回["aa",“bb”,“cc”];
+		console.log(join1.concat(jion2));//返回["aa",“bb”,“cc”];
+	}
+	</script>
+
+	<style type="text/css">
+
+	</style>
+
+</head>
+<body>
+
+
+
+</body>
+</html>

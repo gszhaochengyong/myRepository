@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jqvalidata实际例子</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="jq/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="jq/jquery.validate.min.js"></script>
+<script type="text/javascript" src="jq/additional-methods.min.js"></script>
+<style type="text/css">
+	#register{
+		width: 760px;
+		margin: 50px auto;
+		border: 1px solid #ccc;
+		padding:10px 0 10px 20px;
+		font-size: 13px;
+		color: #333;
+	}
+	#register .rows .text .left{
+		background: red;
+		width: 50px;
+	}
+</style>
+</head>
+<body>
+<form id="register">
+	<div class="rows">
+		<div class="text">
+			<div class="left">姓名：</div>
+			<label><input type="text" name="username"></input>
+			</label>
+		</div>
+	</div>
+	<div class="rows">
+		<div class="text">密码：
+			<label><input type="text" name="password"></input>
+			</label>
+		</div>
+	</div>
+	<div class="rows">
+		<div class="text">重复密码：
+			<label><input type="text" name="rePassword"></input>
+			</label>
+		</div>
+	</div>
+	<div class="rows">
+		<div class="text">邮箱：
+			<label><input type="text" name="email"></input>
+			</label>
+		</div>
+	</div>
+	<div class="rows">
+		<div class="text">兴趣爱好：
+			<label><input type="text" name="username"></input>
+			</label>
+		</div>
+	</div>
+	<div class="rows">
+		<div class="text">水果爱好：
+		<label><input type="text" name="username"></input>
+		</label>
+		</div>
+	</div>
+	<div class="rows">
+		<div class="text">协意：
+			<label><input type="text" name="username"></input>
+			</label>
+		</div>
+	</div>
+	<div class="rows">
+		<label><input type="submit" name="submit" value="提交"></input>
+		</label>
+	</div>
+
+
+</form>
+</body>
+</html>

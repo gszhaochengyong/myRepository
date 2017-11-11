@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		//var class1=document.getElementsByClassName("now");//ie8及以下不支持这个classname方法,所以封装自己的classo类
+		//console.log(class1.length);
+		
+		//遍历所有标签，有classname=函数传递的参数classname一样就留下来存到数组里，最后返回数组。
+/*		function getclass(classname){
+		   if (document.getElementsByClassName) {
+		   		return document.getElementsByClassName(classname);
+		   	} else {
+		   		var arr=[];
+		   		var dom =document.getElementsByTagName("*");
+		   		for(var i = 0, length1 = dom.length; i < length1; i++){
+		   			var claarr=dom[i].className.split(' ');//将多个类名分隔成数组
+		   			for(var i = 0, length1 = claarr.length; i < length1; i++){
+		   				if (claarr[i]==classname) {  //当数组中的类名和传入的类名相同时就取出这个数据加到返回数组中去
+		   					arr.push(dom[i]);
+		   				} 
+		   			}
+		   		}
+		   		return arr;
+		   	}	
+		}*/
+		var cla=getclass('test','one');
+		for(var i = 0, length1 = cla.length; i < length1; i++){
+			cla[i].style.backgroundColor="blue";
+		}
+	}
+	</script>
+
+	<style type="text/css">
+	div{
+		width: 100px;
+		height: 100px;
+		background: red;
+		margin:10px;
+	}
+	span{
+		width: 100px;
+		height: 100px;
+		background: red;
+		display: block;
+		margin:10px;
+	}
+	</style>
+
+</head>
+<body>
+<div class="now test">0</div>
+<div>1</div>
+<div class="now">2</div>
+<div id="one">
+	<div class="test now 11">3</div>
+	<div class="now test">4</div>
+	<div class="no test">5</div>
+</div>
+<div>6</div>
+<div class="test" >7</div>
+
+
+</body>
+</html>

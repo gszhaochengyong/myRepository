@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>事件流</title>
+	<meta charset="utf-8">
+	<meta name="keywords" content="你的关键字 多个词用逗号分开">
+	<meta name="description" content="你的网站描述 大概内容等">
+	<script type="text/javascript">
+
+	
+	</script>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#body{
+		width: 1080px;
+		height: 500px;
+		background: #eee;
+		margin: 100px auto;
+		position: relative;
+	}
+	#body .whole{
+		width: 800px;
+		height: 200px;
+		/*margin: 150px auto;*/
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin:   auto;
+	}
+	#body .whole #input{
+		float: left;
+		width: 500px;
+		height: 35px;
+		background: #fff;
+		position: relative;
+		border: 1px solid #ddd;
+	}
+	#body .whole #input:hover{
+		border-color: yellow;
+	}
+
+	#body .whole #input:focus{
+		border-color: blue;
+	}
+	#body .whole #input input.text{
+		display: block;
+		float: left;
+		width: 450px;
+		height: 25px;
+		font-size: 20px;
+		font-weight: normal;
+		padding: auto 10px;
+		position: absolute;
+		right: 40px;
+		top: 5px;
+		border: 0;
+		margin: 0 0 0 5px;
+		outline: none;
+	}
+
+	#body .whole #input>div.photo{
+		float: left;
+		width: 26px;
+		height: 26px;
+		background: url(2.png) -36px -5px no-repeat;
+		position: absolute;
+		right: 5px;
+		top: 5px;
+
+	}
+	#body .whole #input>div.photo:hover{
+		background-position: -10px -7px;
+	}
+	#body .baidu{
+		float: left;
+		display: block;
+		float: left;
+		height: 35px;
+		width: 100px;
+		background: #3385ff;
+		line-height: 35px;
+		text-align: center;
+		border: 1px  solid #ccc;
+		box-shadow: 2px 2px 2px #666;
+	}
+	#body .baidu a{
+		text-decoration: none;
+	}
+
+	</style>
+	<script type="text/javascript">
+		window.onload=function()  {
+			var input=document.getElementsByClassName('text')[0];
+			input.focus();
+			var a111=input.focus();
+			console.log(a111);
+		}
+	</script>
+</head>
+<body >
+<div id="body">
+	<div class="whole">
+		<div id="input">
+			<input type="text" class="text">
+				
+			</input>
+			<div class="photo"></div>
+		</div>
+		<div class="baidu">
+			<a href="#"><span>百度一下</span></a>
+		</div>
+	</div>
+</div>
+</body>
+</html>

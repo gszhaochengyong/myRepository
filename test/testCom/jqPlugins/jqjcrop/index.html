@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/jquery.Jcrop.min.css">
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery.Jcrop.min.js"></script>
+  <script type="text/javascript">
+
+  $(function(){
+      var jcrop='';
+       $('#image2').Jcrop({
+        //aspectRatio:3/1,
+        //minSize:[100,100],
+        //maxSize:[200,200],
+        setSelect:[0,0,210,310],
+        bgColor:'#ccc',
+        bgOpacity:0.4,
+        boxWidth:210,
+/*        onSelect:function(p){
+          console.log(p);
+        },
+        onChange:function(p){
+          console.log(p);
+        },
+        onRelease:function(p){
+          console.log('施放了选择区域');
+        }*/
+        //trueSize:[420,630]  //实际尺寸标记下，然后其他数值是根据比例来换算的，不然尺寸大小传给服务器截取的和自己选择的是不一样大的,注意在以面的标签 里写死了图片大小，所以要在这里写义实际大小以作对比
+       },function(){
+        jcrop=this;
+       });
+       $('.onslect').click(function(){
+        jcrop.setSelect([0,0,100,100]);
+       });
+        $('.animateTo').click(function(){
+        jcrop.animateTo([0,0,200,100]);
+       })
+        $('.onrelease').click(function(){
+        jcrop.release();
+       })
+        $('.tellSelect').click(function(){
+        console.log(jcrop.tellSelect());
+       })
+        $('.tellScaled').click(function(){
+        console.log(jcrop.tellScaled());
+       })
+        $('.disable').click(function(){
+        //jcrop.disable();
+       })
+        $('.enable').click(function(){
+        //jcrop.enable();
+       })
+         $('.destroy').click(function(){
+        //jcrop.destroy();
+       })
+      var data1=jcrop.tellSelect().x2;
+      console.log(data1);
+      $('.ajax').click(function(){
+        $.ajax({
+        url: 'a.php',
+        data: {'param1':data1},
+        success:function(data){
+          console.log(data);
+        }
+      })
+      .done(function() {
+        console.log("success");
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      })
+      
+  }) 
+
+  </script>
+
+  </style>
+</head>
+<body>
+<img src="images/5.jpg" id="image"><img src="images/5.jpg" width="105px" id="image2">
+<button class="ajax">ajax</button >
+<button class="onslect">onslect</button >
+<button class="animateTo">animateTo</button>
+<button class="onrelease">onrelease</button>
+<button class="tellSelect">tellSelect</button>
+<button class="tellScaled">tellScaled</button>
+<button class="disable">disable</button>
+<button class="enable">enable</button>
+<button class="destroy">destroy</button>
+</body>
+</html>

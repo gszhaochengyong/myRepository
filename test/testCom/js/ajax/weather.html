@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>weather</title>
+	<script type="text/javascript" src="../jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				url: 'weathCity.php',
+				type: 'get',
+				dataType: 'json',
+				success:function(data){
+					// console.log(data);
+					for (var k in data) {
+						var cityName=k;
+						var cityItem=$("<option value='"+data[k].toString()+"'>"+k+"</option>");
+						$("#cityList").append(cityItem);
+					}
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+
+			$("#cityList").on("change",function(){
+				//不知道这种方式为啥获得了数据，但一直输入error信息
+	/*			var cityCode=$(this).val();
+				//console.log($(this).val());
+			//下面用的是腾讯的天气接口，对应城市编码也不一样
+				$.ajax({
+					url: 'http://weather.gtimg.cn/city/'+cityCode+'.js',
+					type: 'get',
+					dataType: 'jsonp',
+					success:function(data){
+						console.log(data);
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})*/
+
+
+				//尝试用这种方式接口
+				var cityCode=$(this).children(':selected').text();
+				console.log(cityCode);
+				$.ajax({
+					// url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+cityCode,//这个不能用是因为不知道jsonp返回函数名
+					url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+cityCode,//这种可以，这个接口定义了jsonp获取的返回函数cb用其他就不行了
+					type: "get",
+					async:true,
+					dataType: "jsonp",
+					jsonp:"cb",
+					jsonpCallback:"successcallback",
+					success:function(data){
+						// console.log(data.s);
+						$("#weather").children('ul').html("");
+						var ul=$("<ul></ul>");
+						
+						$.each(data.s, function(index, val) {
+							ul.append($("<li>"+val+"</li>")) 
+						});
+						$("#weather").append($(ul));
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+			})
+
+		})
+	</script>
+</head>
+<body>
+	<div class="city" id="city">
+		<select name="city" id="cityList">
+
+		</select>
+	</div>
+	<div class="weather" id="weather">请先选择城市或者查询内容</div>
+</body>
+</html>

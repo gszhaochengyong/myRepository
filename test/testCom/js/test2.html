@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js测试</title>
+	<script type="text/javascript">
+	// 测试1 i不属性函数，相当于全局变量，循环完后i为3停止循环了所以输入都是3 3 3
+/*	arr=[]
+	for (var i = 0; i < 3; i++) {
+		arr[i]=function(){
+			console.log(i);
+		}
+	}
+	arr[1]();
+	arr[2]();
+	arr[0]();*/
+
+	// 使用闭包来解决这个问题让输入分别是123
+/*	arr=[];
+	for (var i = 0; i < 3; i++) {
+		arr[i]=(function(k){
+			return function(){
+				console.log(k);
+			}
+		})(i)
+	}
+	arr[0]();
+	arr[1]();
+	arr[2]();*/
+
+
+	//test3  函数创建，属性以及原始链属性
+	function Test(name){
+		this.name=name;
+		this.show=function(){
+			console.log(this.name);
+		}
+	}
+
+	Test.brand="九阳";
+	console.log(Test.brand);//九阳 这样是可以的，这个函数的属性
+	
+
+
+	Test.prototype.brand2="九阳2";
+	Test.prototype.brand3=function(){
+		console.log(this.name+'3333');
+	}
+
+
+
+
+
+	var test=new Test("aa");
+	console.log(test.brand);/*undefined 因为test是构造函数,他的属性在创建new的时候就在函数内用this来指定了。外部的不属于New这个个体的属性了。*/
+	test.show();//aa
+	console.log(test.brand2);//如果用Test.prototype.brand就可以，应该是这个函数的原型链属性了。查的资料：当一个函数被用作构造函数来创建实例时，该函数的prototype属性值将被作为原型赋值给所有对象实例（也就是设置实例的__proto__属性）
+	test.brand3();//aa3333
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

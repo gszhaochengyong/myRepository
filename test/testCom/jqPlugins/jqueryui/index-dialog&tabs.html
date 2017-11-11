@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="js/jqueryui/jquery-ui.min.css">
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/jqueryui/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+    $(function(){
+     $('#tooltips').tooltip({
+      hide:'slideUp'
+      //position:{my:'left center',at:"right center"}
+     });
+     $('input[name=datepicker').datepicker();
+     $('#tabs').tabs({
+      active:0,
+      collapsible:true,
+      event:"click",
+      create:function(event,ui){
+        console.log(event+'888'+ui);
+        
+         $('#ul1').append('<li   ><a href="#content4" >标签四</a></li>');
+         $('#tabs').append('<div id="content4">标签四的内容</div>');
+          $('#tabs').tabs('refresh');
+      },
+      heightStyle:'auto',
+     });
+     //$('#tabs').tabs('load',1)
+     $('#tabs ol li a').off('click');//解除默认的绑定事件，这样点击就可以打开新的链接了
+
+    $('button.dialog').click(function(event) {
+      $('#dialog').dialog({
+        buttons:[{ 
+          text: "Ok", click: function() { 
+            $( this ).dialog( "close" ); 
+          }} ,
+          {text: "cancel", click: function() { 
+            $( this ).dialog( "close" );
+             }
+          }
+          ]
+      });
+    });
+  $('#contentMenu').menu();
+  });
+
+  </script>
+  <style type="text/css">
+  #contentMenu{
+    width: 200px;
+  }
+  </style>
+</head>
+<body class="w1190">
+<div title="tooltips" id="tooltips">tooltips</div>
+<input name="datepicker"></input>
+<div id='tabs'>
+  <ol id="ul1">
+    <li ><a href="#content1" target="_blank">标签一</a></li>
+    <li   ><a href="tabtest.html" >标签二</a></li>
+    <li   ><a href="#content3" >标签三</a></li>
+    
+  </ol>
+  <div id="content1"><p>标签1</p><p>标签1</p><p>标签1</p><p>标签1</p></div>
+  <div id="content3">标签三的内容</div>
+</div>
+
+<div title="对话框标题" id="dialog"><p>对话框</p><p>对话框内容对话框内容对话框内容对话框内容对话框内容对话框内容对话框内容</p></div>
+<button class="dialog">打开对话框</button>
+
+  <ul id="contentMenu">
+    <li>
+      菜单一 
+        <ul>
+          <li>
+            子菜单1
+          </li>
+          <li>
+            子菜单2
+          </li>
+        </ul>
+     
+    </li>
+    <li>
+    菜单二
+    </li>
+      <li>
+      菜单三
+        <ul>
+          <li>
+            子菜单1
+
+                <ul>
+                  <li>
+                    子菜单311
+                  </li>
+                  <li>
+                    子菜单312
+                  </li>
+                   <li>
+                    子菜单313
+                  </li>
+                </ul>
+          </li>
+          <li>
+            子菜单2
+          </li>
+          <li>
+            子菜单3
+             <ul>
+                  <li>
+                    子菜单331
+                  </li>
+                  <li>
+                    子菜单332
+                  </li>
+                </ul>
+          </li>
+        </ul>
+     
+    </li>
+  </ul>
+</body>
+</html>

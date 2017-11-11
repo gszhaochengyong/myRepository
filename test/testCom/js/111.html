@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>布局一</title>
+	<script type="text/javascript">
+		/*
+		要求：
+		1.头部固定高度 宽度100%自适应父容器
+		 */
+	</script>
+	<style type="text/css">
+	html,body{
+		margin: 0px;
+		padding: 0px;
+		height: 100%;
+	}
+	#header{
+		height: 100px;		font-size: 20px;
+
+		width: 100%;
+		background: #ffefD5;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		line-height: 100px;
+		text-align: center;
+		color: red;
+	}
+	#body{
+		width: 100%;
+		background: #ffeBCD ;
+
+		/*overflow: scroll;*/
+			
+		position: absolute;
+		top: 100px;
+		bottom: 100px;
+		z-index: 10;
+		
+		margin: 0px;
+		text-indent: 2em;
+
+
+	}
+	#body #content{
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+	}
+	
+	#body #content #left{
+		float: left;
+		width: 20%;
+		height: 100%;
+		background: yellow;
+	}
+	#body #content #left #left1{
+		background: #ccc;
+		width: 100%;
+		height: 50%;
+	}
+	#body #content #left #left2{
+		width: 100%;
+		height: 50%;
+	}
+	#body #content #right{
+		float: left;
+		width: 20%;
+		height: 100%;
+		background: red;
+	}
+	#body #content #middle{
+	  width: 60%;
+	  color: blue;
+	  float: left;
+	  height: 100%;
+
+	}
+	#body #content #middle>.details{
+	width: 90%;
+	height:90%;
+	margin: 30px auto;
+	overflow-y: auto;
+	background: #ddd;
+	}
+	#footer{
+		red
+		height: 100px;
+		background: #ffefD5;
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+		line-height: 100px;
+		text-align: center;
+		color: red;
+		font-size: 20px;
+	}
+	</style>
+</head>
+<body>
+<div id="whole">
+	<div id="header">小赵香港亲自正品代购</div>
+	<div id="body">
+	  <div id="content">
+	   <div id="left">
+	   	<div id="left1">left1</div>
+	   	<div id="left2">left2</div>
+	   </div>
+	   <div id="middle">
+	   	<div class="details">
+	   		middle  预计这周末去香港，有需要的下订单来
+			<p>个人总结及推荐一些香港实用优惠效果好的东西</p>
+			<p>药品类:黄道益活络油（跌打损伤，风湿骨痛等多功效）,新加坡千里追风油（中老年骨刺疼,风湿骨疼）；法国双飞人（伤风感冒、肚痛疴呕、蚊咬止痒等多功效）；无比滴（驱蚊止痒等多用途）；小林退烧贴（日本家庭必备，物理降温，谁家小孩不生意发烧？），日本叮叮驱蚊（无毒可开可关持续使用三个月），我家必备，普通家庭必备药品</p>
+			<p>母婴用品：安满孕妇奶粉，惠氏孕妇多种维生素，儿童奶粉多种进口品牌如美素，雅培，喜宝。儿童零食如亨氏磨牙棒，喜宝米糊，嘉宝小星星饼干，卡乐比麦片大人小孩干吃泡着吃都能吃 ，衍生开奶茶， 我们家基本都用过。</p>
+			<p>化妆美容：贝德玛卸妆水，雪花秀，森田面膜，美丽日记，韩国JAYJUN面膜，春雨蚕丝面膜（孕妇儿童可用），法国依云喷雾，兰芝睡眠面膜，兰蔻粉水，Dior变色口红，DIOR香水，兰芝隔离霜，dermatix淡疤痕去疤痕，水宝宝儿童孕妇防晒霜和喷雾，missha大红BB霜防晒等。基本都是好用效果好的。</p>
+			<p>电子产品：iPhone,iPad,Mac,比内地便宜几百到几千不等。我家买过二台iPhone和一台iPad.</p>
+	       <p> 最后推荐一个补品营养品店，香港楼上燕窝店，香港最出名连锁燕窝
+	       店，高中低档燕窝都有，还有各种花旗参营养品补品银耳等。燕窝适合女人及老人，养颜美容滋补。</p>
+	   	</div>
+       </div>
+	   <div id="right">right</div>
+		
+	  </div>
+
+	</div>
+	<div id="footer">有需要私聊,可代任何合法物品
+	</div>
+</div>
+</body>
+</html>

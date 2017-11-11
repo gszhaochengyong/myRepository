@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>加载更多</title>
+	<script type="text/javascript" src="jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		var num=3;//初始请求数量以及加量后的数量变量
+		var addNum=5;//一次请求增加的数量
+		function showMore(Num,callback){
+			$.ajax({
+				url: 'loadmore.php',
+				type: 'get',
+				dataType: 'json',
+				data: {num: Num},
+				async:true,
+				success:callback
+				,error:function(e){
+
+				}
+			})
+			
+		}
+
+		function addElement(data){
+			for (var i = 0; i < data.length; i++) {
+				if(data[i]){
+					var imgDiv=$("<div class='img'></div>").append($("<img src='ajaxphp/"+data[i]+"'>"));
+					var pDiv=$("<div class='txt'></div>").append($("<p>我是美女</p>"))
+					var ele=$("<li></li>").append(imgDiv).append(pDiv);
+					console.log(ele+data);
+					$("#ul").append(ele);
+				}else{
+					$("#more p").text('没有了');
+				}
+
+			}
+		}
+
+		//初始化
+		showMore(num,addElement);
+
+		$("#more").on('click',function(){
+			num=num+addNum;
+			console.log($(this)+',总数是'+num);
+			showMore(num,addElement);
+		})
+
+	})
+	</script>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	li{
+		list-style: none;
+	}
+	#box{
+		width: 50%;
+		background: #eee;
+		margin:100px auto;
+	}
+	ul li{
+		margin:20px auto;
+		position: relative;
+	}
+	ul li div.img{
+		height: 300px;
+	}
+	ul li .img img{
+		width: 300px;
+		height: 300px;
+		position: absolute;
+		top: 0px;
+		left: 50%;
+		margin-left: -150px;
+	}
+	.txt{
+		margin-top: 10px;
+		text-align: center;
+	}
+	#more{
+
+		width: 80%;
+		height: 20px;
+		background: red;
+		margin:auto;
+		padding:10px;
+	}
+	#more p{
+				font-size: 20px;
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul id="ul">
+<!-- 			<li>
+	<div class="img"><img src="ajaxphp/3dslide1.jpg"></div>
+	<div class="txt">段落</div>
+</li> -->
+	
+		</ul>
+		<div id="more"><p>更多</p></div>
+	</div>
+</body>
+</html>

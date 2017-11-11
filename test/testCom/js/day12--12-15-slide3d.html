@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>3Dslide</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		*{
+			margin:0;
+			padding: 0;
+		}
+		ul li{
+			list-style: none;
+		}
+		#box{
+			width: 750px;
+			height: 500px;
+			margin:300px auto;
+			background: #ccc;
+			position: relative;
+		}
+		#box ul{
+		 	width: 750px;
+		 	height: 500px;
+		 	position: relative;
+		 	background: green;
+		 	z-index: 1;
+		}
+		#box ul li{
+			width: 300px;
+			height: 300px;
+			position: absolute;
+		}
+/* 		#box ul li:nth-child(1) img,#box ul li:nth-child(5) img{
+	width: 200px;
+	height: 200px;
+}
+#box ul li:nth-child(2) img,#box ul li:nth-child(4) img{
+	width: 250px;
+	height: 250px;
+} */
+		#arr{
+			width: 850px;
+			height: 100px;
+			position: absolute;
+			top: 50%;
+			margin-top: -50px;
+			left: -50px;
+			opacity: 0;
+		}
+		#arr span{
+			width: 50px;
+			height: 100px;
+			background: red;
+			position: absolute;
+			top: 0;
+		}
+		#arr span#pre{
+			left: 0px;
+		}
+		#arr span#next{
+			right: 0px;
+		}
+	</style>
+	<script type="text/javascript" src="my.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=$("#box");
+			var ul=$("#ul");
+			var arr=$("#arr");
+			//显示和隐藏arr上下页容器
+			box.onmouseover=function(){
+				animate(arr,{opacity:100},2)
+			}
+			box.onmouseout=function(){
+				animate(arr,{opacity:0},2)
+			}
+			//图片 属性json对象
+			var position=[
+				{//1
+					top:0,
+					left:50,
+					zIndex:2
+				},
+				{//2
+					top:50,
+					left:0,
+					zIndex:3
+				},
+				{//3
+					top:200,
+					left:200,
+					zIndex:100
+				},
+				{//4
+					top:50,
+					left:400,
+					zIndex:3
+				},
+				{//5
+					top:0,
+					left:450,
+					zIndex:2
+				}
+			]
+
+			//获得当前最中央位置的图片pNow
+			var pNow=0;
+			var lis=ul.children;
+
+
+			//根据json信息给图片定位
+			function positions(){
+				for(var k=0;k<position.length;k++){
+				 animate(ul.children[k],position[k],5);
+				}	
+			}
+
+			//初始化
+			positions();
+
+
+
+
+/*			//arr上下页点击事件方式一
+			for(var k=0,j=arr.children.length; k<j;k++){
+				arr.children[k].onclick=function(){
+					if(this.id=="next"){
+						var pos4=position[position.length-1];
+						for (var i = position.length-1; i>0; i--) {
+								position[i]=position[i-1];
+						}
+						position[0]=pos4;
+						console.log(position);
+
+						positions();
+					}else{
+						var pos0=position[0];
+						for (var i = 0; i < position.length; i++) {
+							if (i==position.length-1) {
+								position[i]=pos0;
+							} else {
+								position[i]=position[i+1];
+							}
+						}
+						console.log(position);
+						positions();
+					}
+				}
+			}*/
+			//arr上下页点击事件方式二
+			for(var k=0,j=arr.children.length; k<j;k++){
+				arr.children[k].onclick=function(){
+					if(this.id=="next"){
+						console.log('next');
+						position.unshift(position.pop());
+						positions();
+					}else{
+						position.push(position.shift());
+						console.log(position);
+						positions();
+					}
+				}
+			}
+			//var timer=null;
+
+/*			timer=setInterval(autoPlay(), 1000);
+			function autoPlay(){
+				arr.children[1].onclick();
+			}*/
+/*			box.onmouseover=function(){
+				clearInterval(timer);
+			}
+			box.onmouseout=function(){
+				timer=setInterval(autoPlay(), 1000)
+			}*/
+		}
+	</script>
+</head>
+<body>
+<div id="box">
+	<ul id="ul">
+		<li><img src="imgs/3dslide1.jpg" alt=""></li>
+		<li class="li2"><img src="imgs/3dslide2.jpg" alt=""></li>
+		<li><img src="imgs/3dslide3.jpg" alt=""></li>
+		<li><img src="imgs/3dslide4.jpg" alt=""></li>
+		<li><img src="imgs/3dslide5.jpg" alt=""></li>
+	</ul>
+	<div id="arr">
+		<span id="pre">上一页</span>
+		<span id="next">下一页</span>
+	</div>
+</div>
+</body>
+</html>

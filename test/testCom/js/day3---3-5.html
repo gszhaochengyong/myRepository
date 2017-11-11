@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var lis=document.getElementsByTagName("li");
+		console.log(lis.length);
+		for (var i = 0,len=lis.length; i < len; i++) {
+			if (i%2!=0) {
+				lis[i].style.background="#ccc";
+			} else {
+				lis[i].style.background="#eee";
+			}
+			lis[i].onmouseover=function(){
+				this.className="current"; //这里不能用lis[i]
+			}
+			lis[i].onmouseout=function(){
+				this.className="";
+			}
+
+		}
+		var arr=[3,10,20,30,'ss','100'];
+		for (var i = 0,sum=0,nan=0; i < arr.length; i++) {
+			if (isNaN(arr[i])) {
+				nan+=1;
+			} else {
+				sum+=Number(arr[i]);
+			}
+
+		}
+		var avg=sum/arr.length;
+		console.log('和为'+sum+',个数为'+arr.length+'非数字个数为'+nan+',平均值为'+avg);
+
+	}
+	
+	</script>
+
+	<style type="text/css">
+	ul{
+		width: 500px;
+		margin :50px auto;
+	}
+	li{
+		height: 30px;
+		list-style: none;
+	}
+	li.current{
+		background: yellow !important ;
+	}
+	</style>
+
+</head>
+<body>
+<ul>
+	<li>
+		<span>10</span>
+		<span>11</span>
+		<span>12</span>
+	</li>
+	<li>
+		<span>20</span>
+		<span>21</span>
+		<span>22</span>
+	</li>
+	<li>
+		<span>33</span>
+		<span>333</span>
+		<span>3333</span>
+	</li>
+	<li>
+		<span>4444</span>
+		<span>44444</span>
+		<span>4444444</span>
+	</li>
+	<li>
+		<span>5</span>
+		<span>55</span>
+		<span>555</span>
+	</li>
+</ul>
+
+</body>
+</html>

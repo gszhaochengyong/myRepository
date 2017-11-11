@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var link="http://www.baidu.com";
+			var linkencode=encodeURIComponent(link)
+			console.log(linkencode);
+			var linkdecode=decodeURIComponent(link);
+			console.log(linkdecode);
+			//setTimeout(window.location.href=linkeencode,3000);
+			var button=document.getElementsByTagName("button");
+
+			var val1=document.getElementById("input1");
+			button[0].onclick=function(){
+				this.nextElementSibling.innerHTML=val1.value.slice(1, 3);//索引1开始索引3之前
+			}
+			button[1].onclick=function(){
+				this.nextElementSibling.innerHTML=val1.value.slice(-2, 5);//索引1开始索引3之前
+			}
+			button[2].onclick=function(){
+				this.nextElementSibling.innerHTML=val1.value.substr(3, 1);//索引1开始索引3之前
+			}
+
+			button[3].onclick=function(){
+				this.nextElementSibling.innerHTML=val1.value.substr(-1, 3);//索引1开始索引3之前
+			}
+			button[4].onclick=function(){
+				this.nextElementSibling.innerHTML=val1.value.substr(val1.value.length-1, 3);//索引1开始索引3之前
+			}
+
+		}
+	</script>
+
+</head>
+<body>
+<input type="text" id="input1"><br>
+<input type="text" id="input2"><br>
+<button>slice</button><span></span><br>
+<button>slice负一</button><span></span><br>
+<button>substr</button><span></span><br>
+<button>substr负一IE678无效</button><span></span><br>
+<button>substrlength取尾部</button><span></span><br>
+
+</body>
+</html>

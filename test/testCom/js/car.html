@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+function Box(){
+	this.width=300;
+	this.height=600;
+	this.background="#ccc";
+	this.margin="100px auto";
+	this.position="relative";
+	this.overflow="hidden"
+	this.boxItem=null;
+
+	this.show=function(){
+		this.boxItem=document.createElement("div");
+		this.boxItem.style.height=this.height+'px';
+		this.boxItem.style.width=this.width+'px';
+		this.boxItem.style.background=this.background;
+		this.boxItem.style.position=this.position;
+		this.boxItem.style.overflow=this.overflow;
+		this.boxItem.style.margin=this.margin;
+		document.body.appendChild(this.boxItem);
+	}
+}
+
+function Road(){
+	this.width=box.width;
+	this.height=box.height;
+	this.background="#ccc";
+	this.position="absolute";
+	this.margin="auto 0";
+	this.left="0px";
+	this.top="0px";
+	// this.border="1px solid yellow";
+	// this.roadItem=null;
+	this.roads=3;
+	this.obstacles=[[1,1,null],[1,2,null],[2,1,null],[2,2,null],[2,3,null],[3,1,null],[3,2,null]];
+
+
+	//障碍
+	this.showObstacle=function(){
+		for (var i = 0; i < this.obstacles.length; i++) {
+			console.log(this.obstacles[i]);
+			if(this.obstacles[i][2]==null){
+				this.obstacles[i][2]=document.createElement("div");
+				this.obstacles[i][2].style.width=this.width/this.roads+'px';
+				this.obstacles[i][2].style.height=this.height/80+'px';
+				this.obstacles[i][2].style.background="red";
+				this.obstacles[i][2].style.position=this.position;
+				box.boxItem.appendChild(this.obstacles[i][2]);
+			}
+
+			this.obstacles[i][2].style.left=this.width/this.roads*(this.obstacles[i][0]-1)+'px';
+			this.obstacles[i][2].style.top=Math.floor(Math.random()*this.height*29/30)+'px';
+
+		}
+	}
+	this.move=function(){
+		for (var i = 0; i < this.obstacles.length; i++) {
+			//console.log(this.obstacles[i][2].offsetTop);
+			var top=this.obstacles[i][2].offsetTop+10;
+			console.log(this.height/80);
+			top>(box.boxItem.offsetHeight-this.height/80)?top=0:top=top;
+			this.obstacles[i][2].style.top=top+'px';
+			// console.log(car.carItem.offsetTop+'相撞'+(this.obstacles[i][2].offsetTop-this.height/80))
+			if(car.carItem.offsetTop<=(this.obstacles[i][2].offsetTop-this.height/80)&& (car.carItem.offsetTop+car.carItem.offsetHeight)>=this.obstacles[i][2].offsetTop &&car.carItem.offsetLeft==this.obstacles[i][2].offsetLeft){
+				this.obstacles[i][2].style.left=this.width/this.roads*(this.obstacles[i][0]-1)+'px';
+				this.obstacles[i][2].style.top=Math.random()*100-150+'px';
+			}
+		}
+
+
+		
+	}
+
+}
+
+function Car(){
+	this.width=100;
+	this.height=100;
+	this.background="url('car.jpg') left top no-repeat";
+	this.position="absolute";
+	this.carItem=null;
+
+	this.show=function(){
+		if(this.carItem==null){
+			this.carItem=document.createElement("div");
+			console.log(this.carItem);
+			this.carItem.style.width=this.width+'px';
+			this.carItem.style.height=this.height+'px';
+			this.carItem.style.background=this.background;
+			this.carItem.style.position=this.position;
+			box.boxItem.appendChild(this.carItem);
+		}
+		this.carItem.style.left=this.width+'px';
+		// this.carItem.style.top=box.boxItem.offsetHeight/2+'px';
+		this.carItem.style.top=box.boxItem.offsetHeight-this.height+'px'; 
+	}
+	this.move=function(key){
+		if (key=="LEFT") {
+			console.log('left');
+			console.log(road.width/road.roads);
+			var pos=this.carItem.offsetLeft-road.width/road.roads;
+			pos<0?pos=0:pos=pos;
+			console.log(pos)+'left';
+			this.carItem.style.left=pos+'px';
+			
+		} else if(key=="RIGHT") {
+			var pos=this.carItem.offsetLeft+road.width/road.roads;
+			pos>road.width/road.roads*(road.roads-1)?pos=road.width/road.roads*(road.roads-1):pos=pos;
+			console.log(pos)+'right';
+			this.carItem.style.left=pos+'px';
+		}
+		else if(key=="SPACE") {
+
+			console.log('SPACE');
+			clearInterval(timer);
+			return;
+		}
+		else{
+			console.log('UNWORKKEY');
+			return;
+		}
+	}
+}
+var box=new Box();
+box.show();
+
+var road=new Road();
+road.showObstacle();
+
+var car=new Car();
+car.show();
+
+var keyType=null;
+var timer=null;
+window.onkeyup=function(event){
+	var event=event||window.event;
+	switch (event.keyCode) {
+		case 37:
+			keyType="LEFT";
+			break;
+		case 39:
+			keyType="RIGHT";
+			break;
+		case 32:
+			keyType="SPACE";
+			break;
+		default:
+			// statements_def
+			return;
+	}
+	car.move(keyType);
+}
+timer=setInterval(function(){
+	road.move();
+}, 500);
+</script>

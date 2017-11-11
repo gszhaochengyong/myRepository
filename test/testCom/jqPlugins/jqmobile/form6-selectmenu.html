@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html id="html">
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>
+<title>form1-textinput</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script> 
+   <link rel="stylesheet" type="text/css" href="js/jqmobile/jquery.mobile-1.4.5.min.css">
+<script type="text/javascript" src="js/jqmobile/jquery.mobile-1.4.5.min.js"></script>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div data-role="page">
+	<div data-role="header">
+		<h1>form6-selectmenu</h1>
+	</div>
+	<div class="ui-content">
+		<form method="post" action="test.php" data-ajax="false">
+			<label for="select-1">默认下拉菜单</label>
+			<select name="select1" id="select-1">
+				<option>请选择</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+			<label for="select-2">增加用户体验的下拉菜单</label>
+			<select name="select2" id="select-2" data-native-menu="false" data-overlay-theme="a">
+				<option>请选择</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+			<label for="select-3">由文字长度决定下拉菜单的长度</label>
+			<select name="select3" id="select-3" data-native-menu="false" data-inline="true">
+				<option>请选择</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+			<label for="select-4">多选下拉菜单</label>
+			<select name="select4[]" id="select-4" data-native-menu="false" multiple="multiple">
+				<option>请选择</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+			<input type="submit" value="确认提交" data-theme="b" />
+		</form>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<h1>底部文本</h1>
+	</div>
+</div>
+</body>
+</html>
+                
+                

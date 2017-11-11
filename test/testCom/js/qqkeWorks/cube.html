@@ -1,0 +1,85 @@
+<!doctype html><!--声明文档类型：html-->
+<html lang="en">
+	<head><!--头部-->
+		<meta charset="UTF-8"><!--字符编码:utf-8国际编码-->
+		<meta name="Keywords" content="关键词1,关键词2"><!--关键词-->
+		<meta name="Description" content="描述"><!--描述-->
+		<title>3D立方体</title><!--网页标题-->
+		<style type="text/css">
+			body{
+				perspective:1000px;/* 800 -1000之间 */
+			}
+			#cube{
+				position:relative;
+				width:200px;
+				height:200px;
+				margin:300px auto;
+				/*perspective:1000px;景深: 角度*/
+				transform-origin:50% 50% -101px;
+				transform-style:preserve-3d;/*3D环境*/
+				transition:2s;
+			}
+			#cube div{
+				position:absolute;
+				left:0;
+				top:0;
+				width:200px;
+				height:200px;
+				border:2px solid red;
+			}
+			#cube div:nth-child(1){
+				top:-202px;
+				/*transform-origin:50% 50% 0;默认旋转基点:x方向 y方向 z方向*/
+				transform-origin:bottom;
+				transform:rotateX(90deg);
+			}
+			#cube div:nth-child(2){
+				top:202px;
+				transform-origin:top;
+				transform:rotateX(-90deg);
+			}
+			#cube div:nth-child(3){
+				left:-202px;
+				transform-origin:right;
+				transform:rotateY(-90deg);
+			}
+			#cube div:nth-child(4){
+				left:202px;
+				transform-origin:left;
+				transform:rotateY(90deg);
+			}
+			#cube div:nth-child(5){
+				
+			}
+			#cube div:nth-child(6){
+				transform:translateZ(-202px);
+			}
+
+			#cube:hover{
+				transform:rotateY(360deg);
+			}
+			/*
+				为什么要有标准规范? 规范都是人定的
+				1、提高代码的可维护利用性
+					命名规范  书写格式清晰 代码结构注释清晰
+				2、网站加载性能
+					服务器性能
+					尽量减少文件的大小
+					减少向服务器请求的次数(精灵图)
+					(图片懒加载,ajax异步请求(瀑布流懒加载技术,分页效果))
+					
+					代码本身(js的性能优化,css的书写顺序,能用css实现的效果就不要用js,移动端3D硬件加速)
+			*/
+		</style>
+	</head>
+	<body><!--身体-->
+		<div id="cube">
+			<div>上</div>
+			<div>下</div>
+			<div>左</div>
+			<div>右</div>
+			<div>前</div>
+			<div>后</div>
+		</div>
+	</body>
+</html>

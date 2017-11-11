@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li{
+		list-style: none;
+	}
+	#ul{
+		height: 100px;
+		width: 300px;
+		margin:100px auto;
+	}
+	#ul>li{
+		display: inline-block;
+		height: 30px;
+		width: 40px;
+		background: #ccc;
+		position: relative;
+		line-height: 30px;
+		text-align: center;
+	}
+	#ul li ul{
+		position: absolute;
+		width: 40px;
+		top: 30px;
+		left: 0;
+		line-height: 30px;
+		text-align: center;
+		display: none;
+	}
+	#ul li ul li{
+		height: 20px;
+		line-height: 20px;
+		text-align: center;
+		background: #ddd;
+	}
+	</style>
+</head>
+<body>
+<ul id="ul">
+	<li>1
+		<ul>
+			<li>1.1</li>
+			<li>1.2</li>
+			<li>1.3</li>
+		</ul>
+	</li>
+	<li>2
+		<ul>
+			<li>2.1</li>
+			<li>2.2</li>
+			<li>2.3</li>
+		</ul>
+	</li>
+	<li>3
+		<ul>
+			<li>3.1</li>
+			<li>3.2</li>
+			<li>3.3</li>
+		</ul>
+	</li>
+</ul>
+<div>
+		function list(id){
+			this.ul=document.getElementById(id);
+			this.lis=this.ul.children;
+	}
+
+	list.prototype.init=function(){
+		var that=this;
+		//this.operate(this.lis);
+		for (var i = 0; i < this.lis.length; i++) {
+			this.lis[i].index=i;
+			this.lis[i].onmouseover=function(){
+				console.log(this.children[0]);
+				that.show(this.children[0]);
+			}
+			this.lis[i].onmouseout=this.hide(that.lis[i].children[0]);
+		}
+	}
+/*	list.prototype.operate = function(lis){
+		var that=this;
+		for (var i = 0; i < this.lis.length; i++) {
+			lis[i].onmouseover=function(){
+				that.show(this.children[0]);
+		};
+			lis[i].onmouseout=this.hide(lis[i].children[0]);
+		}
+	};*/
+	list.prototype.show = function(onElement){
+		//onElement.children[0].style.display="block"; 
+		//return function(){
+			onElement.style.display="block";
+		//}
+		
+	};
+	list.prototype.hide = function(outElement){
+		return function(){
+			outElement.style.display="none"; 
+		}
+	};
+	var list=new list("ul");
+	list.init();
+</div>
+</body>
+</html>
+<script type="text/javascript">
+function lists(id){  //定义构造函数的参数，要用this
+	 this.ul=document.getElementById(id);
+	 this.lis=this.ul.children;
+}
+lists.prototype.init = function(){//定义初始化函数
+	var that=this;
+	for (var i = 0; i < this.lis.length; i++) {
+	 	this.lis[i].onmouseover=function(){//普通函数，再调用 show方法
+	 		that.show(this.children[0]);
+	 	}
+	 	this.lis[i].onmouseout=this.hide(this.lis[i].children[0]);//闭包方法，闭包函数里要用return，也可以用下面的这种闭包方法
+/*	 	this.lis[i].onmouseout=function(outEle){
+												return function(){
+													console.log(outEle);
+													outEle.style.display="none";
+												}
+	 											}(this.lis[i].children[0])*/
+	};
+}
+lists.prototype.show = function(onEle){//普通函数show
+	onEle.style.display="block";
+}
+lists.prototype.hide=function(outEle){//闭包函数hide
+	return function(){
+		outEle.style.display="none";
+	}
+};
+
+var list=new lists("ul");//实例化对象
+list.init();//初始化对象方法
+总结：面向对象js编程，要定义类方法，里面用this.属性来定义属性，通用方法用class.prototype.fun来定义
+注意里面的参数都要用this.参数  注意如果有事件如mouseover事件那么事件里面的this（事件对象）和构造函数的this不一样，要注意，可以用that赋值后面mouseover里使用。还要注意闭包的使用，闭包同级的this是通用的，代表了构造函数的this.
+</script>
+
+
+
+
+
+

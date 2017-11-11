@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li ,ol li {
+		list-style: none;
+	}
+  button{
+    margin-top: 100px;
+    margin-left: 100px;
+    width: 50px;
+    height: 50px;
+  }
+  div{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    background: pink;
+    margin-top: 30px;
+    left: 4px;
+    top: 300px;
+  }
+	</style>
+
+</head>
+<body>
+<button id="b300">300</button>
+<button id="b600">600</button>
+<button id="b900">900</button>
+<button id="stop">停止</button>
+<div id="box">111</div>
+</body>
+	<script type="text/javascript" src="my.js"></script>
+<script type="text/javascript">
+$("b300").onclick=function(){
+  animate($("box"),this.innerHTML,20)
+}
+$("b600").onclick=function(){
+  animate2($("box"),this.innerHTML,20);
+}
+$("b900").onclick=function(){
+  animate3($("box"),"top",this.innerHTML,20);
+}
+$("stop").onclick=function(){
+  animate($("box"),$("box").offsetLeft,20)
+}
+//匀速
+function animate(moveItem,target,step) {
+
+  clearInterval(moveItem.timer);//每次点击的时候要先清除之前的动画
+  moveItem.timer=setInterval(function(){
+    var moveing;
+    var steps;
+    if (moveItem.offsetLeft>target) {  //如果offset比目标坐标还要大，就要用回退步长来回去
+      steps=-Math.abs(step);
+    }else{
+      steps=Math.abs(step);//正常加步长动画
+    }
+    moveing=moveItem.offsetLeft+steps;//步长和left每一次执行动画后的坐标值
+    if(Math.abs(moveing-target)<=Math.abs(step)){ //下一坐标值与目标值的差的绝对值小等于步长时，就把下一坐标值取target目标值就好了，并停止循环  =号去掉，会出现到达最大值后再点按钮，会移动 出去再回来。因为差值20不小于20。只是等于20步长。
+      moveing=target;
+      clearInterval(moveItem.timer);
+    }
+    moveItem.style.left=moveing+"px";
+  } , 100)
+
+}
+//缓动
+  function animate2(item,target,step){
+    var moving=0;
+     console.log(moving);
+    clearInterval(item.timer);
+    item.timer=setInterval(function(){
+      moving=(target-item.offsetLeft)/step;
+      moving=moving>0?Math.ceil(moving):Math.floor(moving);
+      item.style.left=moving+item.offsetLeft+'px';
+      if(item.offsetLeft==target){
+        clearInterval(item.timer);
+      }
+    },10)
+  }
+  //缓动3  封闭运动框架单个属性
+  function animate3(item,attr,target,step){
+    console.log(item+','+attr+","+target+','+step);
+    var moving=0;
+    clearInterval(item.timer);
+    item.timer=setInterval(function(){
+      moving=(target-parseInt(css(item,attr)))/step;
+      moving=moving>0?Math.ceil(moving):Math.floor(moving);
+      item.style[attr]=moving+parseInt(css(item,attr))+'px';
+      if(parseInt(css(item,"top"))==target){
+        clearInterval(item.timer);
+      }
+    },10)
+  }
+  //获得CSS属性方法
+  function css(obj,attr){
+    if (window.getComputedStyle) {
+      return  window.getComputedStyle(obj, null)[attr];//attr要是字符串，不能是height,height是变量，会报错
+    } else {
+      return obj.currentStyle[attr];
+    }
+  }
+</script>
+</html>

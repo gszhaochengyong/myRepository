@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var file=document.getElementById("file");
+			var value="";
+			file.onchange=function(){
+				value=this.value.substr(this.value.lastIndexOf(".")).toUpperCase();
+				console.log(value);
+				if (value==".JPG"||value==".PNG"||value==".BMP") {
+					this.nextElementSibling.innerHTML=value+"图片格式正确";
+				}else {
+					this.nextElementSibling.innerHTML=value+"图片格式不正确";
+				}
+			}
+		}
+	</script>
+
+</head>
+<body>
+<input type="file" id="file"></input><span></span>
+</body>
+</html>

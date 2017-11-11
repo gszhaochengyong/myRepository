@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html id="html">
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>
+<title>form1-textinput</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script> 
+   <link rel="stylesheet" type="text/css" href="js/jqmobile/jquery.mobile-1.4.5.min.css">
+<script type="text/javascript" src="js/jqmobile/jquery.mobile-1.4.5.min.js"></script>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div data-role="page">
+	<div data-role="header">
+		<h1>form5-rangeslider</h1>
+	</div>
+	<div class="ui-content">
+		<form method="post" action="test.php" data-ajax="false">
+			<label>
+				<input name="range1" type="range" min="0" max="100" value="10">
+			</label>
+			<label>
+				<input name="range2" type="range" min="0" max="100" value="10" data-highlight="true">
+			</label>
+			<label>
+				<input name="range3" type="range" min="0" max="100" value="10.1" step=".1">
+			</label>
+			<label data-role="rangeslider">
+				<input name="range4[]" type="range" min="0" max="100" value="10">
+				<input name="range4[]" type="range" min="0" max="100" value="20">
+			</label>
+			<input type="submit" value="确认提交" data-theme="b" />
+		</form>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<h1>底部文本</h1>
+	</div>
+</div>
+</body>
+</html>
+                
+                

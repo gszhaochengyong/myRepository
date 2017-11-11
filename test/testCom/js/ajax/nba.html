@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>nba 数据 jax jsonp方式获得</title>
+	<script type="text/javascript" src="jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			
+			$("#search").on("click",function(){
+				//定义数据显示div和输入的球队id
+				var box=$("#box");
+				var id=$("#id").val();
+
+				//信息查询到之前显示
+				box.text('查在查询数据');
+				
+				//ajx请求
+				$.ajax({
+					url: 'http://v.juhe.cn/nba/team_info_byId.php?key=9569e2f3d6dbd1447a9c9970651a2ca8',//这里的key是我的juhe.cn网的通用key
+					type: 'get',
+					dataType: 'jsonp',
+					data: {team_id: id},//这个可以放在链接里
+					success:function(data){
+						//添加球队信息
+						if (data.reason=="success") {
+							box.text("");
+							var res=data.result;
+							//球队id
+							$id=$("<p>球队id:"+res.id+"</p>");
+							box.append($id);
+							//球队stats_abbr
+							$stats_abbr=$("<p>球队stats_abbr:"+res.stats_abbr+"</p>");
+							box.append($stats_abbr);
+							//球队name
+							$name=$("<p>球队name:"+res.name+"</p>");
+							box.append($name);
+							//球队eng_name
+							$eng_name=$("<p>球队eng_name:"+res.eng_name+"</p>");
+							box.append($eng_name);
+							//球队eng_name
+							$full_name=$("<p>球队eng_name:"+res.full_name+"</p>");
+							box.append($full_name);
+							//球队homepage_link
+							$homepage_link=$("<p>球队homepage_link:"+res.homepage_link+"</p>");
+							box.append($homepage_link);
+							//球队intro
+							$intro=$("<p>球队intro:"+res.intro+"</p>");
+							box.append($intro);
+							//球队chief_coach
+							$chief_coach=$("<p>chief_coach:"+res.chief_coach+"</p>");
+							box.append($chief_coach);
+
+							//球队playersInfo
+							var $div=$("<div></div");
+							
+
+							//球员信息循环
+							for (var i = 0; i < res.playersInfo.length; i++) {
+								var $playerInfo=res.playersInfo[i];
+								//球员名称
+								$pname=$("<p>球员名称:"+$playerInfo.name+"</p>");
+								$div.append($pname);
+
+								//eng_name
+								$peng_name=$("<p>eng_name:"+$playerInfo.eng_name+"</p>");
+								$div.append($peng_name);
+								//wage
+								$wage=$("<p>wage:"+$playerInfo.wage+"</p>");
+								$div.append($wage);
+
+								//wage
+								$wage=$("<p>wage:"+$playerInfo.wage+"</p>");
+								$div.append($wage);
+
+								//player_link
+								$player_link=$("<p>wage:"+$playerInfo.player_link+"</p>");
+								$div.append($player_link);
+
+								//photo_link
+								$photo_link=$("<p>photo_link:<img src='"+$playerInfo.photo_link+"'></img></p>");
+								$div.append($photo_link);
+
+								//big_photo_link
+								$big_photo_link=$("<p>big_photo_link:<img src='"+$playerInfo.big_photo_link+"'></img></p>");
+								$div.append($big_photo_link);
+
+								//positionZhName
+								$positionZhName=$("<p>positionZhName:"+$playerInfo.positionZhName+"</p>");
+								$div.append($positionZhName);
+							}
+							box.append($div);
+						}else{
+							box.text('没有查询到数据，请检查查询条件是否正确');
+						}
+					},
+					error:function(e){
+						console.log(e)
+					}
+				})
+				
+			})
+
+
+
+
+
+
+		})
+
+	</script>
+</head>
+<body>
+	<input type="text" id="id" value="21"></input><span>球队id为1-30</span>
+	<input type="button" value="查询球队信息" id="search"></input>
+	<div id="box"></div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			function fun(a,b){
+				console.log(fun.arguments.length);
+				console.log(fun.arguments.callee);
+			}
+			fun(1,3);
+
+			var txt="wq你好啊，we好ewr";
+			console.log(txt+'用length得到的长度是'+txt.length);
+			var len=0;
+			var wlen=0;
+			var wloc='';
+			for (var i = 0; i < txt.length; i++) {
+				if (txt.charCodeAt(i)>=0 &&txt.charCodeAt(i)<=127) {
+					len++;
+				}else{
+					len+=2;
+				}
+				if (txt.charAt(i)=="w") {
+					wlen++;
+					wloc+=i+',';
+				} 
+
+			}
+			console.log(txt+'用charCodeAt得到的长度是'+len+'w有'+wlen+'个，索引分别为'+wloc);
+
+
+			console.log(txt.charAt(3));//该索引值所有的字条是哪个
+			console.log(txt.charCodeAt(3));//该索引值所有的字符的编码
+			console.log(txt.indexOf("好"));//第一个字符所有索引
+			console.log(txt.lastIndexOf("好"));//最后一个字符所有索引
+
+			console.log(1||2&&0||4&&3||0);//1
+			console.log(0||2&&0||4&&3||1);//3
+
+		}
+	</script>
+
+</head>
+<body>
+	<div id="box">
+		
+	</div>
+
+</body>
+</html>

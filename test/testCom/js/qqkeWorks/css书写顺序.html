@@ -1,0 +1,60 @@
+<!doctype html><!--声明文档类型：html-->
+<html lang="en">
+	<head><!--头部-->
+		<meta charset="UTF-8"><!--字符编码:utf-8国际编码-->
+		<meta name="Keywords" content="关键词1,关键词2"><!--关键词-->
+		<meta name="Description" content="描述"><!--描述-->
+		<title>Document</title><!--网页标题-->
+		<style type="text/css">
+			div{
+				/*position:absolute;*/
+				float:left;
+				width:100px;
+				height:100px;
+				background:red;
+				
+				/*
+					非定位元素 宽高100%相对于父元素宽高计算
+					定位元素  宽度相对于其相对定位的元素(参考物)计算
+				*/
+			}
+			span{
+				/*display:block;
+				position:absolute;*/
+				float:left;
+				width:100px;
+				height:100px;
+				background:blue;
+			}
+			.box{
+				position:relative;/*相对定位：相对于自己本身的位置定位*/
+				background:#660033;
+			}
+			.box p{
+				position:absolute;/*相对于拥有定位属性(relative/absolute/fixed)的最近的父元素定位 如果所有的父元素都没有定位属性就相对于浏览器窗口定位*/
+				left:50px;
+				top:50px;
+				width:50px;
+				height:50px;
+				background:#663399;
+			}
+			.box p span{
+				position:absolute;
+			}
+		</style>
+	</head>
+	<body><!--身体-->
+		<div>div</div>
+		<div>div</div>
+		<div class="box">
+			<p>
+				<span></span>
+			</p>
+		</div>
+		<div>div</div>
+		<span>span</span>
+		<span>span</span>
+		<span>span</span>
+		<span>span</span>
+	</body>
+</html>

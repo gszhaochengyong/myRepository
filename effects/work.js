@@ -625,7 +625,8 @@
 	/* 动态加载图片结束 */
 
 	/*放大镜效果开始*/
-(function(){
+	//原始方法
+/*(function(){
 	var zoomBox=$("#zoom");//大盒子
 	var smallPhotoLocation="imgs/photosmall.jpg";//小图地址
 	var bigPhotoLocation="imgs/photobig.jpg";//大图地址
@@ -640,11 +641,6 @@
 	var imgWidth=$(".big img").width();
 	var rat=imgWidth/smallWidth;//大图与小图的比例
 	// 鼠标在小图区域移动 时 不注释会有闪的现象，看看怎么处理
-	/*	$(".small").on("mouseover",function(e){
-		// console.log('进入小图区域');
-		$(".section").css('display', 'block');
-		$(".big").css('display', 'block');
-	});*/
 	//鼠标离开时要隐藏section和大图区域
 	$(".small").on("mouseout",function(){
 		// console.log('离开小图区域');
@@ -684,7 +680,99 @@
 			top: top1+'px'
 		});
 	});
-})();
+})();*/
+	//重写方法2
+	(function(){
+		var zoomBox=document.getElementById("zoom");
+		var mainBigBox=document.getElementById("main");
+		var smallPhotoLocation="imgs/photosmall.jpg";
+		var bigPhotoLocation="imgs/photoBig.jpg";
+
+/*		//创建元素  方法1  测试二种方法差不多啊
+		var smallArea=document.createElement("div");
+		smallArea.setAttribute("class","small");
+		var smallImg=document.createElement("img");
+		smallImg.setAttribute("src",smallPhotoLocation);
+		var section=document.createElement("div");
+		section.setAttribute("class","section");
+
+
+
+		var bigArea=document.createElement("div");
+		bigArea.setAttribute("class","big");
+		var bigImg=document.createElement("img");
+		bigImg.setAttribute("src",bigPhotoLocation);
+
+		smallArea.appendChild(smallImg);
+		smallArea.appendChild(section);
+		bigArea.appendChild(bigImg);
+		zoomBox.appendChild(smallArea);
+		zoomBox.appendChild(bigArea);*/
+		//创建元素  方法2
+		var frageElement=document.createDocumentFragment();
+		
+		var smallArea=document.createElement("div");
+		smallArea.setAttribute("class","small");
+		var smallImg=document.createElement("img");
+		smallImg.setAttribute("src",smallPhotoLocation);
+		var section=document.createElement("div");
+		section.setAttribute("class","section");
+
+		var bigArea=document.createElement("div");
+		bigArea.setAttribute("class","big");
+		var bigImg=document.createElement("img");
+		bigImg.setAttribute("src",bigPhotoLocation);
+
+		smallArea.appendChild(smallImg);
+		smallArea.appendChild(section);
+		bigArea.appendChild(bigImg);
+
+		frageElement.appendChild(smallArea);
+		frageElement.appendChild(bigArea);
+		zoomBox.appendChild(frageElement);
+		// 鼠标进入事件
+		var smallAreaWidth=smallArea.offsetWidth;
+		var sectionWidth;
+		var ev,distanceX,distanceY;
+		var rate;
+		smallArea.onmouseleave=function(){
+			shows(section,bigArea,"none");
+		} 
+		smallArea.onmouseenter=smallArea.onmousemove=function(e){
+			shows(section,bigArea,"block");
+			ev=e||window.event;
+			distanceX=ev.pageX-zoomBox.offsetLeft-mainBigBox.offsetLeft;
+			distanceY=ev.pageY-zoomBox.offsetTop;
+			sectionWidth=section.offsetWidth;
+			rate= bigImg.offsetWidth/smallImg.offsetWidth;
+			xyValue(section,bigImg,distanceX,distanceY);
+			
+/*			section.style.left=value.x+"px";
+			section.style.top=value.y+"px";
+			
+			console.log(rate);
+			bigImg.style.left=-rate*(value.x-sectionWidth/2)+'px';
+			bigImg.style.top=-rate*(value.y-sectionWidth/2)+'px';*/
+			// distanceX=ev.clientX-
+		}
+		//根据鼠标相对于smallArea左上角距离求section和放大镜坐标	
+		function xyValue(section,bigImg,x,y){
+			x=x>sectionWidth/2?x-sectionWidth/2:0;
+			y=y>sectionWidth/2?y-sectionWidth/2:0;
+			x=x>(smallAreaWidth-sectionWidth)?(smallAreaWidth-sectionWidth):x;
+			y=y>(smallAreaWidth-sectionWidth)?(smallAreaWidth-sectionWidth):y;
+			section.style.left=x+"px";
+			section.style.top=y+"px";
+			bigImg.style.left=-rate*x+'px';
+			bigImg.style.top=-rate*(y)+'px';
+		}
+		//显示隐藏设置二个模块
+		function shows(ele1,ele2,attr){
+			ele1.style.display=attr;
+			ele2.style.display=attr;
+		}
+		
+	})();
 	/*放大镜效果结束*/
 
 

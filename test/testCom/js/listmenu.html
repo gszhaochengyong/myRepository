@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>事件流</title>
+	<script type="text/javascript">
+	//window.onload=function(){
+		function show(tba){
+			console.log(tba);
+			//tba.style.display='';
+			//tba.style.background='red';
+
+			//alert('ddd');
+		}
+		function hide(tba){
+			tba.style.display='none';
+			//alert('ddd');
+		}
+	//}
+		
+	</script>
+</head>
+<body >
+<table border="1px solid #ccc">
+	<tr valign:"top">
+		<td onmouseover="show(tb1)" onmouseout="hide(tb1)" >1111
+			<table  name='tb1' style="display:none" id="tb1">
+			<tr>
+				<td>111a</td>
+			</tr>
+			<tr>
+				<td>111b</td>
+			</tr>
+			<tr>
+				<td>111c</td>
+			</tr>
+			</table>
+		</td>
+		<td onmouseover="show(tb2)" onmouseout="hide(tb2)">222
+			<table style="display: none;" id="tb2">
+			<tr>
+				<td>222a</td>
+			</tr>
+			<tr>
+				<td>222b</td>
+			</tr>
+			<tr>
+				<td>222c</td>
+			</tr>
+			</table>
+		</td>
+		<td onmouseover="show(tb3)" onmouseout="hide(tb3)">333
+			<table style="display: none;" id="tb3">
+			<tr>
+				<td>ccca</td>
+			</tr>
+			<tr>
+				<td>cccb</td>
+			</tr>
+			<tr>
+				<td>333c</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

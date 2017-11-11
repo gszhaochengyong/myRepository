@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li ,ol li {
+		list-style: none;
+	}
+  #box{
+    background: pink;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 600px;
+    margin-top: 20px;
+
+  }
+  button{
+    width: 50px;
+    height: 30px;
+  }
+
+	</style>
+
+</head>
+<body>
+<button id="btn">开始</button>
+<div id="box">
+
+</div>
+</body>
+<script type="text/javascript" src="my.js"></script>
+<script type="text/javascript">
+  var timer=null;//定时器
+  var target=500;//目标坐标
+  var step=0;//步长
+  $("btn").onclick=function(){
+/*    target=target-100;
+    console.log(target);
+    target=target<0?parseInt(window.innerWidth):target;*/
+    timer=setInterval(function(){
+        step=(target-$("box").offsetLeft)/10;
+        step=step>0?Math.ceil(step):Math.floor(step);
+        $("box").style.left=step+$("box").offsetLeft+'px';
+        if(target==$("box").offsetLeft){
+          clearInterval(timer);
+        }
+    }, 30)
+  }
+</script>
+</html>

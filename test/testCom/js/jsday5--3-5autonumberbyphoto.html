@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var div10=$("div1");
+		var firdiv=document.createElement("div");//创建一个节点
+		div10.appendChild(firdiv);//添加到父元素末尾
+		var insdiv=document.createElement("div");
+		div10.insertBefore(insdiv, $("div11"));//参数，插入的元素，插入的位置
+		div10.removeChild($("div11"));
+		var div10clo=$("div10").cloneNode(true);
+		div10.insertBefore(div10clo, $("div10"))
+	}
+	</script>
+
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul,ol{
+		list-style: none;
+	}
+	#box{
+		width: 250px;
+		height: 164px;
+		margin:100px auto;
+		overflow: hidden;
+		background: red;
+		position: relative;
+	}
+	.nums{
+		position: absolute;
+		left: 50%;
+		margin-left: 20px;
+		bottom: 15px;
+
+	}
+	.nums li{
+		width: 20px;
+		height: 20px;
+		display: block;
+		float: left;
+		background: yellow;
+		border-radius: 10px;
+		text-align: center;
+		line-height: 20px;
+		margin-right: 5px;
+	}
+	.nums li.current{
+		background: pink;
+	}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=document.getElementById("box");//主盒子
+			var newele=document.createElement("ul");//数字盒子的ul盒子
+			newele.setAttribute("class", "nums");
+			box.appendChild(newele);
+
+			var imgnum=document.getElementById("lis").children.length;//图片数量也就是li数量
+			for (var i = 0; i < imgnum; i++) {
+				var newli=document.createElement("li");
+				console.log(i);
+				newli.innerHTML=i+1;
+				newele.appendChild(newli);
+/*				if (i==0) {
+					newli.setAttribute("class","current");
+				}*/
+			}
+			newele.children[0].setAttribute("class","current");//默认第一个元素当前，和上面注释一样效果
+		}
+	</script>
+
+</head>
+<body>
+	<div id="box">
+		<ul id="lis">
+			<li><img src="imgs/1.jpg" alt="1"></li>
+			<li><img src="imgs/2.jpg" alt="1"></li>
+			<li><img src="imgs/3.jpg" alt="1"></li>
+			<li><img src="imgs/4.jpg" alt="1"></li>
+		</ul>
+	</div>
+
+</body>
+</html>

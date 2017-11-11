@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <link rel="stylesheet" type="text/css" href="js/jqmobile/jquery.mobile-1.4.5.css">
+  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/jqmobile/jquery.mobile-1.4.5.js"></script>
+  <script type="text/javascript" src="js/touchGood.js"></script>
+  
+  <script type="text/javascript">
+$(window).on('orientationchange',function(){
+    //console.log('orientationchange');  
+    //alert('ddd');
+});
+$(document).on('pagecreate',function(){
+    //alert('pagecreate');
+    touchGood('#touch');
+    $('#touch').on('touchstart',function(e){
+        console.log('touchstart');
+    });
+    $('#touch').on('touchmove',function(e){
+      //alert('ready');
+        e.preventDefault();
+
+        //console.log('touchmove');
+        //console.log(e.originalEvent.touches);
+        console.log(e.originalEvent.changedTouches[0].clientX+'|'+e.originalEvent.changedTouches[0].clientY);
+    });
+    $('#touch').on('touchend',function(e){
+        console.log('touchend');    
+    });
+
+});
+$(function(){
+    //alert('ready');
+});
+</script>
+  <style type="text/css">
+ #touch {
+    width:100%;
+    height:300px;
+    background:green;
+}
+  </style>
+</head>
+<body class="w1190">
+  <div data-role="page" data-title="这边可以设置标题哦">
+    <div class="ui-content">
+        <div id="touch"></div>
+        <button data-theme="b">点我</button>
+        <button>点我</button>
+        <div style="height:1000px;"></div>
+    </div>
+</div>
+
+</body>
+</html>

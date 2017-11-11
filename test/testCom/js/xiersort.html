@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<script type="text/javascript">
+	window.onload=function(){
+/*		var arr=[49,38,65,97,76,13,27,49,55,04],
+		len=arr.length;
+		for(var fraction=Math.floor(len/2);fraction>0;fraction=Math.floor(fraction/2)){
+			for(var i=fraction;i<len;i++){
+				for(var j=i-fraction;j>=0&&arr[j]>arr[fraction+j];j-=fraction){
+					var temp=arr[j];
+					arr[j]=arr[fraction+j];
+					arr[fraction+j]=temp;
+					}
+			}
+		}
+		console.log(arr);*/
+	
+/*	function ShellSort(array) {
+		var len=array.length;
+		var step=Math.floor(len/2);
+		while (step>0) {
+			for (var i = step; i < len; i+=step) {
+				var tmp =array[i];
+				var index=i;
+				for (var j = i; j >=0 ; j=j-step) {
+					if(tmp<array[j]){
+						array[j+step]=array[j];
+						index=j;
+					}
+					console.log('00');
+					
+				}
+				array[index]=tmp;
+	 		 }
+
+	 		 step=Math.floor(step/2-0.1);
+		}
+	  return array;
+	}
+	 
+	var arr = [ 13, 14, 94, 33, 82, 25, 59, 95, 65, 23, 45, 27, 73, 25, 39, 10 ];
+	var result = ShellSort(arr);
+	console.log(result.valueOf()); */
+	function xier(arr,step){
+		var len=arr.length;
+		var lenstep=step.length;
+		for (var i = 0; i < lenstep; i++) {
+			var steps=step[i];
+			console.log(steps);
+			/*for (var j = steps; j < len; j+=steps) {
+				var tmp=arr[j];
+				var index=j ;
+				for (var k = j; k>=0; k-=steps) {
+					if (tmp<arr[k]) {
+						arr[k+steps]=arr[k];
+						index =k;
+					} 
+					//console.log(i);
+				}
+				arr[index]=tmp;
+			}
+*/		
+			for (var j = step; j < len; j+=steps) {
+					var tmp=arr[j];
+					var index=j;
+					for(var k=j;k>=0;k-=steps){
+						if(tmp<arr[k]){
+							arr[k+steps]=arr[k];
+							index=k;
+						}
+					}
+					arr[index]=tmp;
+			}
+		}
+		return arr;
+	}
+	var arr=[49,38,65,97,76,13,27,49,55];
+	var step=[5,3,1];
+	var results=xier(arr,step);
+	console.log(results.valueOf());
+
+	}
+	</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+body {
+    background:pink;
+}
+@media screen and (max-width:400px) {
+ #div1{
+    width: 100px;
+    height: 100px;
+    background:red;
+  }
+£ý

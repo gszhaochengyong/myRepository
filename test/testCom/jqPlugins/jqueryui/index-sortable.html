@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="js/jqueryui/jquery-ui.min.css">
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/jqueryui/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+    $(function(){
+     $('ul#ul1').sortable();
+     $('ul#ul2').sortable({
+      connectWith:'#ul1',
+      placeholder:'place',
+      update:function(event,ui){
+        console.log('update');
+        console.log(ui)
+      }
+     });
+     $('button.cancel').click(function(event) {
+       /* Act on the event */
+       $('ul#ul2').sortable('cancel');
+     });
+     $('button.toarray').click(function(event) {
+       /* Act on the event */
+       console.log($('ul#ul2').sortable('toArray'));
+     });
+  });
+  </script>
+  <style type="text/css">
+  ul{
+    list-style-type: none;
+    width: 30%;
+    float: left;
+  }
+  ul li{
+    height: 30px;
+    line-height: 30px;
+  }
+  #ul1 li{
+    background: yellow;
+    border:1px solid #ccc;
+    margin-bottom: 5px;
+  }
+    #ul2 li{
+    background: pink;
+    border:1px solid #aaa;
+    margin-bottom: 5px;
+  }
+  </style>
+</head>
+<body class="w1190">
+<ul id="ul1">
+  <li id="ul1_li1">1</li>
+  <li id="ul1_li2">2</li>
+  <li id="ul1_li3">3</li>
+  <li id="ul1_li4">4</li>
+  <li id="ul1_li5">5</li>
+</ul>
+<ul id="ul2">
+  <li id="ul2_li1">1</li>
+  <li id="ul2_li2">2</li>
+  <li id="ul2_li3">3</li>
+  <li id="ul2_li4">4</li>
+  <li id="ul2_li5">5</li>
+</ul>
+<button class="cancel">恢复到上一步</button>
+<button class="toarray">toarray</button>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li ,ol li {
+		list-style: none;
+	}
+	body{
+		width: 100%;
+		height: 100%;
+	}
+	.top{
+		width: 100%;
+		height: 100%;
+	}
+	.w{
+		width: 1210px;
+		margin:0 auto;
+	}
+	.topbanner,.matherday,.matherday2{
+		width: 1210px;
+	}
+	.matherday2{
+		position: relative;
+	}
+	.matherday2 span{
+		width: 30px;
+		height: 30px;
+		background: red;
+		line-height: 30px;
+		position: absolute;
+		right: 20px;
+		top: 20px;
+		cursor: pointer;
+		text-align: center;
+		font-size: 30px;
+
+	}
+	.matherday img,.matherday2 img{
+		width: 100%;
+	}
+/* 	.tabs{
+	width: 100%;
+	height: 100%;
+}
+.tabs ul,.tabs ol{
+	width: 100%;
+	height: 100%;
+}
+.tabs ul li,.tabs ol li{
+	width: 100%;
+	height: 100%;
+	background: red;
+} */
+	ol li{
+		height: 500px;
+	}
+	ul{
+		position: fixed;
+		top: 50%;
+		left: 10%;
+	}
+	.add{
+		position: absolute;
+		left: 5%;
+		top: 300px;
+	}
+	ul li {
+		width: 50px;
+		height: 50px;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		text-align: center;
+		line-height: 50px;
+		font-size: 34px;
+		cursor: pointer;
+	}
+	.totop{
+		position:absolute;
+		right: 0px;
+		top: 0;
+		cursor: pointer;
+		display: none;
+	}
+	.fixed{
+		position: fixed;
+		top: 0;
+		left: 0;
+		margin:0 auto;
+		z-index: 999;
+	}
+	.float{
+		position: fixed;
+		top: 40%;
+		left: 7.5%;
+	}
+	.kkk{
+	height: 800px;
+	}
+	</style>
+	
+
+</head>
+<body>
+<div class="top" id="top">
+	<div class="mainbac"><img src="imgs/mainbacground.jpg"></div>
+	<div class="topbanner w"><img src="imgs/topbanner.jpg"></div>
+	<div class="matherday w"><img src="imgs/matherday.jpg"></div>
+	<div class="matherday2 w"><img src="imgs/matherday.jpg"><span>X</span></div>
+
+</div>
+<div class="add" id="add"><img src="imgs/adds.png"></div>
+<div class="totop" id="totop"><img src="imgs/toTop.png"></div>
+<div class="tabs w" id="tab">
+	<ul >
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+	<ol class="w">
+		<li>111</li>
+		<li>222</li>
+		<li>333</li>
+		<li>444</li>
+	</ol>
+</div>
+<div class="kkk"></div>
+</body>
+	<script type="text/javascript" src="my.js"></script>
+<script type="text/javascript">
+
+    var ulli=$("#tab").children[0].children;
+    var olli=$("#tab").children[1].children;
+	var color=['red','blue','green','yellow'];//定义颜色数组
+	//根据数组给对应的ul li设置背景色
+	var flag=0;//如果弹出的中间广告标记，出现一次就变成1，后面不再弹出了，就是刷新一次滚动后只有第一次能弹出来。
+	for (var i = 0; i < ulli.length; i++) {
+			bgc(olli[i],color[i]);
+			bgc(ulli[i],color[i]);
+			//1234标签点击处理
+			ulli[i].index=i;
+			ulli[i].onclick=function(){
+				var oltop=olli[this.index].offsetTop;
+				window.scrollTo(0,oltop);
+			}
+	}
+	
+	var add=$("add");
+	var leader=0,target=0,timer=null;//广告
+	target1=0;//matjerday
+	timer2=null,leader2=0,target2=0;
+
+	var matherday=$("top").children[2];
+	var matherday2=$("top").children[3];
+	var matherdayTop=matherday.offsetTop;
+	var matherdayTop2=matherday2.offsetTop;
+	console.log(matherdayTop);
+	window.onscroll=function(){
+		target1=scroll().top;
+	
+		clearInterval(timer);
+		clearInterval(timer2);
+		//广告位置处理
+		target=target1+300;
+		timer=setInterval(function(){
+			leader=leader+(target-leader)/10;
+			add.style.top=leader+'px';
+		}, 30)
+
+		//matherday位置处理
+		if (target1>matherdayTop) {
+			matherday.className="matherday w fixed";
+		}else{
+			matherday.className="matherday w";
+		}
+		//matherday2位置处理
+		
+		if (target1>matherdayTop) {
+			if(flag==0){
+				matherday2.className="matherday2 w float";
+				flag=1;
+			}
+		}else{
+			matherday2.className="matherday2 w";
+			// flag=0;
+
+		}
+		
+		
+		//totop位置处理
+		target2=target1+500;
+		if (target1>=200) {
+			show($("totop"));
+			
+		}else{
+			hide($("totop"));
+		}
+		timer2=setInterval(function(){
+			leader2=leader2+(target2-leader2)/10;
+			$("totop").style.top=leader2+'px';
+		}, 30)
+	}
+	//totop点击处理
+	$("totop").onclick=function(){
+		hide($("totop"));
+		window.scrollTo(0,0);
+	}	
+	//matherday2 点击关闭
+	matherday2.children[1].onclick=function(){
+		matherday2.className="matherday2 w";
+	}
+	console.log(client().width+',height='+client.height);
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+
+	div{
+		width: 300px;
+		height: 164px;
+		background: pink;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -150px;
+
+	}
+
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var num=0;
+			var start=0;
+			var end=600;
+/*			setInterval(function fun(){
+				num<300?num++:num+=3;
+				num>600?num=0:num;
+				$("box").style.top=num+"px";
+			}
+				, 20)*/
+			setInterval(function move(){
+				start=start+(end-start)/50;
+				$("box").style.left=start+"px";
+			}, 50)
+		}
+
+	</script>
+
+
+</head>
+<body>
+<div id="box">
+
+</div>
+</body>
+</html>

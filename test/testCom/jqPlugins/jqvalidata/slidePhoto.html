@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>幻灯片图片</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="jq/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/test1.css">
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">
+		$(function(){
+			/*幻灯片播放图片*/
+			// 根据图片数量自动添加数字
+		  	var $num='<div id="num"><ul>';
+		  	var isTrue=true;
+		  	for (var i = 1; i <= $('#slide>img').length; i++) {
+		  		$num+='<li>'+i+'</li>'
+		  	 }
+		  	 $num+='</ul></div>';
+		  	 $('#slide').append($num);
+
+		  	 //播放函数，参数是索引值
+			function show(index){
+				$('#slide>#num>ul>li')
+				.filter('.hover')
+				.removeClass('hover')
+				.end()
+				.eq(index)
+				.addClass('hover');
+				$('#slide>img')
+				.filter('.img')
+				.removeClass('img')
+				.end()
+				.eq(index)
+				.addClass('img')
+				.slideDown('300');
+			}
+			show(0);
+			
+			setInterval(function(){
+				if(isTrue){
+					if($('#slide>#num>ul>li.hover').next().length==0){
+						show(0)
+					}else{
+						show($('#slide>#num>ul>li.hover').next().index())
+					}
+				}
+				
+			},1500)
+			
+/*			$('#slide>#num>ul>li').triggerHandler('click',function(){
+				if($('#slide>#num>ul>li.hover').next().length==0){
+					show(0)
+				}else{
+					show($('#slide>#num>ul>li.hover').next().index())
+				}
+			})*/
+			//鼠标停留在数字或者图片上停止
+			$('#slide>#num>ul>li,#slide>img').hover(function(event) {
+				isTrue=false;
+			},function(){
+				isTrue=true;
+			});
+			//点击数字页时显示对应的数字和图片
+			$('#slide>#num>ul>li').on('click',function(index){
+				//console.log($(this).index());
+				show($(this).index());
+			})
+			$('input.stop').on('click',function(){
+				if(isTrue){
+					isTrue=false;
+					$(this).attr('value', '继续播放');
+				}else{
+					isTrue=true;
+					$(this).attr('value', '停止播放');
+				}
+			})
+			/*幻灯片结束*/
+		});
+	</script>
+</head>
+<body class="w1190">
+<div id="title" class="auto">
+	<p>鼠标移动到图片或者点击下面的按钮可以操作图片幻灯片播放效果</p>
+	<input type="button" class="stop" name='stop' value="停止播放"></input>
+	第<input type="text"></input>张图片<input type="button" value="确定"></input>
+	<input type="button" value="逆序播放"></input>
+	<input type="button" value="2倍速度播放"></input>
+	<input type="button" value="1/2速度播放"></input>
+</div>
+<div id="line" class="auto"></div>
+<div id="slide" class="auto">
+	<img src="images/1.jpg">
+	<img src="images/2.jpg">
+	<img   src="images/3.jpg">
+	<img   src="images/4.jpg">
+	<img  src="images/5.jpg">
+</div>
+<div id="line" class="auto"></div>
+</body>
+</html>

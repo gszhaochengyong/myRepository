@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	ul{
+		list-style: none;
+	}
+
+	.box{
+		margin:100px;
+		position: relative;
+	}
+	.box .small{
+		width: 450px;
+		height: 450px;
+		position: relative;
+		float: left;
+		border: 1px dashed #ccc;
+	}
+	.box .mask{
+		width: 100px;
+		height: 100px;
+		background: rgba(255,255,0,0.3);
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: none;
+
+	}
+	.big{
+		border: 1px solid #ddd;
+		width:800px;
+		height: 800px;
+/* 		position: absolute;
+right:-610px;
+top:0; */
+		overflow: hidden;
+		display: none;
+		position: relative;
+		float: left;
+		margin-left: 10px;
+	}
+	.big img{
+		position: absolute;
+		left: 0px;
+		top: 0;
+	}
+</style>
+<body>
+	<div class="box" id="box">
+		<div class="small">
+			<img src="imgs/photosmall.jpg" alt="" class="imgsmall">
+			<div class="mask"></div>
+		</div>
+		
+		<div class="big"><img src="imgs/photobig.jpg"></div>
+	</div>
+	
+</body>
+<script type="text/javascript">
+  	function $(id){return document.getElementById(id);}//获取 id对象
+/*  	function shows(ele,show){//第一种方式一个元素一个元素设置
+  		return ele.style.display=show;
+  	}*/
+  	function shows2(ele1,ele2,show){//第一种方式多个元素一起设置
+  		ele2.style.display=show;
+  		ele1.style.display=show;
+  	}
+  	var small=$("box").children[0];
+  	var imgsmall=$("box").children[0].children[0];
+  	var mask=$("box").children[0].children[1];
+  	var big=$("box").children[1];
+  	small.onmouseover=function(){
+/*  		shows(mask,"block");
+  		shows(big,"block");*/
+  		shows2(mask,big,"block");
+  	}
+  	small.onmousemove=function(event){
+  		var event=event||window.event;
+  		var left=event.clientX-$("box").offsetLeft;
+  		var top=event.clientY-$("box").offsetTop;
+  		
+  		left<mask.offsetWidth/2?left=mask.offsetWidth/2:left;
+  		left>imgsmall.offsetWidth-mask.offsetWidth/2?left=imgsmall.offsetWidth-mask.offsetWidth/2:left;
+  		top<mask.offsetHeight/2?top=mask.offsetHeight/2:top;
+  		top>imgsmall.offsetHeight-mask.offsetHeight/2?top=imgsmall.offsetHeight-mask.offsetHeight/2:top;
+  		console.log("left"+left+",top"+top);
+  		mask.style.left=left-mask.offsetWidth/2+"px";
+  		mask.style.top=top-mask.offsetHeight/2+"px";
+  		big.children[0].style.left=-(left-mask.offsetWidth/2)*big.offsetWidth/small.offsetWidth+"px";
+  		big.children[0].style.top=-(top-mask.offsetHeight/2)*big.offsetHeight/small.offsetHeight+"px";
+  		//现在的效果是指向左上角，预览图显示左上角放大到一定比例后再加下右下角部分区域 ，这部分没联系起来，有时间再想想
+  		console.log(big.offsetWidth/mask.offsetWidth);
+  	}
+  	small.onmouseout=function(){
+/*  		shows(mask,"none");
+  		shows(big,"none");*/
+  		shows2(mask,big,"none");
+  	}
+</script>
+</html>

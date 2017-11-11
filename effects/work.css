@@ -418,7 +418,7 @@ s,i,em{
     margin-left: 20px;
     border: 1px solid #ddd;
     /*background: url("imgs/photobig.jpg") 0 0 no-repeat;*/
-    /*display: none;*/
+    display: none;
     overflow: hidden;
 }
 .zoom .big img{

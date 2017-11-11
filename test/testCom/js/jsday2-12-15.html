@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+/*	for (var i = 0; i < 11; i++) {
+		if (i==0) {
+			console.log('出生了');
+		} else if(i==3) {
+			console.log('三岁上幼儿园');
+		}else if(i==6) {
+			console.log('6岁上小学');
+		}else if(i==10) {
+			console.log('长大了');
+		}else{
+			console.log('不是上学就是玩');
+		}
+	}*/
+	window.onload=function(){
+/*		var lis=document.getElementsByTagName("li");
+		for (var i = 0; i < lis.length; i++) {
+			lis[i].innerHTML=i;
+		}*/
+
+		$("btn").onclick=function(){
+			if($("age").value<0||$("age").value>50){
+				$("now").innerHTML="工龄范围在1到50之间";
+			}else if (isNaN($("age").value)) {100
+				$("now").innerHTML="工龄必须是数字";
+			}else if ($("age").value<2) {
+				$("now").innerHTML=(1+0.1)*Number($("ini").value);
+			} else if ($("age").value>=2&&$("age").value<=4) {
+				$("now").innerHTML=(1+0.15)*Number($("ini").value);
+			} else {
+				$("now").innerHTML=(1+0.2)*Number($("ini").value);
+			}
+			var sum=1;
+			for (var i = $("age").value; i >0; i--) {
+				var sum=sum*(i);
+			}
+			$("jicheng").innerHTML=sum;
+		}
+
+	}
+	
+	</script>
+	<style type="text/css">
+	
+	</style>
+
+</head>
+<body>
+<!-- <ul>
+	<li>111</li>
+	<li>222</li>
+	<li>333</li>
+	<li>444</li>
+	<li>555</li>
+</ul> -->
+初始工资：<input id="ini" value="1000"></input><br>
+工龄：<input id="age" value="1"></input><br>
+现工资为为：<span id="now">1000</span>&nbsp;元<br>
+工龄阶乘：<span id="jicheng"></span><br>
+<button id="btn" >计算现工资</button><br>
+
+</body>
+</html>

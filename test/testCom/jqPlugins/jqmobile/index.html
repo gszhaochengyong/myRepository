@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <link rel="stylesheet" type="text/css" href="js/jqmobile/jquery.mobile-1.4.5.css">
+  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/jqmobile/jquery.mobile-1.4.5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+   /* $('body').pagecontainer('change','#page2',{
+      changeHash:true
+    });*/
+    $('body').pagecontainer('load','#page2');
+
+console.log($('body').pagecontainer('getActivePage'));
+
+  });
+
+  </script>
+  <style type="text/css">
+  #contentMenu{
+    width: 200px;
+  }
+  </style>
+</head>
+<body class="w1190">
+<div id="page1"  data-role="page"  data-title="标题1" data-theme="a">
+  <div data-role="header">顶部</div>
+  <div data-role="content">内容1
+  <a href="#page2" data-ajax="false" data-transition="slide">到页面2</a>
+  </div>
+  <div data-role="footer">顶部</div>
+</div>
+<div id="page2"  data-role="page" >
+  <div data-role="header">顶部</div>
+  <div data-role="content">内容2
+  <a href="#page1" data-rel="back">到页面1</a>
+  </div>
+  <div data-role="footer">顶部</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/lightbox.css">
+  <link rel="stylesheet" type="text/css" href="js/jqzoom/css/jquery.jqzoom.css">
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/jqzoom/js/jquery.jqzoom-core.js"></script>
+  <script type="text/javascript">
+  console.log('ddd');
+$(function(){
+      $('#jqzoom').jqzoom({
+      	//position:'top',
+      	xOffset:20,
+      	yOffset:50
+      });
+      console.log('ddd3');
+/*      $('#jqzoom').click(function() {
+      	alert('ddsds')
+      });*/
+
+})  
+  </script>
+  <style type="text/css">
+/*   a>img{
+  widows: 200px;
+  height: 200px;
+}
+a.jqzoom>img{
+  border: 1px solid #ccc;
+} */
+  </style>
+</head>
+<body>
+<p style="width: 500px;height:500px;background: red;">ddd</p>
+<a href="images/triumph_big1.jpg"  id="jqzoom" title="图片1"><img  src="images/triumph_small1.jpg"  style="border:1px solid #666;"></a>
+</body>
+</html>

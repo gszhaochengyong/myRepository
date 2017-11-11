@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var btn=document.getElementsByTagName("button");
+		var hob=document.getElementsByTagName("input");
+		console.log(btn.length);
+/*		btn[0].onclick=function(){
+			for(var i = 0, length1 = hob.length; i < length1; i++){
+				if (!hob[i].checkbox) {
+					hob[i].checked="checked";
+				} 
+			}
+		}
+		btn[1].onclick=function(){
+			for(var i = 0, length1 = hob.length; i < length1; i++){
+				if (!(hob[i].checked)) {
+					hob[i].checked="checked";
+					console.log('1');
+				} else {
+					console.log('2');
+					hob[i].checked=false;
+				}
+			}
+		}
+		btn[2].onclick=function(){
+			for(var i = 0, length1 = hob.length; i < length1; i++){
+				if (hob[i].checked) {
+					hob[i].checked=false;
+				} 
+			}
+		}*/
+		for(var i = 0, length1 = btn.length; i < length1; i++){
+			if (i==0) {
+				fun(0);
+			} else  if (i==1) {
+				fun(1);
+			} else if(i==2){
+				fun(2);
+			} else {
+				fun(3);
+			}
+		}
+		function fun(arg){
+			btn[arg].onclick=function(){
+				for(var i = 0, length1 = hob.length; i < length1; i++){
+					if (arg==0) {
+						if (!hob[i].checkbox) {
+						hob[i].checked="checked";
+						} 
+					} else if (arg==1)  {
+						if (!(hob[i].checked)) {
+							hob[i].checked="checked";
+							console.log('1');
+						} else {
+							console.log('2');
+							hob[i].checked=false;
+						}// statement
+					}else if (arg==2){
+						if (hob[i].checked) {
+							hob[i].checked=false;
+						} 
+					}else {
+						alert('出错啦');
+					}
+				}
+			}
+			
+		}
+
+		for(var i = 0, length1 = hob.length; i < length1; i++){
+			hob[i].index=i;//给每个对象保存索引号属性，不然执行完就获得不了这个索引号了
+			hob[i].onclick=function(){
+				alert(this.index);//索引号
+				for(var i = 0, length2 = hob.length; i < length2; i++){
+					hob[i].style.marginLeft="20px";
+					console.log('20');
+				}
+				this.style.marginLeft="50px";
+				console.log('50');
+			}
+		}
+
+	}
+	
+	</script>
+
+	<style type="text/css">
+	div{
+		width: 200px;
+		height: 300px;
+		margin: 100px auto;
+		padding: 15px;
+	}
+	div input{
+		margin-left: 20px;
+		color:red;
+	}
+	</style>
+
+</head>
+<body>
+<div>
+<button>全选</button>
+<button>反选</button>
+<button>取消</button>
+<button>未定</button><br>
+<br>
+<input type="checkbox" name="hob[]">篮球</input><br>
+<input type="checkbox" name="hob[]">足球</input><br>
+<input type="checkbox" name="hob">羽毛球</input><br>
+<input type="checkbox" name="hob">台球</input><br>
+<input type="checkbox" name="hob">乒乓球</input><br>
+</div>
+
+</body>
+</html>

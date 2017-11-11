@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度搜索jsonp模拟</title>
+	<script type="text/javascript" src="../jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#input").focus();
+			$("#input").on("keyup",function(){
+				var wd=$(this).val();
+				var url="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+wd;
+				// console.log(url);
+				queryRes(url);
+			})
+		})
+
+		function queryRes(url){
+			$.ajax({
+				url: url,
+				type: "get",
+				dataType: "jsonp",
+				jsonp:"cb",
+				successCallback:"succss",
+				success:function(data){
+					$("#res").html("");
+					var ul=$("<ul></ul>");
+					$.each(data.s, function(index, val) {
+						ul.append($("<li>"+val+"</li>"))
+					});
+					$("#res").append(ul);
+				},
+				error:function(e){
+					console.log(e);
+				}
+			})
+		}
+
+	</script>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		li{
+			list-style: none;
+		}
+		#box{
+			width: 500px;
+			height: 500px;
+			margin:100px auto;
+			background: #eee;
+			/*overflow: visible;*/
+
+		}
+		#box #searchBox{
+			width: 80%;
+			height: 80%;
+			/*background: yellow;*/
+			margin:100px auto;
+			padding:10px;
+			position: relative;
+		}
+		input{
+			display: inline-block;
+			float: left;
+		}
+		input#input{
+			width: 300px;
+			height: 20px;
+			padding: 5px;
+			line-height: 20px;
+			font: 400 16px/20px sans-serif;
+		}
+		input#search{
+			width: 80px;
+			height: 34px;
+			border:2px solid #3385ff;
+			text-align: center;
+			line-height: 34px;
+			background: #3385ff;
+			color:#fff;
+			font: 400 18px/20px 微软雅黑;
+		}
+		#searchBox .res{
+ 			position: absolute;
+			top: 44px;
+			left: 10px;
+			background: #fff; 
+		}
+		ul li{
+			width: 400px;
+			margin-top: 3px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div class="searchBox" id="searchBox">
+			<div class="top" id="top">
+				<input type="text" id="input">
+				<input type="button" value="搜索" id="search"></input>
+			</div>
+			<div class="res" id="res">
+			</div>
+			
+		</div>
+		
+	</div>
+</body>
+</html>

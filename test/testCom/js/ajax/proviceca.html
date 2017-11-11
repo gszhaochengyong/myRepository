@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>省市区三级联动效果</title>
+	<script type="text/javascript" src="../jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//参数分别是jsonurl 添加option的jq对象 选择的选项值编码  标识
+			function provices(url,jqid,code,flag){
+				$.ajax({
+					url: url,
+					type: 'get',
+					dataType: 'json',
+					jsonp:"cb",
+					jsonpCallback:"callback",
+					// data: {code: code,flag:flag},
+					success:function(data){
+						// console.log(data+"provicedata"+id);
+						appendOpt(jqid,data,code,flag)
+					},
+					error:function(e){
+						console.log(e);
+					}
+				})
+				
+			}
+
+			function appendOpt(jqid,data,code,flag){
+				// console.log(jqid.attr('value'));
+				jqid.children("option").remove();
+				
+				$.each(data, function(index, val) {
+					// console.log(val.id+','+id);
+					//初始化的时候 0代表初始化然后市和区根据省的值来定
+					if(flag==0){
+						console.log(code);
+						if(jqid.attr('name')=="provice"){
+							jqid.append($("<option></option>").attr('value', val.id).append(val.nameP));
+							
+						}/*else if (jqid.attr('name')=="city") {
+							var priVal=jqid.prev("select").children('option:selected').attr('value');
+							// console.log(jqid.prev("select").children('option:selected').attr('value')+'provicevale,val_pid'+val.p_id);
+							if(priVal==val.p_id){
+								jqid.append($("<option></option>").attr('value', val.s_id).append(val.nameS));
+							}
+							
+						}else if (jqid.attr('name')=="area") {
+							var priVal=jqid.prev("select").children('option:selected').attr('value');
+							// console.log(val.id+','+jqid);
+							if(priVal==val.s_id){
+								jqid.append($("<option></option>").attr('value', val.id_q).append(val.nameq));
+							}
+
+							
+						}else{
+							console.log('添加option数据错误');
+						}*/
+						(code==val.id||code==val.s_id||code==val.id_q)?jqid.find("[value="+code+"]").attr("selected",true):"";
+						
+					}else{//选项了省和市选项值以后的操作
+						console.log(code+""+val.p_id);
+						//选项了省和市分别是操作市和区的选项，省的不用变，也没传省的数据过来
+/*						if(jqid.attr('name')=="provice"){
+							jqid.append($("<option></option>").attr('value', val.id).append(val.nameP));
+							
+						}else*/ if (jqid.attr('name')=="city") {
+							if(code==val.p_id){
+								jqid.append($("<option></option>").attr('value', val.s_id).append(val.nameS));
+							}
+							
+						}else if (jqid.attr('name')=="area") {
+							// console.log(val.id+','+jqid);
+							if(code==val.s_id){
+								jqid.append($("<option></option>").attr('value', val.id_q).append(val.nameq));
+							}
+
+							
+						}else{
+							console.log('添加option数据错误');
+						}
+						(code==val.id||code==val.s_id||code==val.id_q)?jqid.find("[value="+code+"]").attr("selected",true):"";
+					}
+						
+				});
+			
+			}
+
+			//定义省市区json url
+			var proviceurl="provice.json";
+			var cityurl="city.json";
+			var areaurl="area.json";
+
+			//定义省市区 jq对象
+			var provice=$("#provice");
+			var city=$("#city");
+			var area=$("#area");
+
+			//初始化  0代表初始化然后市和区根据省的值来定
+			provices(proviceurl,provice,"1003",0);
+/*			provices(cityurl,city,"302",0);
+			provices(areaurl,area,"30201",0);*/
+
+
+			// 省份操作
+			$("#provice").on("change",function(){
+				$(this).next("select").children('option').remove();
+				$(this).next("select").next("select").children('option').remove();
+				var pCode=$(this).val();
+				provices(cityurl,city,pCode,1);
+			})
+			// 城市操作
+			$("#city").on("change",function(){
+				var cCode=$(this).val();
+				provices(areaurl,area,cCode,1);
+			})
+		})
+	</script>
+	<style type="text/css">
+	#box{
+		margin:100px auto;
+		width: 500px;
+		height: 100%;
+	}
+	select{
+		max-width: 100px;
+	}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<select name="provice" id="provice">
+		
+		</select>
+		<select name="city" id="city">
+		
+		</select>
+		<select name="area" id="area">
+		
+		</select>
+	</div>
+</body>
+</html>

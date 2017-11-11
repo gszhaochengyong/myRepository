@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li ,ol li {
+		list-style: none;
+	}
+  .txt1,.txt2{
+    width: 300px;
+    height: auto;
+    margin:50px 0 0 50px;
+  }
+  .float{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 100px;
+    background: pink;
+    opacity: 0.8;
+    overflow: visible;
+    display: none;
+  }
+	</style>
+	
+
+</head>
+<body>
+<div class="txt1" id="txt1" >
+  可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的可以选择的
+  <div class="float" id="float"></div>
+</div>
+
+<div class="txt2" id="txt2">
+    不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的不可以选择的
+</div>
+</body>
+	<script type="text/javascript" src="my.js"></script>
+<script type="text/javascript">
+ var txt,x,y;
+ $("txt1").onmouseup=function(event){
+  var event=event||window.event;
+  console.log(event);
+  txt=window.getSelection?window.getSelection().toString():document.selection().createRange().text;
+  x=event.clientX;
+  y=event.clientY;
+  if(txt){
+    showFloat(x,y,txt);
+  }
+  // event.stopPropagation?event.stopPropagation():event.cancelBubble=true;
+ }
+ document.onmousedown=function(event){
+  var event=event||window.event;
+  var targetId=event.target?event.target.id:event.srcElement.id;
+  if(targetId!="float"){
+    $("float").style.display="none";
+  }else{
+    console.log(targetId);
+      event.stopPropagation?event.stopPropagation():event.cancelBubble=true;
+  }
+ }
+ function showFloat(clientx,clienty,txt){
+  setTimeout(function(event){
+    $("float").style.display="block";
+    $("float").style.left=clientx+"px";
+    $("float").style.top=clienty+"px";
+    $("float").innerHTML=txt;
+  }, 500);
+  //禁止默认事件
+  // $('float').onmouseup=$('float').onmousedown=function(e){
+  //   if ( e && e.preventDefault ) 
+  //       e.preventDefault(); 
+  //   //IE中阻止函数器默认动作的方式 
+  //   else
+  //       window.event.returnValue = false; 
+  //   return false; 
+  //   txt="";
+  // };
+
+ }
+</script>
+</html>

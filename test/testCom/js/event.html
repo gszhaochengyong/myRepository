@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>事件流</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		d1=document.getElementById('div1');
+		d2=document.getElementById('div2');
+		//true是捕获阶段响应事件，false是冒泡阶段响应事件，转为是fase冒泡阶段响应事件
+		document.addEventListener('click', function(){
+			alert('点击了BODY');
+			}
+			,true);
+		d1.addEventListener('click', function(){
+			alert('点击了红色DIV');
+			}
+			,true);
+		d2.addEventListener('click', function(){
+			alert('点击了黄色DIV')
+			},true);
+	}
+		
+	</script>
+</head>
+<body >
+<div id="div1" style="background: red;height: 300px;width: 300px;" >
+
+		
+	</div>
+		<div id="div2" style="background: yellow;height: 150px;width: 150px;position: absolute;left: 30px;top: 30px;" >
+	
+</div>
+
+<!-- 
+  默认是冒泡阶段响应
+<div id="div1" style="background: red;height: 300px;width: 300px;" onclick="javascript:alert('点击了红色DIV')">
+	<div id="div2" style="background: yellow;height: 150px;width: 150px;position: absolute;left: 30px;top: 30px;" onclick="javascript:alert('点击了黄色DIV')">
+		
+	</div>
+</div> -->
+</body>
+</html>

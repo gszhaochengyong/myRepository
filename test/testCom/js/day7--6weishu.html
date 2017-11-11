@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var input1=document.getElementById("input1");
+			var input2=document.getElementById("input2");
+			var btn=document.getElementsByTagName("button");
+			var res='';
+			btn[0].onclick=function(){
+				for (var i = 0; i < input1.value.length; i++) {
+					if (input1.value.substr(i,1)==".") {
+						if (parseInt(input2.value)==0) {
+							res=input1.value.substr(0,i+parseInt(input2.value));
+							//return res;
+						} else if(parseInt(input2.value)<0) {
+							res="位数不能小于0";
+							//return res;
+						}else{
+							res=input1.value.substr(0,i+parseInt(input2.value)+1);
+						}
+					} 
+
+				}
+				console.log(res+'ddd');
+				btn[0].nextElementSibling.innerHTML=res;
+			}
+			//下面三种方法更简洁的取二位小数
+			
+			var PI=3.1415926;
+			PI+="";
+			console.log("indexof方法："+PI.substr(0,PI.indexOf(".")+3));
+			console.log("乘以100以后再取整，再除以100方法："+parseInt(PI*100)/100);
+			var PI2=33.1235+11;
+			console.log("toFixed方法："+(PI2.toFixed(2)));
+			var k=3.2323;
+			k=k+"";
+			console.log(typeof k);
+		}
+	</script>
+
+</head>
+<body>
+原小数为<input type="text" id="input1"><br>
+保留几位小数<input type="text" id="input2"><br>
+<button>执行</button><span></span><br>
+
+
+</body>
+</html>

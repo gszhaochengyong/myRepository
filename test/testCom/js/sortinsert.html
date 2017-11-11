@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<script type="text/javascript">
+	window.onload=function(){
+
+		var arr=[9,15,19,10,5,18,6,6];//原数组
+		var str0='原数值的数值是';
+		//以上用来查看原数值的数值
+		for (var i = 0; i < arr.length; i++) {
+			//console.log(arr[i]+'的键值'+i);
+			if (i==arr.length-1) {
+				str0+=arr[i];
+			} else {
+				str0+=arr[i]+',';
+			}
+		}
+		console.log(str0);
+		//插入方法排序
+		var k0=0;//计录排序数量
+		/*for (var i = 0; i < arr.length; i++) {
+			for (var j = arr.length-1; j>i; j--) {
+				k0+=1;
+				var tmp=arr[i];
+				if (arr[j]<tmp) {
+					console.log('arr[i]='+arr[i]+',arr[j]='+arr[j])
+					arr.splice(i,1,arr[j]);
+					arr.splice(j,1,arr[i]);
+				} else {
+					
+					console.log('arr[i]='+arr[i]+',arr[j]='+arr[j])
+					
+				}
+				console.log(arr.valueOf());
+			}
+			return arr;
+		}*/
+		
+		var len = arr.length;
+        for(var i=1;i<len;i++){
+           for (var j = 0; j < i; j++) {
+           	k0+=1;
+           	 if(arr[j]>arr[i]){
+           	 	console.log('i='+i+',j='+j);
+           	 	arr.splice(j,0,arr[i]);//把对比的小值播放到j的位置处
+           	 	arr.splice(i+1,1);//删除原来的项，因为前面加了一个数，所以是i+1
+
+           	 }else{
+           	 	//break;
+           	 }
+           }
+        }
+		var str1='插入排序后的数值是';
+		//获得插入排序后的数值数值
+		for (var i = 0; i < arr.length; i++) {
+			//console.log(arr[i]+'的键值'+i);
+			if (i==arr.length-1) {
+				str1+=arr[i];
+			} else {
+				str1+=arr[i]+',';
+			}
+		}
+		
+		console.log(str1+'对比次数'+k0);
+
+	}
+	
+	</script>
+</head>
+<body>
+
+</body>
+</html>

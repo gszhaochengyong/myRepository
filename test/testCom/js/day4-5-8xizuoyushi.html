@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+
+
+	<style type="text/css">
+	#box{
+		width: 360px;
+		height: 260px;
+		margin: 100px auto;
+		padding: 10px;
+		border: 1px solid #ccc;
+	}
+	.top-l{
+		width: 50px;
+		height: 50px;
+		background: url("imgs/xizuo.png") no-repeat 0 0;
+		float: left;
+	}
+	.top-r{
+		margin-left: 20px;
+		float: left;
+	}
+	.yushi{
+		margin-top: 10px;
+	}
+	.bot{
+		clear: both;
+		padding-top: 10px;
+		
+	}
+	.huistar{
+		display: inline-block;
+		width: 80px;
+		height: 13px;
+		background: url(imgs/star.png) no-repeat left top;
+		position: relative;
+	}
+	.liangstar{
+		display: inline-block;
+		width: 72px;
+		height: 13px;
+		background: url(imgs/star.png) no-repeat left bottom;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			//根据id获得元素对象函数
+			function $(id){
+				return document.getElementById(id);
+			}
+			//定义星座运势和运势说明数组
+			var star=[9,10,6,3,10];
+			var txt=["白羊座今天运势白羊座今天运势白羊座今天运势白羊座今天运势白羊座今天运势白羊座今天运势","金牛座今天运势","双子座今天运势","双鱼座今天运势","天蟹座今天运势"];
+			$("sel").onchange=function(){
+				$("top-l").style.backgroundPosition="0px  "+(this.value)*(-50)+"px";
+				$("liangstar").style.width=star[this.value]*(80/10)+'px';
+				$("bot").innerHTML=txt[this.value];
+			}
+		}
+	</script>
+
+</head>
+<body>
+<div id="box">
+ 	<h2>星座运势</h2>
+ 	<div class="top">
+ 		<div class="top-l" id="top-l"></div>
+ 		<div class="top-r">
+ 			<select name="sel" id="sel">
+ 				<option value="0">白羊座（01.20-2.20）</option>
+ 				<option value="1">金牛座（02.20-3.20）</option>
+ 				<option value="2">双子座（03.20-4.20）</option>
+ 				<option value="3">双鱼座（04.20-5.20）</option>
+ 				<option value="4">天蟹座（05.20-6.20）</option>
+ 			</select>
+ 			<div class="yushi">
+ 				今日运势:<span class="huistar"><span class="liangstar" id="liangstar"></span></span>
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<div class="bot" id="bot">
+ 		白羊座今天运势
+ 	</div>
+</div>
+</body>
+</html>

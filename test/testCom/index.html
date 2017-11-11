@@ -1,0 +1,133 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>ajax例子</title>
+<script type="text/javascript" src="js/jquery-1.3.1.js"></script>
+<script type="text/javascript">
+	function test1(data){
+		//console.log(data); 
+	}
+</script>
+<script type="text/javascript" src="http://127.0.0.1/test/test1/c.php?callback=test1"></script>
+
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+$(function(){
+  /*$('#button1').click(function(){
+  	$.ajax({ url:'test1/b.php',
+  			success:function(data){
+  			console.log(data);
+  			//console.log(this);
+  			//$(data).appendTo($('body'));
+  			},
+  			type:'get',
+  			data:{
+  				'name':'zhangsan',
+  				sex:true
+  			},
+  			beforeSend:function(jqXHR,settings){
+  				console.log('执行前');
+  				//settings.url='test1/a1.php';
+  				//return false;//取消本次请求
+  			},
+  			complete:function(jqXHR,testStatus){
+  				console.log('请求完成了');
+  			},
+  			erro:function(jqXHR,testStatus,errorThrown){
+  				console.log(testStatus);
+  				console.log(errorThrown);
+  			},
+  			dataType:'json',
+  			//content:$('#div1'),
+  			//timeout:1100,
+  			//async:false, //同步
+  			//cache:false,//不缓存
+  			dataFilter:function(data){
+  				return data.toUpperCase();
+  			},
+
+ 			converters:{//控制返回数据的格式转换方式！
+                "text json":function(data){
+                    //return data;
+                },
+                "text html":function(data){
+                   // return $(data);
+                }
+            },
+
+  			
+  		});
+
+  	
+
+  });*/
+/*  $.ajaxSetup({
+  	timeout:2000,
+  	
+  });
+  $(document).ajaxComplete(function(event, xhr, settings) {
+  	console.log(event);
+  });
+  $('input:eq(0)').click(function(){
+  	$.ajax({
+  	url: 'test1/b.php',
+  	erro:function(jqXHR,testStatus,errorThrown){
+  				console.log(testStatus);
+  				console.log(errorThrown);
+  			},
+  	
+  });
+  });
+   $('input:eq(1)').click(function(){
+  	$.ajax({
+  	url: 'test1/b.php',
+	timeout:5000, 
+	//global:false 	
+  })
+  });*/
+  
+  // console.log($.param({'name':'sss',age:'19',sex:'男'}));
+  
+  $('form').submit(function(jqE){
+  	console.log($(this).serializeArray());
+  	var datas=$(this).serialize();
+  	$.ajax({
+  		'url':'test1/b.php',
+  		data:datas,
+  		type:'post'
+
+  	})
+  	jqE.preventDefault();
+  });
+  
+
+});
+</script>
+</head>
+<body>
+<div>
+ <input type='button' value="开始" id="button1" name="button1"></input>
+  <input type='button' value="停止" id="button2" name="button2"></input>
+  <div id="div1">
+  	11111111
+  </div>
+  <form style="margin: 30px;">
+  	姓名:<input type="text" name="username" ><br>
+  	年龄:<input type="text" name="age" ><br>
+  	性别:<input type="radio" name="sex" value="男" >男
+  	<input type="radio" name="sex" value="女" >女
+  	<br>
+  	<div>爱好:  
+  	<input type="checkbox" value="篮球" name="sports[]" >篮球
+  	<input type="checkbox" value="足球" name="sports[]">足球
+  	<input type="checkbox" value="桌球" name="sports[]">桌球
+  	</div>
+  	个人信息
+  	<textarea name="info"></textarea><br>
+  	<input type="submit" name="submit" value="提交" >
+  </form>
+</div>
+</body>
+</html>

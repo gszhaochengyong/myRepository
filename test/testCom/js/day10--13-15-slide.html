@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li ,ol li {
+		list-style: none;
+	}
+  #box{
+    background: pink;
+    width: 250px;
+    height: 164px;
+    padding: 5px; 
+    margin:200px auto;
+  }
+  #slide{
+    width: 250px;
+    height: 164px;
+    position: relative;
+    overflow: hidden;
+  }
+  #ul{
+    width: 1000%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  #ul li {
+    float: left;
+  }
+  ol{
+    position: absolute;
+    bottom:10px;
+    right: 20px;
+  }
+  ol li{
+    width: 20px;
+    height: 20px;
+    background: yellow;
+    margin-right: 5px;
+    float: left;
+    list-style: 20px;
+    text-align: center;
+    border-radius: 3px;
+  }
+  ol li.current{
+    background: orange;
+  }
+	</style>
+
+</head>
+<body>
+<div id="box">
+  <div id="slide">
+    <ul id="ul">
+      <li><img src="imgs/1.jpg" alt=""></li>
+      <li><img src="imgs/2.jpg" alt=""></li>
+      <li><img src="imgs/3.jpg" alt=""></li>
+      <li><img src="imgs/4.jpg" alt=""></li>
+    </ul>
+  </div>
+</div>
+</body>
+	<script type="text/javascript" src="my.js"></script>
+<script type="text/javascript">
+
+  //根据图片数量添加ol和对应数量的li
+  var ol=document.createElement("ol");
+  $("#slide").append(ol);
+  for (var i = 0; i < $("#ul").children.length; i++) {
+    olli=document.createElement("li");
+    olli.innerHTML=i+1;
+    $("#slide").children[1].append(olli);
+  }
+  $("#slide").children[1].children[0].className="current";
+  //添加多一张图片放到末尾以便 无缝链接
+  $("#ul").append($("#ul").children[0].cloneNode(true));
+
+  //自动播放
+  var timer=null;
+  var autoNum=0;//图片标签
+  var num=0;//数字标签
+  var ollis= $("#slide").children[1].children;
+
+   timer=setInterval(autoPlay, 1000);
+  //自动播放函数
+  function autoPlay(){
+    autoNum++;
+    if(autoNum>$("#ul").children.length-1){
+      autoNum=1;//因为最后添加的一张图已经播放了，所以要从第二张开始播放了
+      $("#ul").style.left=0;
+    }
+    animate($("#ul"),-autoNum*250, 30);
+    num++;
+    for (var i = 0; i < ollis.length; i++) {
+      ollis[i].className='';
+    }
+    console.log(num+'num,'+autoNum+'autonum');
+    if(num>$("#ul").children.length-2){
+      num=0;
+    }
+    ollis[num].className="current";
+  }
+
+  //鼠标指向数字时播放动画
+  for (var i = 0; i < ollis.length; i++) {
+    ollis[i].index=i;
+    ollis[i].onmouseover=function(){
+      clearInterval(timer);
+      for (var i = 0; i < ollis.length; i++) {
+        ollis[i].className="";
+      }
+      ollis[this.index].className="current";
+      console.log(this.index*250);
+      animate($("#ul"),-(this.index*250),60);
+      num=autoNum=this.index;
+    }
+  }
+  
+  //鼠标移到slide时
+  $("#slide").onmouseover=function(){
+    clearInterval(timer);
+  }
+  $("#slide").onmouseout=function(){
+    timer=setInterval(autoPlay, 1000);
+  }
+
+
+
+
+function animate(moveItem,target,step) {
+  clearInterval(moveItem.timer);//每次点击的时候要先清除之前的动画
+  moveItem.timer=setInterval(function(){
+    var moveing;
+    var steps;
+    if (moveItem.offsetLeft>target) {  //如果offset比目标坐标还要大，就要用回退步长来回去
+      steps=-Math.abs(step);
+    }else{
+      steps=Math.abs(step);//正常加步长动画
+    }
+    moveing=moveItem.offsetLeft+steps;//步长和left每一次执行动画后的坐标值
+    if(Math.abs(moveing-target)<=Math.abs(step)){ //下一坐标值与目标值的差的绝对值小等于步长时，就把下一坐标值取target目标值就好了，并停止循环  =号去掉，会出现到达最大值后再点按钮，会移动 出去再回来。因为差值20不小于20。只是等于20步长。
+      moveing=target;
+      clearInterval(moveItem.timer);
+    }
+    moveItem.style.left=moveing+"px";
+  } , 100)
+}
+</script>
+</html>

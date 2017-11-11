@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>旋转</title>
+	<style type="text/css">
+		body{
+			 perspective: 800px;/*perspective用于激活一个3D空间  应用景深的元素称为“舞台元素”  舞台元素的所有后代元素都会受影响 */ 
+		}
+		#box{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			margin: 300px auto;
+			transform-style: preserve-3d;/*其中flat值为默认值，表示所有子元素在2D平面呈现。preserve-3d表示所有子元素在3D空间中呈现*/
+			transform-origin:50% 50% -101px;/* 旋转参考点 此时代表立方体中心 XY面分比Z要用实际像素 */
+			transition:4s;
+			/*transform: rotateX(30deg) rotateY(60deg)rotateZ(30deg);*/
+			animation: moves 5s linear infinite;
+		}
+		@keyframes moves{
+			from:{
+				transform:rotateX(0deg) rotateY(00deg)rotateZ(00deg);
+			}
+			to{
+				transform:rotateX(360deg) rotateY(360deg)rotateZ(360deg);
+			}
+		}
+		#box .item{
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			border: 1px solid yellow;
+			left:0;
+			top: 0;
+			/*transform:rotateX(90deg) translateZ(-101px);*/
+		}
+		#box .item:nth-child(1){
+			top: -202px;
+			/*perspective-origin:50% 50% -101px;*/
+			transform-origin:100% 100%;  /*设置旋转中心为元素中心*/
+			transform: rotateX(90deg);
+		}
+		#box .item:nth-child(2){
+			
+		}
+		#box .item:nth-child(3){
+			top: 202px;
+			transform-origin: 100% 0; 
+			/*perspective-origin:50% 50% 0;*/
+			transform: rotateX(-90deg);
+		}
+		#box .item:nth-child(4){
+			transform-origin: 100% 100%;
+			transform: translateZ(-202px);
+		}
+		#box .item:nth-child(5){
+			transform-origin: 100% 100%;
+			left: -202px;
+			transform: rotateY(-90deg);
+		}
+		#box .item:nth-child(6){
+			transform-origin: left;
+			left: 201px;
+			transform: rotateY(90deg);
+			/*transform: rotateY(90deg);*/
+		}
+		.item img{
+			width: 200px;
+			height: 200px;
+		}
+/*  		#box:hover{
+	transform:rotateY(270deg); Y轴旋转
+}  */
+		#box  .heart{
+			width: 300px;
+			height: 360px;
+			border: 1px solid red;
+			border-left:0;
+			position: absolute;
+			transform-style:preserve-3d;
+border-bottom:0; 
+			border-radius:50% 50% 0/40% 50% 0;/*  第一个值表示左上角；第二个值表示右上角、左下角；第三个值表示右下角。  斜杠前面的一组四个值分别表示四个角的水平半径；斜杠后面的一组四个值分别表示四个角的垂直半径*/
+			color:red;
+			transform:rotateX(0deg) rotateY(45deg)rotateZ(30deg);
+
+		}
+		#box:nth-child(2) heart{
+			transform:rotateX(10deg) rotateY(45deg)rotateZ(30deg);
+			border-color: blue;
+		}
+		 #box:nth-child(3) .heart{
+			transform:rotateX(20deg) rotateY(45deg)rotateZ(30deg);
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div class="item"><img src="imgs/3dslide1.jpg" alt=""></div>
+		<div class="item"><img src="imgs/3dslide2.jpg" alt=""></div>
+		<div class="item"><img src="imgs/3dslide3.jpg" alt=""></div>
+		<div class="item"><img src="imgs/3dslide4.jpg" alt=""></div>
+		<div class="item"><img src="imgs/3dslide5.jpg" alt=""></div>
+		<div class="item"><img src="imgs/3dslide5.jpg" alt=""></div>
+		<div class="heart"></div>
+		<div class="heart"></div>
+		<div class="heart"></div>
+	</div>
+
+	
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	body{
+		height: 3000px;
+		width: 1900px;
+	}
+	#box{
+		margin:1500px;
+	}
+	</style>
+	<script type="text/javascript">
+	function scroll() {
+		if (window.pageYOffset !=null) {
+			return {
+				left:window.pageXOffset,
+				top:window.pageYOffset
+			}
+		} else if(document.compatMode=="CSS1Compat"){//声明了doctype的非怪异模式html文档
+			return {
+				left:document.documentElement.scrollLeft,
+				top:document.documentElement.scrollTop
+			}
+		}
+		//没有声明doctype的怪异模式html文档
+		return {
+			left:document.body.scrollLeft,
+			top:document.body.scrollTop
+		}
+	}
+	window.onscroll=function(){
+		//alert('dd');
+		console.log("left:"+scroll().left+',top'+scroll().top);
+	}
+			
+		
+	</script>
+</head>
+<body>
+<div class="box" id="box">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	*{
+        padding:0;
+        margin:1px;
+    }
+    #calculater{
+        margin: auto;
+        margin-top: 30px;
+        border: solid 6px #2371D3;
+        border-spacing: 0px;
+    }
+    #display{
+        width: 100%;
+        height: 30px;
+        border-bottom: solid 4px #2371D3;
+         font-weight: bold;
+         color: #193D83;
+        font-family: 黑体;
+        padding-left: 2px;
+    }
+    .numberkey{
+        cursor: pointer;
+        width: 40px;
+        height: 30px;
+        border: solid 1px #FFFFFF;
+        background: #2371D3;
+        color: #ffffff;
+        text-align: center;
+        font-weight: bold;
+        font-family: 黑体;
+    }
+    #equality{
+       cursor: pointer;
+       width: 40px; 
+       height: 100%;
+       background: #2371D3;
+        border: solid 1px #FFFFFF;
+        color: #ffffff;
+        text-align: center;
+        font-weight: bold;
+        font-family: 黑体; 
+    }
+    .numberkey:hover{
+       background: #EA6F30; 
+    }
+    #equality:hover{
+       background: #EA6F30; 
+    }
+    </style>
+	<script type="text/javascript" src="my.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var cal=$("calculater");//计算器大对象
+			var dis=$("display");//结果框
+			var equal=$("equality");//等于
+			var del=$("deletesign");//清空键
+			var reverse=$("reverse");//取反
+
+			var res="";//结果框输入字符
+			var rescal="";//结果框结果计算后的数值
+			var flg=1;//+-标记判断
+			cal.onclick=function(event){
+				var event=event||window.event;
+				// console.log(event.srcElement.innerText);
+				
+				if(event.srcElement.innerText=="=" || event.srcElement.innerText=="c"|| event.srcElement.innerText=="+/-"){
+					return;
+				}
+				res=res+event.srcElement.innerText;//字符要累加
+				
+				dis.innerText=res;
+
+			}
+			equal.onclick=function  (argument) {
+				reg1=/^[/*|\/].+/;//以*|/开始
+				reg2=/.+[\+|\-|\*|\/]$/;//以+-*/结束
+				reg3=/.+[\+|\-|\*|\/]\)$/;
+				if (res.match(reg1)||res.match(reg2)||res.match(reg3)) {
+					calres="输入错误";
+					res="";
+				}else{
+					if (!eval(res)) {
+						calres="输入错误";
+						res="";
+						return;
+					} 
+						
+					calres=res+"="+eval(res);
+				
+						
+				}
+				
+				dis.innerText=calres;
+				//res="";
+			}
+			del.onclick=function(){
+				res="";
+				dis.innerText=0;
+				return;
+			}
+			reverse.onclick=function(){
+				if (flg==-1) {
+					//res=res.slice(2, res.length-1)
+					res=res.substr(2, res.length-3);
+					dis.innerText=res;
+					flg=1;
+					return;
+				} 
+
+				res="-"+"("+res+")";
+				dis.innerText=res;
+				flg=-1;
+				return;
+				
+			}
+
+
+		}
+	</script>
+</head>
+<body>
+<table id="calculater">
+        <tr>
+            <td id="display" colspan="5">0</td>
+        </tr>
+        <tr>
+            <td class="numberkey" >1</td>
+            <td class="numberkey" >2</td>
+            <td class="numberkey" >3</td>
+            <td class="numberkey" >+</td>
+            <td class="numberkey"  id="deletesign">c</td>   
+        </tr>
+        <tr>
+            <td class="numberkey" >4</td>
+            <td class="numberkey" >5</td>
+            <td class="numberkey" >6</td>
+            <td class="numberkey" >-</td>
+            <td rowspan="3" id="equality">=</td> 
+        </tr>
+        <tr>
+            <td class="numberkey" >7</td>
+            <td class="numberkey" >8</td>
+            <td class="numberkey" >7</td>
+            <td class="numberkey" >*</td>
+        </tr>
+        <tr >
+            <td class="numberkey" id="reverse" >+/-</td>
+            <td class="numberkey" >0</td>
+            <td class="numberkey" >.</td>
+            <td class="numberkey" >/</td>            
+        </tr>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<body>
+<div id="box" style="margin:100px auto;width: 500px;height: 500px;">
+	<canvas id="myCanvas" width="500px" height="500px" style="border:1px solid #d3d3d3;">
+您的浏览器不支持 HTML5 canvas 标签。
+</canvas>
+</div>
+<img src="imgs/adidas.jpg" style="width: 250px;height: 250px;">
+<script>
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+ctx.beginPath();
+ctx.arc(250,250,250,0,Math.PI);
+ctx.stroke();
+// 左上边
+ctx.beginPath();
+ctx.moveTo(212,230);
+ctx.lineTo(125,230);
+ctx.stroke(); // 进行绘制
+
+ctx.beginPath();
+ctx.moveTo(125,230);
+ctx.arc(250,175,137,0,1*Math.PI,true);
+ctx.stroke(); // 进行绘制
+</script>	
+</body>
+</html>

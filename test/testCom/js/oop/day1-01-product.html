@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>产品</title>
+	<style type="text/css">
+	.divBox{
+		width: 1120px;
+		height: 600px;
+		margin:20px auto;
+		background: #f2f2f2;
+		overflow: hidden;
+	}
+	.div1 .product{
+		width: 300px;
+		height: 300px;
+		background: #f0f0f0;
+		float: left;
+	}
+	.cart .item{
+		float: left;
+	}
+	</style>
+</head>
+<body>
+	<div class="divBox div1" id="divBox1">
+		<div class="cart" id="cart">
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+	console.log('ddd');
+	//定义产品类  实例化以后才是产品 对象    抽象和具体的区分 
+/*	function Product (argument) {
+		//属性定义
+		this.name='';
+		this.price='';
+		this.discout='';
+		this.photo='';
+	}
+
+	Product.prototype={
+		//dom对象生成方法
+		bindDom:function(){
+			var str='';
+			str+="<div>";
+			str+="<p>"+this.name+"</p>";
+			str+="<p>"+this.price+"</p>";
+			str+="<p>"+this.discout+"</p>";
+			str+="<p>"+this.photo+"</p>";
+			str+="</div>";
+			return str;
+		},
+		//事件绑定方法
+		bindEvent:function(){
+			console.log('bindEvent');
+		}
+	};
+	//事件绑定方法二
+	//Product.prototype.bindEvent2=function(){
+	//		console.log('bindEvent2');
+	//}
+
+	window.onload=function(){
+		//初始化
+		var product1=new Product();
+		product1.name='name1';
+		product1.price='price1';
+		product1.discout='discout1';
+		product1.photo='photo1';
+
+		var product2=new Product();
+		product2.name='name2';
+		product2.price='price2';
+		product2.discout='discout2';
+		product2.photo='photo2';
+
+		var product3=new Product();
+		product3.name='name3';
+		product3.price='price3';
+		product3.discout='discout3';
+		product3.photo='photo3';
+
+		var products=[];
+		products=[product1,product2,product3];
+
+		var str="";
+		for (var i = 0; i < products.length; i++) {
+			str+=products[i].bindDom();
+		}
+		console.log(str);
+		var divBox1=document.getElementById("divBox1");
+		divBox1.innerHTML=str;
+	}*/
+
+
+// 第二种方法，定义类的时候传送属性
+/*function Product (name,price,discout,photo) {
+		//属性定义
+		this.name=name
+		this.price=price;
+		this.discout=discout;
+		this.photo=photo;
+	}
+
+	Product.prototype={
+		//dom对象生成方法
+		bindDom:function(){
+			var str='';
+			str+="<div>";
+			str+="<p>"+this.name+"</p>";
+			str+="<p>"+this.price+"</p>";
+			str+="<p>"+this.discout+"</p>";
+			str+="<p>"+this.photo+"</p>";
+			str+="</div>";
+			return str;
+		},
+		//事件绑定方法
+		bindEvent:function(){
+			console.log('bindEvent');
+		}
+	};
+	window.onload=function(){
+		//初始化
+		var product1=new Product('name11','price1',"discout1","photo1");
+		var product2=new Product('name2','price2',"discout2","photo2");
+		var product3=new Product('name3','price3',"discout3","photo3");
+
+
+		var products=[product1,product2,product3];
+
+		var str="";
+		for (var i = 0; i < products.length; i++) {
+			str+=products[i].bindDom();
+		}
+		console.log(str);
+		var divBox1=document.getElementById("divBox1");
+		divBox1.innerHTML=str;
+	}
+*/
+// 第三种方法，json数据实现
+function Product (name,price,discout,photo) {
+		//属性定义
+		this.name=name
+		this.price=price;
+		this.discout=discout;
+		this.photo=photo;
+	}
+
+	Product.prototype={
+		//dom对象生成方法
+		bindDom:function(){
+			var str='';
+			str+="<div class='product'>";
+			str+="<p>"+this.name+"</p>";
+			str+="<p>"+this.price+"</p>";
+			str+="<p>"+this.discout+"</p>";
+			str+="<p>"+this.photo+"</p>";
+			str+="<button class='addToCart'>添加到购物车</button>";
+			str+="</div>";
+			return str;
+		},
+		//事件绑定方法
+		bindEvent:function(){
+/*			this.onclick=function(){
+				console.log(this);
+			}
+*/
+		}
+
+	};
+
+	// 购物车部分
+	function Cart(){
+			this.sum=0;
+			this.price=0;
+			this.products=[];
+	}
+
+	Cart.prototype={
+			show:function(){
+				$(".cart").html("");
+				var str="";
+				str+="<p>购物车信息</p>";
+				for (var i = 0; i < this.products.length; i++) {
+					str+="<div clas='item'><label>商品"+(i+1)+'名称：</label><p>'+this.products[i][0]+"</p>";
+					str+="<p>单价:"+this.products[i][1]+"</p><a class='del' href='javascript:;'>删除</a></div>";
+				}
+				str+="<p>数量:"+this.sumItem()+"</p>";
+				str+="<p>总价:"+this.sumPrice()+"</p>";
+				$(".cart").html(str);
+			},
+			sumItem:function(){
+				return this.products.length;
+			},
+			sumPrice:function(){
+				var sum=0;
+				for (var i = 0; i < this.products.length; i++) {
+					sum+=parseInt(this.products[i][1]);
+				}
+				return sum;
+			}
+	}
+	console.log('dd');
+
+
+	window.onload=function(){
+		console.log('ddd');
+		//把产品属性存放在数组中，模拟从数据库得到数据的方式，jason格式
+		var productsData={
+			"product1":['name11','10',"discout1","photo1"],
+			"product2":['name22','12',"discout2","photo2"],
+			"product3":['name33','13',"discout3","photo3"]
+		}
+		var products=[];
+		//初始化，生成每个产品信息，存放到数据中
+		for (var i in productsData) {
+			var i=new Product(productsData[i][0],productsData[i][1],productsData[i][2],productsData[i][3]);
+			products.push(i);
+		}
+		products[0].bindEvent();
+		//将每个产品链接起来组成字符串
+		var str="";
+		for (var i = 0; i < products.length; i++) {
+			str+=products[i].bindDom();
+		}
+		//大盒子
+		var divBox1=$("#divBox1");
+		//将dom对象字符串添加到大盒子中去
+		divBox1.append($(str));
+
+		//实例化购物车
+		var cart=new Cart();
+		cart.price=20;
+		cart.sum=20;
+		cart.products=[];
+		//初始化
+		cart.show();
+
+		//添加到购物车
+		var addToCart=$(".addToCart");
+		addToCart.on('click',function(){
+			var name=$(this).siblings("p:first").html();
+			for (var i in productsData) {
+				if(name==productsData[i][0]){
+					cart.products.push(productsData[i]);
+					cart.show();
+				}
+			}
+		});
+		$(".cart").on('click','a.del',function(){
+			var name=$(this).siblings("p:first").html();
+			for (var i=0;i<cart.products.length;i++) {
+				if(name==cart.products[i][0]){
+					cart.products.splice(i,1);
+					cart.show();
+				}
+			}
+		});
+		console.log('dd')
+
+	}
+
+
+/*var $=function(){};
+$.prototype = {
+	$id:function(id){
+		return document.getElementById(id);
+	},
+	$class:function(className){
+		return document.getElementsByClassName(className);
+	},
+	$tag:function(tag){
+		return document.getElementsByClassName(tag);
+	},
+	rtrim:function(ele,len){
+		return 
+	},
+	ltrim:function(ele,len){
+		return 
+	}
+};
+
+var $=new $();
+console.log($.$id("divBox1"));*/
+
+//封装简易框架
+//定义框架类名
+/*function $(){};
+//定义类方法
+$.prototype = {
+	$id:function(id){
+		return document.getElementById(id);
+	},
+	$class:function(className){
+		return document.getElementsByClassName(className);
+	},
+	$tag:function(tag){
+		return document.getElementsByClassName(tag);
+	},
+	rtrim:function(ele,len){
+		// return 'aa'
+	},
+	ltrim:function(ele,len){
+		// return 
+	}
+};
+//实例化类
+var $=new $();
+
+// 可以直接使用框架类的方法了
+// console.log($.$class("divBox")[0]);
+console.log($.$id("divBox1")[0]);*/
+</script>

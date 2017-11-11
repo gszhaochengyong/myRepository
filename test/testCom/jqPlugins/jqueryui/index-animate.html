@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="js/jqueryui/jquery-ui.min.css">
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/jqueryui/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $('button.bt1').click(function(event) {
+/*        $('#div1').addClass('bg1',1111,function(){
+          alert('完成了');
+        });
+      });*/
+/*        $('#div1').addClass('bg1',{
+          duration:1000,
+          complete:function(){
+            alert('完成了');
+          }
+        })*/
+        //alert('完成了');
+         // $('#div1').toggleClass('bg2');
+         $('#div1').animate();
+      });
+    
+  });
+  </script>
+  <style type="text/css">
+ 
+ #div1{
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+ }
+ .bg1{
+  background: pink;
+ }
+ .bg2{
+  background: black;
+ }
+  </style>
+</head>
+<body class="w1190">
+<button class="bt1">toarray</button>
+<div id="div1" class="">
+div1
+</div>
+</body>
+</html>

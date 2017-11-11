@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../jquery-3.2.1.js"></script>
+
+	
+
+	
+</head>
+<body>
+	<div class="div" id="div" style="width: 500px;height: 200px;background: red;"></div>
+</body>
+	<script type="text/javascript">
+	/*	function writeData(data){
+			// console.log(data[0]);
+			var ul=document.createElement("ul");
+			for (var i = 0; i < data.length; i++) {
+				var li=document.createElement("li");
+				li.innerHTML=data[i];
+				ul.appendChild(li);
+			}
+			var div=document.getElementById("div");
+			div.appendChild(ul);
+		}*/
+		$(function(){
+/*			$.ajax({
+				url:"day3ajaxjsonp.php",
+				type:"get",
+				dataType:"jsonp",
+				//jsonp:"callback",
+				//jsonpCallback:"export",
+				success:function(json){
+					console.log(json);
+				},
+				error:function(e){
+					console.log(e);
+				}
+
+			})*/
+/*			$.ajax({
+				url:"day3ajaxjsonp.php",
+				type:"get",
+				dataType:"jsonp",
+				jsonp:"cb",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+				jsonpCallback:"cbfunction",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+				success:function(json){
+					for(i=0;i<json.length;i++){
+						$("#div").append(json[i]+"<br>");
+					}
+				},
+				error:function(e){
+					console.log(e);
+				}
+			})*/
+
+		})
+	</script>
+	<!-- <script type="text/javascript" src="day3ajaxcallback.php?_jsonp=writeData"></script> -->
+</html>

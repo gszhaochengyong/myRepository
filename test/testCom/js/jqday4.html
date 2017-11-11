@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+/* 		table{
+	width: 300px;
+	height: 300px;
+	margin:  100px auto;
+	table-layout: normal;
+	vertical-align: center;
+	border-color: #ccc;
+};
+tr th{
+	background: #ccc;
+} */
+ 	*{
+ 		margin:0;
+ 		padding: 0;
+ 	}
+	body{
+		background: #ccc;
+	}
+	.window{
+		width: 60%;
+		margin: 0 auto;
+		background: #aaa;
+		padding: 10px 0 10px 10px;
+
+	}
+	.window p{
+		margin-bottom: 10px;
+	}
+	.clearfix:before,.clearfix:after{
+ 		content: "";
+		display: table;
+		height: 0;
+		visibility: hidden;
+ 	}
+ 	.clearfix:after{
+ 		clear: both;
+ 	}
+ 	.clearfix:after{
+ 		*zoom: 1;
+ 	}
+ 	a{
+ 		text-decoration: none;
+ 	}
+ 	a:active {
+	color: #0000ee; /*鼠标按下的颜色变化*/
+	}
+	#txtArea{
+		padding: 10px;
+		font:14px/14px 微软雅黑;
+		line-height: 29px;
+	}
+ 	.bottom {
+ 		height: 50px;
+ 		/*background: blue;*/
+ 	}
+ 	.bottom div{
+ 		float: left;
+ 	}
+
+ 	.bottom .left{
+ 		margin-left: 50px;
+ 		margin:10px auto;
+ 		height: 30px;
+ 	}
+ 	.bottom .left a{
+ 		/*background: red;*/
+ 		margin-left: 20px;
+ 		position: relative;
+
+ 	}
+ 	.bottom .middle{
+ 		width: 250px;
+ 		height: 30px;
+ 		margin:10px 30px;
+ 		text-align: center;
+ 		line-height: 30px;
+ 	}
+	.bottom .add{
+		height: 30px;
+		margin:10px auto;
+		background: green;
+		/*margin-left: 100px;*/
+	}
+	.bottom .add:hover{
+		background: yellow;
+		cursor: pointer;
+	}
+	.bottom .add span{
+		display: block;
+		width: 100px;
+		height: 30px;
+		text-align: center;
+		line-height: 30px;
+	}
+	a>div{
+		position: absolute;
+		display: none;
+		/*left: 20px;*/
+/* 		padding-left: 20px;*/
+padding-top: 20px; 
+		width: 200px;
+		top: 0px;
+		left: 0;
+		z-index: 10;
+		/*border: 1px solid #ccc;*/
+	}
+	a.title>div{
+		width: 200px;
+		/*background: yellow;*/
+	}
+	a:hover>div{
+		display: block;
+	}
+	#message div{
+		width: 80%;
+		/*height: 30px;*/
+		line-height: 20px;
+		position: relative;
+		padding-left: 20px;
+		padding-right: 130px;
+	}
+	#message div a{
+		position: absolute;
+		right:100px;
+		top: 0px;
+	}
+	</style>
+	<script type="text/javascript" src="jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+	$(function(){
+/*		var datas=[{"name":"name1","age":"18","sexy":0},{"name":"name2","age":"14","sexy":1},{"name":"name3","age":"28","sexy":0}];
+		for (var i = 0; i < datas.length; i++) {
+			datas[i].sexy?datas[i].sexy="男":datas[i].sexy="女";
+			var appEle="<tr><td>"+datas[i].name+'</td>'+"<td>"+datas[i].age+'</td>'+"<td>"+datas[i].sexy+'</td></tr>';
+			$("#table").append(appEle);
+		}*/
+/*	var proCity={"广东":["中山","深圳","广州","佛山","韶关",],"北京":["北京"],"湖北":["武汉","随州","黄岗"]};
+	// js json循环方式
+/*	for(var pro in proCity){
+		proOpt=$("<option>"+pro+"</option>");
+		$(provice).append(proOpt);
+	}*/
+	// jq each循环jasen和数组方式
+/*	$.each(proCity, function(index, val) {
+		proOpt=$("<option>"+index+"</option>");
+		$("#provice").append(proOpt);
+	});
+	
+	$("#provice").on("change",function(){
+		// console.log($(this).val()+'val');
+		var citys=proCity[$(this).val()];
+		$("#city").empty();
+		for(var k = 0, length3 = citys.length; k < length3; k++){
+			// console.log(citys[k]);
+			var cityOpt=$("<option>"+citys[k]+"</option>");
+			$("#city").append(cityOpt);
+		}
+	});
+
+	$("#provice").triggerHandler('change');*/
+
+/*	for (var i = 0; i < proCity.length; i++) {
+		console.log(proCity[i]+'ddd');
+	}*/
+	var titles=['实事新闻：一女子跳楼','实事新闻：一男子跳楼','战事新闻：印度想打架','军事新闻：中俄军演','娱乐新闻：战狼2开映二周突破60亿票房'];
+	var friend=["李明",'张学友',"李强",'陈道义'];
+	var faces={"00.gif":"表情1","01.gif":"表情2","02.gif":"表情3","03.gif":"表情4","04.gif":"表情6","05.gif":"表情8","06.gif":"表情2","07.gif":"表情3","10.gif":"表情1","11.gif":"表情2","12.gif":"表情3","13.gif":"表情4","14.gif":"表情6","15.gif":"表情8","16.gif":"表情2","17.gif":"表情3"}
+
+	//话题添加
+	var $titleDiv=$("<div></div>");
+	for (var i = 0; i < titles.length; i++) {
+		var titlesP=$("<p>"+titles[i]+"</p>")
+		$titleDiv.append(titlesP);
+	}
+	$('.title').append($titleDiv);
+	//话题事件
+	$(".title").on("click",'p',function(){
+		chaNum()
+		// console.log($("#txtArea").html()+'-----'+$(this).text());
+		$("#txtArea").html($("#txtArea").html()+'<<'+$(this).text()+">>");
+	})
+	//好友
+	var $friDiv=$("<div></div>");
+	for (var i = 0; i < friend.length; i++) {
+		var friendP=$("<p>"+friend[i]+"</p>");
+		$friDiv.append(friendP);
+	}
+	$('.friend').append($friDiv);
+	//好友事件
+	$(".friend").on("click","p",function(){
+		chaNum()
+		$("#txtArea").text($("#txtArea").text()+"@"+$(this).text());
+	})
+	//表情
+	var $faceDiv=$("<div></div>");
+	for (var k in faces) {
+		var img=$("<img src='./imgs/faces/"+k+"' alt='"+faces[k]+"'></img>");
+		var str="<img src='./imgs/"+k+"'></img>";
+		// console.log(k+','+str);
+		$faceDiv.append(img);
+	}
+	$(".faces").append($faceDiv);
+	$(".faces").on("click",'img',function(){
+		chaNum()
+		$("#txtArea").html($("#txtArea").html()+"["+$(this).attr('alt')+"]");
+	})
+	var timerInt=0;
+	var timer=null;
+	$(".add").on("click",function(){
+		// console.log($("#txtArea").val());
+		if(timerInt>0){
+			alert("发布太快啦,请"+timerInt+"秒后再发布吧");
+			return;
+		}
+		var txtVal=$("#txtArea").val();
+// 		console.log(txtVal);
+// 		var patt=/^\[\w\d\d\]$/;
+// 		console.log("[dd]".match(patt));
+// 		var str="at 1 b 2 c";
+// var patt=/([a-zA-Z])+/;
+// console.log(str.match(patt)); 
+		if (txtVal.length<=0) {
+			alert("发布内容不能为空！");
+			$("#txtArea").focus();
+			return;
+		} 
+		var mess=$("<div>"+txtVal+"</div>");
+		var dela=$("<a href='javascript:;'>"+"删除"+"</a>");
+		mess.append(dela);
+		$("#message").append(mess);
+		$("#txtArea").val("");
+
+		timerInt=5;
+		timer=setInterval(function(){
+			timerInt--;
+			// console.log(timerInt);
+			timerInt<=0?clearInterval(timer):timerInt=timerInt;
+		}, 1000);
+		// $("#txtArea").focus();
+		// alert("发布成功啦");
+	});
+
+	$("#message").on("click",'div a',function(){
+		var yes=confirm("确定要删除吗？");
+		if (yes) {
+			$(this).parent("div").remove();
+		} else {
+			return;
+		}
+		
+	})
+
+
+	var chNu=50;
+	//通过设置属性的方式来限制长度
+	//$("#txtArea").attr('maxlength', '4');
+	//$("#txtArea").val("你好");
+	function chaNum(){
+		var txtLen=$("#txtArea").val().length;
+		console.log(txtLen);
+		if (txtLen>chNu) {
+			//通过长度超过了，截取前4个字符的方式来处理
+			$("#txtArea").val($("#txtArea").val().substr(0,chNu));
+		}else{
+			console.log('长度小于了');
+			$(".middle span").text(chNu-txtLen);
+		}
+	}
+	
+	$("#txtArea,.left a").on("keyup click",function(){
+		chaNum();
+		console.log('keyup');
+	});
+})
+</script>
+</head>
+<body>
+<!-- 	<table id="table">
+	<tr>
+		<th>姓名</th>
+		<th>年龄</th>
+		<th>性别</th>
+	</tr>
+</table> -->
+<!-- <select id="provice"></select>
+<select id="city"></select> -->
+<div class="window">
+	<div class="box">
+		<p>输入留言内容吧</p>
+		<textarea name="" id="txtArea" cols="100" rows="10"></textarea>
+		<div class="bottom clearfix">
+			<div class="left">
+				<a class="title" href="javascript:;">话题</a>
+				<a class="friend" href="javascript:;">朋友</a>
+				<a class="faces" href="javascript:;">表情</a>
+				<a class="photo" href="javascript:;">照片</a>
+				<a class="movie" href="javascript:;">视频</a>
+			</div>
+			<div class="middle">还能输入<span>50</span>字符</div>
+			<div class="add">
+				<span>广播</span>
+			</div>
+		</div>
+		<div id="message"></div>
+	</div>
+</div>
+</body>
+</html>

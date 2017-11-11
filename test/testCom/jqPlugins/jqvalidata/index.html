@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>jqvalidata</title>
+<script type="text/javascript" src="jq/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="jq/jquery.validate.min.js"></script>
+<script type="text/javascript" src="jq/additional-methods.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+    //console.log('222');
+    $('#form1').validate({
+      rules:{
+            fild1:'required',
+            fild2:{
+              required:true,
+              minlength:2,
+              maxlength:3
+            },
+            fild3:{
+              required:true,
+              rangelength:[2,3]
+            },
+            fild4:{
+              required:true,
+              min:3,
+              max:55,
+              range:[10,40]
+            },
+            fild5:{
+              required:true,
+              number:true,
+              digits:false
+            },
+            fild6:{
+              required:true,
+              email:true,
+            },
+            fild7:{
+              required:true,
+              url:true,
+            },
+            fild8:{
+              required:true,
+              equalTo:'.fild2'
+            },
+            fild9:{
+              required:true,
+              remote:'index.php'
+            }
+            ,
+            fild10:{
+              required:true,
+              remote:{
+                url:'index2.php',
+                type:'POST',
+                data:{
+                  user:'bbb'   //单独传额外的参数 php页也可以直接用$_POST['fild10']获得表单内容，组合在脚本端控制
+                }
+              }
+            }
+            ,
+            fild11:{
+              required:true,
+              extension:'html|css'
+            }
+      }
+    })
+
+
+
+
+
+
+
+
+  })
+</script>
+<style type="text/css">
+  div{
+    margin-left: 100px;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<form name="form1" id="form1">
+    <div>jqvalidata fild1<input type='text' name="fild1"></input> </div>
+    <div>jqvalidata fild2<input type='text' name="fild2" class="fild2"></input> </div>
+    <div>jqvalidata fild3<input type='text' name="fild3"></input> </div>
+    <div>jqvalidata fild4<input type='text' name="fild4"></input> </div>
+    <div>jqvalidata fild5<input type='text' name="fild5"></input> </div>
+    <div>jqvalidata fild6<input type='text' name="fild6"></input> </div>
+    <div>jqvalidata fild7<input type='text' name="fild7"></input> </div>
+    <div>jqvalidata fild8<input type='text' name="fild8"></input> </div>
+    <div>jqvalidata fild9<input type='text' name="fild9"></input> </div>
+    <div>jqvalidata fild10<input type='text' name="fild10"></input> </div>
+    <div>jqvalidata fild11<input type='file' name="fild11"></input> </div>
+    <div>jqvalidata fild12<input type='text' name="fild12" required="ture" rangelength="[2,3]" number='true'></input> </div>
+    <div>jqvalidata fild13<input name="submit" value="提交"  type="submit"></input> </div>
+</form>
+</body>
+</html>

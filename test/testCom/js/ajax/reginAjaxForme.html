@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax</title>
+	<script type="text/javascript">
+
+			//btn.onclick=function(){
+			function ajax(data){
+
+				//获得传递的参数并解析
+				var type=data.type=="get"?"get":"post";
+				var url="";
+				if(data.url){
+					url=data.url;
+					if(type=="get"){
+						url+="?"+data.data+"&_t"+new Date().getTime();
+					}
+				}
+				var flag=data.flag=="true"?"true":"false";
+				console.log(type+','+url+','+flag)
+
+
+				var xhr=null;
+				if(window.XMLHttpRequest){//标准浏览器
+					xhr=new XMLHttpRequest();
+				}else{
+					xhr=new ActiveXObject("Microsoft.XMLHTTP");
+				}
+
+				
+				
+				// 实例化成功后调用 open方法并开始向服务器发送请求
+				if (xhr!=null) {
+					// xhr.open("get","reginAjaxForme.php",true);//get  post都可以
+					xhr.open(type,url,flag);
+					xhr.send(null);
+					xhr.onreadystatechange=stateChange;//回调函数，state发生变化的时候来执行
+				}
+				console.log('dd');
+				function stateChange(){
+					if(xhr.readyState==4 && xhr.status==200){
+						alert(document.getElementById("div")+xhr.responseText);
+						var resData=xhr.responseText;//如果是json或者xml要进行转换后显示
+						document.getElementById("div").innerHTML=resData;
+					}
+				}
+			}
+		
+	</script>
+</head>
+
+<body>
+	<form method="get">
+<!-- 	<button value="提交" onclick="ajax();">提交请求ajax数据</button> -->
+<!-- 注意上面这样不能用onclic因为按钮有默认事件  -->
+	<input type="button" value="提交请求ajax数据" onclick="ajax({'type':'get','url':'reginAjaxForme.php?'+'param=3','flag':'true'});">
+	<!-- <input type="text" value="dd"></input> -->
+	</form>
+	
+	<div id="div">初始值</div>
+</body>
+</html>

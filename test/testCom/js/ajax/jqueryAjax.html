@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery-3.2.1.js"></script>
+
+
+<script type="text/javascript">
+	$(function(){
+		 $("input:button").on("click",function(){
+		 	//示例1 get html返回值形式
+/*		 	$.ajax({
+		 		url:"jqueryAjax.php",
+		 		dataType:"html",
+		 		type:"get",
+		 		data:"aaa=1&bbb=2",
+		 		success:function(data){
+		 			$("#div1").append(data);
+		 		},
+		 		error:function(e){
+		 			console.log(e);
+		 		}
+		 	})*/
+
+/*		 //示例2  get json返回值形式
+		 	$.ajax({
+		 		url:"jqueryAjax.php",
+		 		dataType:"json",
+		 		type:"get",
+		 		data:"aaa=1&bbb=2",
+		 		success:function(data){
+		 			$("#div1").html(data.username+'姓名，密码是:'+data.password);
+		 		},
+		 		error:function(e){
+		 			console.log(e);
+		 		}
+		 	})
+		 })*/
+
+		 //示例3 post形式
+/*		 	$.ajax({
+		 		url:"jqueryAjax.php",
+		 		dataType:"html",
+		 		type:"post",
+		 		data:"aaa=1&bbb=2",
+		 		success:function(data){
+		 			$("#div1").append(data);
+		 		},
+		 		error:function(e){
+		 			console.log(e);
+		 		}
+		 	})
+		 })*/
+
+		 //示例4  json post形式
+/*		 	$.ajax({
+		 		url:"jqueryAjax.php",
+		 		dataType:"json",
+		 		type:"post",
+		 		data:"aaa=1&bbb=22",
+		 		success:function(data){
+		 			$("#div1").append(data.username+'姓名，密码是:'+data.password);
+		 		},
+		 		error:function(e){
+		 			console.log(e);
+		 		}
+		 	})
+		 })*/
+
+		  //示例5 get xml形式
+/*		 	$.ajax({
+		 		url:"jqueryAjax.xml",
+		 		dataType:"xml",
+		 		// type:"get",
+		 		// data:"aaa=1&bbb=22",
+		 		success:function(data){
+		 			console.log(data);//返回的对象是文档xml格式
+		 			console.log($(data).children().children("title"));//文档转换成jq对象，再寻找或者循环里面的子元素
+		 			var book=data.getElementsByTagName('book');
+		 			$("#div2").append("<table><tr><th>"
+		 				+$(book).children("title").text()
+		 				+"</th><th>"+$(book).children("auther").text()
+		 				+"</th><th>"+$(book).children("price").text()
+		 				+"</th></tr></table>");
+		 		},
+		 		error:function(e){
+		 			console.log(e);
+		 		}
+		 	})*/
+
+		 	//示例6 另一种书写方式  不成功，用上面的方式吧
+/*		 	var  aaa=$.ajax({
+		 		url:"jqueryAjax.xml",
+		 		dataType:"xml",
+		 
+		 	})
+		 	console.log(aaa);
+		 	$(this).ajaxSuccess(function(){
+
+		 			console.log(data);//返回的对象是文档xml格式
+		 			console.log($(data).children().children("title"));//文档转换成jq对象，再寻找或者循环里面的子元素
+		 			var book=data.getElementsByTagName('book');
+		 			$("#div2").append("<table><tr><th>"
+		 				+$(book).children("title").text()
+		 				+"</th><th>"+$(book).children("auther").text()
+		 				+"</th><th>"+$(book).children("price").text()
+		 				+"</th></tr></table>");
+		 	})*/
+
+
+		 })
+
+
+	})
+
+
+
+
+</script>
+
+</head>
+<body>
+	<input type="button" value="点击提交" id="input">
+	<div id="div1">111</div>
+	<div id="div2"></div>
+</body>
+<script type="text/javascript">
+	function querys(data){
+		$.each(data, function(index, val) {
+			var p=$("<p></p>");
+			p.text(val);
+			console.log(p);
+			$("#div1").append(p);
+		});
+
+	
+	
+	}
+	//示例7直接调用链接php，传送函数名，返回函数名和数组
+		var src="jqueryAjax.php?callback=querys";
+		var scriptsss=$("<script type='text/javascript' src='"+src+"'"+"><\/script>");
+		
+		$("body").append(scriptsss);
+		// $(window).append(scriptsss);
+</script>
+<!-- <script type="text/javascript" src="jqueryAjax.php?callback=querys"></script> -->
+</html>

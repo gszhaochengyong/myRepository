@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>面向对象版贪吃蛇</title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+		position: relative;
+	}
+	</style>
+	<script type="text/javascript" src="my.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var map;//地图
+			var food;//食物
+			var snake;//蛇
+
+			//地图类
+			function Map(){
+				//地图box相关属性
+				this.width=500;
+				this.height=500;
+				this.background="#aaaaaa";
+				this.position="relative";
+				this.margin="100px auto";
+				this.opacity=0.8;
+				this.domMap=null;//地图box div
+
+				//生成显示地图方法
+				this.show=function(){
+					this.domMap=document.createElement("div");
+					this.domMap.style.width=this.width+'px';
+					this.domMap.style.height=this.height+"px";
+					this.domMap.style.background=this.background;
+					this.domMap.style.opacity=this.opacity;
+					this.domMap.style.position=this.position;
+					this.domMap.style.margin=this.margin;
+
+					document.body.appendChild(this.domMap);
+				}
+			}
+			function Snake(){
+				//蛇相关属性
+				this.width=20;
+				this.height=20;
+				this.position="absolute";
+				this.direction='';
+
+				//蛇节全部信息
+				this.body=[[8,2,'red',null],[7,2,'blue',null],[6,2,'blue',null],[5,2,'blue',null],[4,2,'blue',null],[3,2,'blue',null],[2,2,'blue',null],[1,2,'blue',null]];//分别是第几列，几行，颜色，格子参数
+			 	//显示蛇
+			 	this.show=function(){
+			 		for (var i = 0; i < this.body.length; i++) {
+			 			if(this.body[i][3]==null){
+			 				this.body[i][3]=document.createElement("div");
+			 				this.body[i][3].style.width=this.width+"px";
+			 				this.body[i][3].style.height=this.height+"px";
+			 				this.body[i][3].style.position=this.position;
+			 				this.body[i][3].style.background=this.body[i][2];
+			 				map.domMap.appendChild(this.body[i][3]);
+			 			}
+			 			// console.log(this.body[i][0]);
+			 			this.body[i][3].style.left=this.width*this.body[i][0]+'px';
+			 			this.body[i][3].style.top=this.height*this.body[i][1]+'px';
+			 		}
+
+			 	}
+			 	
+			 	//移动
+			 	this.move=function(type){
+					this.length=this.body.length;
+					this.type=type;
+
+					
+					// this.body[this.length]=this.body[this.length];
+					// 将第一格以外的数值进行移动向前一格位置移动
+					for (var i = this.length-1; i>0; i--) {
+						this.body[i][0]=this.body[i-1][0];//将前面的坐标给予后面的值 横坐标,相当于让后面的格子走到前面的位置，给的只是坐标，坐标要乘以数值才是位置
+						this.body[i][1]=this.body[i-1][1];//纵坐标
+					}
+					//第一格的位置根据上下左右来定
+					switch (this.type) {
+						case "LEFT":
+							this.body[0][0]=this.body[0][0]-1;
+							break;
+
+						case "UP":
+							this.body[0][1]=this.body[0][1]-1;
+							break;
+						case "DOWN":
+							this.body[0][1]=this.body[0][1]+1;
+							break;
+						case "RIGHT":
+							this.body[0][0]=this.body[0][0]+1;
+							break;
+						case "SPACE":
+							flag=0;
+							return;
+						default:
+							// statements_def
+							return;
+					}
+
+
+					//console.log(this.body[0]);
+
+					//当蛇头碰到食物时
+					if (this.body[0][0]*this.width==food.randomX && this.body[0][1]*this.width==food.randomY) {
+						//map.domMap.removeChild(food.foods);
+						sum++;
+						this.body.push([this.body[this.length-1][0],this.body[this.length-1][1],"blue",null]);
+						food.show();
+					} 
+
+					//蛇头撞墙
+					//console.log(this.body[0][0]*snake.width>map.width);
+					//console.log(map.width+'BOX');
+					if(this.body[0][0]*this.width<0 || this.body[0][0]*snake.width>=map.width || this.body[0][1]*this.height<0 || this.body[0][1]*snake.height>=map.height){
+						alert('出界了,分数是'+sum);
+						clearInterval(timer);
+						return;
+					}
+
+
+					//蛇头碰到身体
+					for (var i = 0; i < this.body.length; i++) {
+						//console.log(this.body[i]+'----------');
+						if(i>0){
+							if(this.body[i][0]==this.body[0][0] && this.body[i][1]==this.body[0][1]){
+								alert('吃到蛇身啦,分数是'+sum);
+								clearInterval(timer);
+								return;
+							}
+						}
+						
+					}
+					
+
+
+
+					//属性变化后要即时显示
+					this.show();
+
+					//当按下了空格键
+					if (!flag) {
+					  clearInterval(timer);
+					} 
+
+			 	}
+
+			 	
+
+			}
+
+			//食物
+			function Food(){
+				this.width=20;
+				this.height=20;
+				this.position="absolute";
+				this.background="yellow";
+				this.foods=null;
+				//console.log(map.width/snake.width);
+				//console.log(Math.floor(Math.random()*map.width/snake.width));
+				this.show=function(){
+					this.randomX=Math.floor(Math.random()*map.width/snake.width)*this.width;
+					this.randomY=Math.floor(Math.random()*map.width/snake.width)*this.height;
+					if (this.foods==null) {
+						this.foods=document.createElement("div");
+						this.foods.style.width=this.width+'px';
+						this.foods.style.height=this.height+'px';
+						this.foods.style.position=this.position;
+						this.foods.style.background=this.background;
+						map.domMap.appendChild(this.foods);
+						console.log('fods is null');
+					} 
+					this.foods.style.left=this.randomX+'px';
+					this.foods.style.top=this.randomY+'px';
+
+
+				}
+			}
+
+
+			//鼠标事件 
+			/*			17 keyCode 37 = Left
+			 keyCode 38 = Up
+			 keyCode 39 = Right
+			 keyCode 40 = Down
+			 keyCode 13 = Enter 32 space*/
+			var keytype='';//上下左右 空格
+			timer=null;//定时器
+			flag=1;//0暂停 1是运行
+			sum=0;
+			document.onkeyup=function(event){
+				clearInterval(timer);
+				var event=event||window.event;
+				switch (event.keyCode) {
+					case 37:
+						keytype="LEFT"
+						break;
+					case 38:
+						keytype="UP"
+						break;
+					case 39:
+						keytype="RIGHT"
+						break;
+					case 40:
+						keytype="DOWN"
+						break;
+					case 32:
+						keytype="SPACE";
+						clearInterval(timer);
+						return;
+					default:
+						// statements_def
+						return;
+				}
+							//定时器
+				timer=setInterval(function(){
+					// clearInterval(timer);
+					snake.move(keytype);
+				},150);
+
+			}
+
+
+			map=new Map();//实例化地图
+			map.show();//显示地图
+
+			snake=new Snake();//实例化蛇
+			snake.show();//显示蛇
+
+			food=new Food();//实例食物
+			food.show();//显示食物
+
+			
+			//定时器
+/*			timer=setInterval(function(){
+				// clearInterval(timer);
+				snake.move(keytype);
+			},1000);*/
+
+/*
+			$("btn").onclick=function(){
+				snake.move("RIGHT");
+			}*/
+		}
+	</script>
+</head>
+<body>
+<button id="btn">跑</button>
+</body>
+</html>

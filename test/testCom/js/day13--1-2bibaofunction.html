@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	function fun1 () {
+		var num=10;
+		return function fun2(){
+			num++;
+			console.log(num);
+
+		}
+		
+	}
+/*	var test1=fun1;
+	console.log(test1);//输出函数本身fun1 取函数名，不执行函数
+	console.log(test1());//输出函数本身fun2  执行了fun1*/
+   
+    var test1=fun1();
+	test1();//输出11
+	test1();//输出12
+	var test2=fun1();//返回的是fun2函数，重新生成的，和之前的test1没关系 ，所有num从10开始
+	test2();//输出11
+	test2();//输出12
+	test1();//输出13
+</script>

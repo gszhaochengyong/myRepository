@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jq插件添加功能</title>
+	<script type="text/javascript" src="jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="jqPlugin.js"></script>
+	<script>
+	$(function(){
+		(function(){
+			console.log($("#ul").liColor("blue"));
+		})();
+
+		(function(){
+			var ele1Value,ele2Value,ele3;
+			$("#btn1").on("click",function(){
+				ele1Value=$($("#add").children("input")[0]).val();
+				ele2Value=$($("#add").children("input")[1]).val();
+				ele3=$($("#add").children("input")[2]);
+				ele3.val($.add(ele1Value,ele2Value))
+				// console.log($("#add").children("input")[0]);
+			});
+
+			$("#btn2").on("click",function(){
+				var ele1Value=$($("#subtract").children("input")[0]).val();
+				var ele2Value=$($("#subtract").children("input")[1]).val();
+				var ele3=$($("#subtract").children("input")[2]);
+				ele3.val($.subtract(ele1Value,ele2Value))
+				// console.log($("#add").children("input")[0]);
+			});
+		})();
+	})
+	</script>
+</head>
+<body>
+	<div id="ul">
+		<li>元素1</li>
+		<li>元素2</li>
+		<li>元素3</li>
+	</div>
+	<div class="add" id="add">
+		<input type="text" value="3">
+		+
+		<input type="text" value="2">=
+		<input type="text">
+		<input type="button" value="相加" id="btn1">
+	</div>
+	<div class="subtract" id="subtract">
+		<input type="text" value="3">
+		-
+		<input type="text" value="2">=
+		<input type="text">
+		<input type="button" value="相减" id="btn2">
+	</div>
+</body>
+</html>

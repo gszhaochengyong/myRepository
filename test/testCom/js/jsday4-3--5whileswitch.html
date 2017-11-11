@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var i=1,j=1,k=1,sum1=0,sum2=0,sum3=0;
+		for(var i = i; i <=100; i++){
+			sum1+=i;
+		}
+		console.log("for"+sum1+',i='+i);
+
+		while (j<=100) {
+			sum2+=j;
+			j++;
+		}
+
+		console.log('while'+sum2+',j='+j);
+
+		do{
+			sum3+=k;
+			k++;
+		}while (k<=100) ;
+		console.log('do while'+sum3+',k='+k);
+
+
+		var txt=document.getElementById('txt');
+		var search=document.getElementById("search");
+		search.onclick=function(){
+			switch (txt.value) {
+				case "苹果":
+					console.log(txt.value+'为5元');
+					break;
+				case "香蕉":
+					console.log(txt.value+'为6元');
+					break;
+				case "梨":
+					console.log(txt.value+'为2元');
+					break;
+				default:
+					console.log(txt.value+'没货');
+					break;
+			}
+		}
+		var sel=document.getElementById("sel");
+		sel.onchange=function(){
+			switch (sel.value) {
+				case "1":
+					document.body.style.background="blue";
+					break;
+				case "2":
+					document.body.style.background="green";
+					break;
+				case "3":
+					document.body.style.background="yellow";
+					break;
+				case "4":
+					document.body.style.background="red";
+					break;
+				case "5":
+					document.body.style.background="pink";
+					break;
+				default:
+					document.body.style.background="#ccc";
+					break;
+			}
+		}
+	}
+
+
+	</script>
+
+	<style type="text/css">
+	body{
+		background: purple;
+	}
+	</style>
+
+</head>
+<body>
+<input id="txt"></input><button id="search">查询价格</button>
+<br>
+<input type="selection">
+	
+</input>
+<select id="sel">
+	<option value="1">1blue</option>
+	<option value="2">2green</option>
+	<option value="3">3yellow</option>
+	<option value="4">4red</option>
+	<option value="5">5pink</option>
+	<option value="6">ccc</option>
+	<option value="7">ccc</option>
+</select>
+</body>
+</html>

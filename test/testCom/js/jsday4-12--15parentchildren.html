@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var ul=document.getElementById("ul1");
+		console.log(ul.parentNode);//获得父亲元素
+		var bronext=ul.nextElementSibling||ul.nextSibling;//获得下一个兄弟元素。前者是普通浏览器（要写在前面），后者是IE678
+		console.log(bronext);
+		var bropre=ul.previousElementSibling||ul.previousSibling;//获得前一个兄弟元素。前者是普通浏览器，后者是IE678
+		console.log(bropre);
+		var firchi=ul.firstElementChild||ul.firstChild;//第一个孩子
+		console.log(firchi);
+		var laschi=ul.lastElementChild||ul.lastChild;//最后一个孩子
+		console.log(laschi);
+		console.log(ul.childNodes.length);//孩子节点，包括了换行.输出11 ，用下面方式解决nodeType==1
+		for(var i = 0, length1 = ul.childNodes.length; i < length1; i++){
+			if (ul.childNodes[i].nodeType==1) {
+				if (i%3==0) {
+					console.log(i);
+					ul.childNodes[i].style.backgroundColor="red";
+				}else {
+					ul.childNodes[i].style.backgroundColor="yellow";
+				}
+				
+			} 
+		}
+
+		// 上面childnode包括节点，用children不包括节点，但IE8注释会算进去7和9不会算进去，处理访求是去掉注释，无伤大雅
+		var ul2=ul.nextElementSibling || ul.nextSibling;//获得下一兄弟元素
+		console.log(ul2.children[0].innerHTML);//获得下一兄弟元素的第一个孩子的html内容//122
+		console.log(ul2.children.length);
+	}
+	</script>
+
+	<style type="text/css">
+
+	</style>
+
+</head>
+<body>
+<div class="div1">
+	<ul id="ul0" class="ul0">
+	<li>1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+	</ul>
+	<ul id="ul1" class="ul1">
+	<li>1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+	</ul>
+	<ul id="ul2" class="ul2">
+	<li>122</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+	<!-- 666 -->
+	</ul>
+
+</div>
+
+</html>

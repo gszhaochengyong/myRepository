@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="jquery-3.2.1.js"></script>
+	<style type="text/css">
+/* 	div{
+	width: 100px;
+	height: 100px;
+	position:relative;
+	top: 100px;
+	left: 100px;
+	background: red;
+	overflow: scroll;
+
+}
+div p{
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	background: yellow;
+	width: 200%;
+	height: 200%;
+} */
+img{
+	width: 100px;
+	height: 150px;
+	display: none;
+}
+	</style>
+	<script type="text/javascript">
+		$(function(){
+/*			$("div").css({background:"red",margin:"100px auto",width:"200px"});
+			$("div").height("100px");
+			$("div").width("100px");
+			console.log($("div").height());
+			console.log(document.getElementsByClassName("div")[0].offsetHeight);
+			console.log($("div").css("height "));*/
+
+			$("button").click(function(event) {
+/*				var left1=$("#input1").val();
+				var top1=$("#input2").val();
+				console.log($("p").position().left)
+				console.log(top1);*/
+				// $("p").position({left:left1,top:top1});不知道为啥没有效果，是jq版本问题？
+				// console.log($("div").scrollTop("100"))
+			});
+/*			var hTop=$(".top").height();
+			var aTop=parseInt($(".add").css("top"));
+			console.log(aTop+'add')
+			$(window).scroll(function(){
+				var sTop=$(document).scrollTop();
+				if (sTop>=hTop) {
+					$(".nav").css({
+						background: 'pink',
+						position: 'fixed',
+						top:0,
+						left:0
+					});
+					$(".main").css('marginTop', -hTop);
+				} else {
+					$(".nav").css({
+						background: 'red',
+						position: 'static'
+					});
+					$(".main").css('marginTop', 0);
+				}
+				console.log(aTop);
+				var a2top=aTop+sTop;
+				console.log(a2top+',stop'+sTop)
+				console.log(a2top);
+				$(".add").animate({'top':a2top},10);
+			})*/
+			$(document).on('mousemove',function(e){
+				$("img").css({
+					position: 'absolute',
+					display: 'block',
+					left:e.pageX-$("img").width()/2,
+					top:e.pageY-$("img").height()/2
+				});
+			})
+		})
+	</script>
+</head>
+<body>
+<!-- <div class="div"></div> -->
+<!-- <button >设置position的值</button>
+<label for="input1">left</label><input id="input1"></input>
+<label for="input2">top</label><input id="input2"></input>
+<div>
+	<p>1111111</p>
+</div>
+ -->
+ <!-- <div class="top" style="height: 300px;background: green">头</div>
+ <div class="nav" style="height: 200px;width:100%;background: red">导航</div>
+ 
+ <div class="main" style="height: 2000px;background: blue">主体</div>
+ 
+ 	<div class="add" style="width: 200px;height: 200px;position: absolute;top: 200px;left: 0;background: pink">left</div>
+ 	<div class="add" style="width: 200px;height: 200px;position: absolute;top: 200px;right: 0;background: pink">right</div> -->
+ 	<img src="imgs/toTop.png">
+
+ </body>
+</html>

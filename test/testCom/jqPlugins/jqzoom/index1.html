@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html id="html">
+<head>
+<meta charset="utf-8" />
+<title>demo</title>
+  <link rel="stylesheet" type="text/css" href="css/lightbox.css">
+  <link rel="stylesheet" type="text/css" href="js/jqzoom/js/jquery.jqzoom.css">
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/lightbox.js"></script>
+  <script type="text/javascript" src="js/jqzoom/js/jquery.jqzoom-core.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('.jqzoom').jqzoom({
+        zoomType:'reverse',
+        xOffset:10,
+        title:false
+    });
+});
+</script>
+</head>
+<body>
+    <a href="images/triumph_big1.jpg" class="jqzoom">
+        <img src="images/triumph_small1.jpg" style="border:1px solid #666;">
+    </a>
+</body>
+</html>
+                
+                

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="js/jqueryui/jquery-ui.min.css">
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/jqueryui/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+    $(function(){
+    $('#progressbar').progressbar({
+      max:100,
+      value:80,
+      complete:function(){
+       alert('进度完成');
+      }
+    });
+    var inivalue=$('#progressbar').progressbar('value');
+    var maxvalue=$('#progressbar').progressbar('option','max');
+    console.log(inivalue+','+maxvalue);
+    var interval2=setInterval(function(){
+      if (inivalue==maxvalue) {
+        console.log(inivalue+'+'+maxvalue)
+        clearInterval(interval2);
+      }
+      console.log(inivalue)
+    $('#progressbar').progressbar('value',++inivalue);
+
+      
+    }, 100)
+  });
+  </script>
+  <style type="text/css">
+  #progressbar{
+    width: 300px;
+    height: 20px;
+    /*background:#ccc;*/
+  }
+  .ui-progressbar{
+    background: yellow;
+    
+  }
+.ui-widget.ui-widget-content{
+    border:1px solid  red;
+  }
+  .ui-progressbar-value{
+    background: black;
+  }
+  </style>
+</head>
+<body class="w1190">
+<div id="progressbar"></div>
+</body>
+</html>

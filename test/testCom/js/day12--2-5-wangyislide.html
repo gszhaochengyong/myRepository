@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>网易轮播放图</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li {
+		list-style: none;
+	}
+	#box{
+		width: 250px;
+		height: 200px;
+		margin:100px auto;
+		position: relative;
+		overflow: hidden;
+	}
+	#box #slide{
+		width: 250px;
+		height: 164px;
+	}
+
+	#box #box-slide{
+		width: 500px;
+		height: 164px;
+		/*background: red;*/
+		position: relative;
+	}
+	#box #box-slide div img{
+		vertical-align: top;
+	}
+	#box #box-slide div{
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	#box #ctrol{
+		width: 250px;
+		height: 36px;
+		
+	}
+	#box #ctrol ul{
+		width: 205px;
+		height: 36px;
+		margin:0 auto;
+		text-align: center;
+
+	}
+	#box #ctrol ul li{
+		width: 30px;
+		height: 36px;
+		float: left;
+		margin-right: 5px;
+		cursor: pointer;
+	}
+	#box #ctrol ul li:last-child{
+		margin-right: 0;
+	}
+	#box #ctrol ul li span{
+		width: 30px;
+		height: 20px;
+		background: #eee;
+		display: inline-block;
+		margin:8px 0;
+		border-radius: 5px;
+		text-indent: -50px;
+		overflow: hidden;
+		
+	}
+	#box #ctrol ul li span.current{
+		background: orange;
+	}
+	.ctrol-pre,.ctrol-next{
+		width: 20px;
+		height: 50px;
+		background: #ccc;
+		position: absolute;
+		top: 50%;
+		margin-top: -42.5px;
+		line-height: 50px;
+		text-align: center;
+		font-family: Sisum;
+		font-size: 2em;
+		cursor: pointer;
+		opacity: 0.5;
+	}
+	.ctrol-pre{
+		left: 5px;
+	}
+	.ctrol-next{
+		right: 5px;
+	}
+	</style>
+	<script type="text/javascript" src="my.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		// function $(id){return document.getElementById(id);}
+		var box=$("box");//大盒子
+		var boxSlide=$("box-slide");//slide部分
+		var ctrol=$("ctrol");//控制部分
+		var photos=boxSlide.children;//图片集合div
+
+		//添加ul
+		var ul=document.createElement("ul");
+		ctrol.insertBefore(ul,ctrol.children[1]);//添加到二个按钮中间
+		for (var i = 0; i < photos.length; i++) {
+			var li=document.createElement("li");
+			var span=document.createElement("span");
+			if (i==0) {
+				span.className="ctrol-num current";
+			} else{
+				span.className="ctrol-num";
+			}
+			span.innerHTML=i+1;
+			li.append(span);
+			ul.append(li);
+		};
+		var timer=null;
+		//box宽度
+		var boxWidth=box.clientWidth;
+		//将除第一张以外的所有图片移到右侧
+		for (var i = 1; i < photos.length; i++) {
+			photos[i].style.left=boxWidth+"px";
+		};
+
+		var keyNow=0;
+		var lis=$("ctrol").children[1].children;//数字li标签
+		//绑定点击事件  左侧按钮上一张
+		$("ctrol").children[0].onclick=function(){
+			animate(photos[keyNow], {left:boxWidth});
+			--keyNow<0?keyNow=photos.length-1:kewNow=keyNow;//如果是第一张就跳到最后一张
+			
+			photos[keyNow].style.left=-boxWidth+'px';
+			animate(photos[keyNow], {left:0});
+			num();
+			
+		}
+		//右侧下一张
+		$("ctrol").children[2].onclick=function(){
+			//photos[keyNow].style.left=-(boxWidth)+'px';
+			animate(photos[keyNow], {left:-boxWidth});//先将正中图片移到左侧
+			++keyNow>photos.length-1?keyNow=0:keyNow=keyNow;
+			//photos[keyNow].style.left=0;
+			photos[keyNow].style.left=boxWidth+'px';//将上一张图片立即移到右侧等待从右侧滑入中间部分
+			animate(photos[keyNow], {left:0});//刚刚移入右侧的动画滑动到中间
+			num();
+		
+		}
+		//给每个linum绑定点击事件
+		for (var i = 0; i < lis.length; i++) {
+			lis[i].onclick=function(){
+				// this.children[0].className="ctrol-num current";
+				
+				var that=this.children[0].innerHTML-1;
+				num();
+				//console.log(that);
+				// that==0?that=1:that;
+				if (that>keyNow) {
+					animate(photos[keyNow],{left:boxWidth});
+					photos[that].style.left=-boxWidth+'px';
+					//animate(photos[that],{left:0});
+				} else if(that<keyNow){
+					animate(photos[keyNow],{left:-boxWidth});
+					photos[that].style.left=boxWidth+"px";
+					//animate(photos[that],{left:0});
+
+				}
+				keyNow=that;
+				animate(photos[keyNow],{left:0});
+			}
+		};
+
+	//给指定的linum加current，其他的全是普通ctrol-num属性
+	function num(){
+		for (var i = 0; i < lis.length; i++) {
+			lis[i].children[0].className="ctrol-num";
+		}
+		lis[keyNow].children[0].className="ctrol-num current";
+	}
+	timer=setInterval(autoPlay, 1000);
+
+	//定时器自动执行函数
+	function autoPlay(){
+			$("ctrol").children[2].onclick();
+	}
+	box.onmouseover=function(){
+		clearInterval(timer);
+	}
+	box.onmouseout=function(){
+		clearInterval(timer);
+		timer=setInterval(autoPlay,1000);
+	}
+}
+</script>
+</head>
+<body>
+<div class="box" id="box">
+	<div id="box-slide">
+		<div><a href="#"><img src="imgs/1.jpg" alt=""></a></div>
+		<div><a href="#"><img src="imgs/2.jpg" alt=""></a></div>
+		<div><a href="#"><img src="imgs/3.jpg" alt=""></a></div>
+		<div><a href="#"><img src="imgs/4.jpg" alt=""></a></div>
+		<div><a href="#"><img src="imgs/5.jpg" alt=""></a></div>
+		<div><a href="#"><img src="imgs/6.jpg" alt=""></a></div>
+	</div>
+	<div class="ctrol" id="ctrol">
+		<span class="ctrol-pre"><</span>
+<!-- 		<ul>
+	<li><span class="ctrol-num">1</span></li>
+	<li><span class="ctrol-num">2</span></li>
+	<li><span class="ctrol-num">3</span></li>
+	<li><span class="ctrol-num">4</span></li>
+	<li><span class="ctrol-num">5</span></li>
+	<li><span class="ctrol-num">6</span></li>
+</ul> -->
+		<span class="ctrol-next">></span>
+	</div>
+</div>
+</body>
+</html>

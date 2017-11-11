@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	.box{
+		width: 200px;
+		height: 300px;
+		background: #ccc;
+		position: relative;
+		margin: 100px auto;
+		border: 1px solid #aaa;
+		overflow: hidden;
+	}
+	.box .txtbox{
+		height: auto;
+		padding-right: 30px;
+		padding: 3px  30px 12px 3px;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+
+	}
+	.dragbox{
+		position:absolute;
+		width: 30px;
+		height: 100%;
+		top: 0;
+		right:0;
+		border-left: 1px solid #aaa;
+		border-bottom: 1px solid #aaa;
+	}
+	.drag{
+		position: absolute;
+		right: 0;
+		top: 0px;
+		width: 100%;
+		height: 50px;
+		background: pink;
+		border-top: 1px solid #666;
+		border-bottom: 1px solid #666;
+	}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=document.getElementById("box");
+			var txtbox=box.children[0];
+			var dragbox=box.children[1];
+			var drag=box.children[1].children[0];
+
+			var dragheight=box.offsetHeight/txtbox.offsetHeight*box.offsetHeight;//获得拖动条的高度，根据文本高度和box高度来算的
+			var dragfit=txtbox.offsetHeight/box.offsetHeight;
+			drag.style.height=dragheight+'px';
+			startdrag(drag,txtbox);//拖动条移动时，文本盒子区域对应移动显示对应文字
+			function startdrag(dragitem,moveitem) {
+				dragitem.onmousedown=function(event){
+					var event=event||window.event;
+					var that=this;
+					var topini=event.clientY-this.offsetTop;
+					document.onmousemove=function(event1){
+						var event=event1||window.event1;
+						var topfin=event.clientY-topini;
+						topfin<0?topfin=0:topfin;//达到顶部时处理
+						topfin>dragbox.offsetHeight-that.offsetHeight-1?topfin=dragbox.offsetHeight-that.offsetHeight-1:topfin;//到达底部时处理，+3是出于有边框的处理，不然最下面的文字拖到最下也显示不完全
+						that.style.top=topfin+"px";
+						window.getSelection?window.getSelection().removeAllRanges():document.Selection.empty();//清除选择文本
+						moveitem.style.top=-topfin*moveitem.offsetHeight/moveitem.offsetParent.offsetHeight+'px';//根据鼠标拖动距离显示文字区域，对应比例就好了
+						//console.log(-topfin*moveitem.offsetHeight/moveitem.offsetParent.offsetHeight+'px');
+
+					}
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null;//鼠标松开时清除移动方法
+				}
+			}
+			var json1={name:111,age:222};
+			console.log(json1.name);
+		}
+	</script>
+</head>
+<body>
+<div class="box" id="box">
+	<div class="txtbox">成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子成功了这个小孩子个小孩子成功了这个小孩子个小孩子成功了这个小孩子个小孩子成功了这个小孩子个小孩子成功了这个小孩子1111</div>
+	<div class="dragbox">
+		<div class="drag"></div>
+	</div>
+</div>
+</body>
+</html>

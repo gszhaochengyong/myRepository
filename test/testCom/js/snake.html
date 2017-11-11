@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>贪吃蛇小游戏</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="my.js"></script>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	#box{
+		width: 600px;
+		height: 600px;
+		background: #ccc;
+		margin:100px auto;
+		position: relative;
+	}
+	
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=$("box");//box大盒子
+
+			var celw=30;//小格子的长和宽
+			var celh=30;
+			var boxhw=box.offsetWidth;//大盒子的长和宽
+			var celsw=Math.floor(box.offsetWidth/celw); //一排一格子的个数，向下取整
+			var celsh=Math.floor(box.offsetHeight/celh);
+
+			var arr=[];
+			function genSnake(type){
+				console.log(arr+'ddd');
+				var ele=document.createElement("div");
+				ele.style.background="red";
+				if(type){
+					switch (type) {
+						case "UP":
+							ele.style.top=snake[arr.length-1].offsetTop+celh+'px';
+							ele.style.left=snake[arr.length-1].offsetLeft+'px';
+							break;
+						case "DOWN":
+							ele.style.top=snake[arr.length-1].offsetTop-celh+'px';
+							ele.style.left=snake[arr.length-1].offsetLeft+'px';
+							break;
+						case "LEFT":
+							ele.style.left=snake[arr.length-1].offsetLeft+celw+'px';
+							ele.style.top=snake[arr.length-1].offsetTop+'px';
+							break;
+						case "RIGHT":
+							ele.style.left=snake[arr.length-1].offsetLeft-celw+'px';
+							ele.style.top=snake[arr.length-1].offsetTop+'px';
+							break;
+						case "SPACE":
+							clearInterval(timer);
+							return;
+						default:
+							// statements_def
+							break;
+					}
+				}else{
+					console.log('type is nul')
+					ele.style.left=Math.floor(box.offsetWidth/celw*Math.random())*celw+'px';
+					ele.style.top=Math.floor(box.offsetHeight/celh*Math.random())*celh+'px';
+				}
+				ele.style.width=celw+'px';
+				ele.style.height=celh+'px';
+				ele.style.position='absolute';
+				box.appendChild(ele);
+				arr.push(ele);
+				return arr;
+			}
+			function genFood(){
+
+				var ele=document.createElement("div");
+				ele.style.background="yellow";
+				ele.style.left=Math.floor(box.offsetWidth/celw*Math.random())*celw+'px';
+				ele.style.top=Math.floor(box.offsetHeight/celh*Math.random())*celh+'px';
+				ele.style.width=celw+'px';
+				ele.style.height=celh+'px';
+				ele.style.position='absolute';
+				box.appendChild(ele);
+				return ele;
+			}
+
+			var snake=genSnake();
+			//console.log(snake);
+			var food=genFood();
+			function move(type){
+				//console.log(snake[0].offsetTop+',celh'+celh+'相减后,'+(snake[0].offsetTop-celh));
+				if(timer){
+					for (var i = arr.length-1; i>0; i--){
+						arr[i].style.left=arr[i-1].offsetLeft+'px';
+						arr[i].style.top=arr[i-1].offsetTop+'px';
+					}
+					
+					switch (type) {
+						case "UP":
+							snake[0].style.top=snake[0].offsetTop-celh+'px';
+							break;
+						case "DOWN":
+							snake[0].style.top=snake[0].offsetTop+celh+'px';
+							break;
+						case "LEFT":
+							snake[0].style.left=snake[0].offsetLeft-celw+'px';
+							break;
+						case "RIGHT":
+							snake[0].style.left=snake[0].offsetLeft+celw+'px';
+							break;
+						case "SPACE":
+							clearInterval(timer);
+							return;
+						default:
+							// statements_def
+							break;
+					}
+				}
+				//出界
+				if(snake[0].offsetTop<0||snake[0].offsetTop>=box.offsetWidth||snake[0].offsetLeft<0||snake[0].offsetLeft>=box.offsetHeight){
+					alert("出界了,分数是"+sum);
+					clearInterval(timer);
+					return;
+				}
+				//吃到食物
+				if(snake[0].offsetTop==food.offsetTop&&snake[0].offsetLeft==food.offsetLeft){
+					food.style.left=Math.floor(box.offsetWidth/celw*Math.random())*celw+'px';
+					food.style.top=Math.floor(box.offsetHeight/celh*Math.random())*celh+'px';
+
+					genSnake(type);
+					sum++;
+				}
+				
+				//吃到自己了
+				for (var i = 1; i < snake.length; i++) {
+					if (snake[0].offsetTop==snake[i].offsetTop&&snake[0].offsetLeft==snake[i].offsetLeft){
+					alert("吃到自己了,分数是"+sum);
+					clearInterval(timer);
+					return;
+				} 
+				}
+				
+			}
+			//键盘事件
+			/*			17 keyCode 37 = Left
+			 keyCode 38 = Up
+			 keyCode 39 = Right
+			 keyCode 40 = Down
+			 keyCode 13 = Enter 32 space*/
+			 var keyType=null;
+			 var timer=null;
+			 var sum=0;
+			document.onkeyup=function(event){
+				clearInterval(timer);
+				var event=event||window.envent;
+				if(event&&event.keyCode==37){//left
+					keyType="LEFT";
+				}else if (event&&event.keyCode==38) {
+					keyType='UP';
+				}else if (event&&event.keyCode==39) {
+					keyType='RIGHT';
+				}else if (event&&event.keyCode==40) {
+					keyType='DOWN';
+				}else if (event&&event.keyCode==32) {
+					keyType='SPACE';
+				}else{
+					keyType=null;
+				}
+				timer=setInterval(function(){ move(keyType)}, 300)
+			}
+
+		}
+	</script>
+</head>
+<body>
+<div id="box">
+
+</div>
+</body>
+</html>

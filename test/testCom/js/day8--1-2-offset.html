@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	ul{
+		list-style: none;
+	}
+	/*lessen2*/
+/*	#box{
+		width: 300px;
+		height: 300px;
+		background:yellow;
+		margin: 100px;
+
+		border: 2px solid #aaa;
+		
+	}
+	#box1{
+		width: 200px;
+		height: 200px;
+		background:blue;
+		margin: 20px;
+		border: 2px solid #aaa;
+		position: relative;
+	}
+	#box2{
+		margin: 50px 50px;
+		width: 100px;
+		height: 100px;
+		background:pink;
+		border: 2px solid #ddd;
+		padding: 10px 8px;
+	}*/
+	/*lesson3-4惊斗云效果*/
+	body{
+		background: #ccc;
+	}
+   #nav{
+   	width: 800px;
+   	height: 40px;
+   	margin: 100px auto;
+   	background: #eee;
+   	position: relative;
+   	border-radius: 5px;
+
+   }
+    #nav #icon{
+    	width: 80px;
+    	height: 40px;
+    	background: url(imgs/cloud.png) 0 0 no-repeat;
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	border-radius: 5px;
+    	z-index: 5;
+    }
+    #nav #ul {
+    	position:absolute;
+    	top: 0;
+    	left: 0;
+    	z-index: 10;
+    }
+    #nav #ul li{
+    	float: left;
+    	width: 80px;
+    	height: 40px;
+    	line-height: 40px;
+    	color:#000;
+    	text-align: center;
+    	margin-right: 20px;
+    	/*background: pink;*/
+    	position: relative;
+    }
+</style>
+<body>
+<!-- lesson2 -->
+<!-- <div id="box">
+	<div id="box1"><div id="box2">1111</div></div>
+	
+</div> -->
+<div id="nav">
+	<span id="icon"></span>
+	<ul id="ul">
+		<li>首页欣赏</li>
+		<li>师资力量</li>
+		<li>联系地址</li>
+		<li>美图出现</li>
+		<li>合作方式</li>
+	</ul>
+</div>
+</body>
+<script type="text/javascript">
+// lessen2
+/*	var box2=document.getElementById("box2");
+	var box=document.getElementById("box");
+	console.log(box2.offsetWidth+'he:'+box2.offsetHeight);
+	console.log(box2.offsetTop+'left:'+box2.offsetLeft);*/
+	var ul=document.getElementById("ul");
+	var icon=document.getElementById("icon");
+	var target=0,start=0,current=0;
+
+	for (var i = 0; i < ul.children.length; i++) {
+		ul.children[i].index=i;
+		ul.children[i].onmouseover=function(){
+			//left=this.index*100;//这种方式也可以，下面用offsetLeft方法来做,就不用来算100这种数值，更方便和准确
+			target=this.offsetLeft;
+			console.log(typeof target);
+			// start=target-90;
+			//setInterval(inter, 10);
+		}
+		ul.children[i].onmouseout=function(){
+			target=current;
+		}
+		ul.children[i].onclick=function() {
+			current=this.offsetLeft;
+		}
+/*		ul.children[i].onmouseout=function(){
+			clearInterval(intervals);
+		}*/
+	}
+/*	console.log(target+'dd'+target);current*/
+	var intervals=setInterval(inter, 10);
+	// var i=0;
+	function inter(){
+		start=start+(target-start)/10;
+		//console.log(typeof start);
+		//console.log(typeof target);
+		icon.style.left=start+"px";
+/*		i++;
+		if(i>5){
+			console.log('start;'+start+"target:"+target*0.99);
+			clearInterval(intervals);
+		}
+		*/
+	}
+	//为什么判断当start接近于target的99%时停止定时器没效果 
+
+/*	var i=0;
+	function test(){
+		console.log(i);
+		i++;
+		if(i>5){
+		console.log(i+'11111111')
+		clearInterval(interv);
+	}
+	}
+	var interv=setInterval(test,1000);
+	console.log(3999.99>3999.98)*/
+</script>
+</html>

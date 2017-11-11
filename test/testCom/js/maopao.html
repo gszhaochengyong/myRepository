@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	var arr=[0,4,6,1,9,5,8];
+	function maopao(arr){
+		var flag=null;
+		var k=0;
+		if (!arr) {
+			flag="参数不能为空";
+		} else if(Object.prototype.toString.call(arr)!='[object Array]') {
+			flag="参数不是数组";
+		}else{
+			
+			for (var i = 1; i < arr.length; i++) {
+				for (var j = 0; j < i; j++) {
+					k++;
+
+					if (arr[j]>arr[i]) {
+						var tmp=arr[j];
+						arr[j]=arr[i];
+						arr[i]=tmp;
+					} 
+				}
+			}
+		}
+		return {"flags":flag,"arrs":arr,"ks":k};
+	}
+	var res=maopao(arr);
+	console.log(res);
+	if (res.flags) {
+		document.body.innerHTML=res.flags;
+	} else{
+		document.body.innerHTML=res.arrs+',k='+res.ks;
+	}
+	var arr2=[ddd,eee,fff];
+</script>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var box=document.getElementById("box");
+		var child=box.children;
+
+		var arr=["星期天","星期一","星期二","星期三","星期四","星期五","星期六"];
+
+		var date=new Date();
+		child[0].innerHTML=date.getFullYear()+"年"+(date.getMonth()+1)+"月"+date.getDate()+"日 "+arr[date.getDay()];
+		child[1].innerHTML=date.getDate();
+		var box2=document.getElementById("box2");
+
+		setInterval(fun, 1000);
+		var num=1;
+		function fun(argument) {
+			box2.innerHTML=num;
+			num++;
+		}
+
+
+		//倒计时
+		var box3=document.getElementById("box3");
+		var endtime=new Date("2017-06-14 14:00:00");//截止时间
+
+		
+		setInterval(fun,1000);
+
+		function fun (argument) {
+			var now=new Date();//现在
+
+			var times=parseInt((endtime.getTime()-now.getTime())/1000);//相差秒数 
+			var mon=parseInt(times/3600/24/30);//月
+			var d=parseInt(times/3600/24%30);//天
+			var h=parseInt(times/3600%24);//小时
+			var m=parseInt(times/60%60);//分
+			var s=parseInt(times%60);//秒
+			
+
+			mon<10?mon="0"+mon:mon;
+			d<10?d="0"+d:d;
+			h<10?h="0"+h:h;
+			m<10?m="0"+m:m;
+			s<10?s="0"+s:s;
+			var res=mon+"月"+d+"天"+h+"时"+m+"分"+s+"秒";
+			console.log(res);
+
+			box3.children[0].innerHTML=res;
+			
+		}
+
+
+	}
+	</script>
+
+	<style type="text/css">
+	#box{
+		background: #ccc;
+		width: 300px;
+		height: 300px;
+		margin:100px auto;
+		text-align: center;
+	}
+	.top{
+		height: 100px;
+		widows: 100%;
+		line-height: 100px;
+		font-size: 26px;
+		color: #fff;
+	}
+	.bottom{
+		height: 200px;
+		width: 100%;
+		color: #fff;
+		background: yellowgreen;
+		font-size: 130px;
+		line-height: 200px;
+	}
+	#box3{
+		width: 800px;
+		height: 50px;
+		line-height: 50px;
+		font-size: 20px;
+		background: yellowgreen;
+		margin:30px auto;
+		text-align: center;
+	}
+	#box3 span{
+		background: blue;
+	}
+	</style>
+
+</head>
+<body>
+<div id="box">
+	<div class="top">年月日星期</div>
+	<div class="bottom">日期</div>
+</div>
+<div id="box2">0</div>
+<div id="box3">距离2017-12-12 12：00：00抢购时间还有<span>11天</span></div>
+
+<script type="text/javascript">
+ var date=new Date();
+//提倡  获得从1970年到当前时间的毫秒数的时间戳
+ console.log('getTime方法'+date.getTime());
+ console.log('valueOf方法'+date.valueOf());
+
+//也可以直接使用
+console.log(Date.now());
+console.log(+new Date())	
+
+console.log('当前时间是：'+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+",星期"+date.getDay()+","+date.getHours()+"时"+date.getMinutes()+"分"+date.getSeconds()+"秒"+date.getUTCMilliseconds()+"毫秒,时间戳"+date.getTime()+".");
+</script>
+</html>

@@ -1,0 +1,301 @@
+<html>
+<head>
+	<title>五字棋</title>
+</head>
+	<script type="text/javascript" src="my.js"></script>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	li{
+		list-style: none;
+	}
+	#box{
+		width: 800px;
+		height: 800px;
+		background: #ccc;
+		margin:100px auto;
+		position: relative;
+	}
+	#box ul#ul1{
+		width: 100%;
+		height: 100%;
+		border: 1px solid #ccc;
+	}
+	#box ul#ul1>li{
+		width: 100%;
+		height: 10%;
+	}
+	ul#ul1>li >ul{
+		width: 100%;
+		height: 100%;
+	}
+	
+	ul#ul1>li >ul> li {
+		float: left;
+		height: 98.8%;
+		width: 9.85%;
+			/*background: red;*/
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+	}
+	</style>
+	<script type="text/javascript">
+		window.onload=function () {
+
+			//下棋子操作处理类
+			function Play(){
+				this.width=30;
+				this.height=30;
+				this.position="absolute";
+				this.background1="white";
+				this.background2="black";
+				this.border="1px solid #aaa";
+				this.borderRadius="15px";
+				this.showChessman=null;
+				this.chessman1=[];
+				this.chessman2=[];
+				//显示旗子
+				this.show=function(i){
+					if(11){
+						this.showChessman=document.createElement("div");
+						this.showChessman.style.width=this.width+'px';
+						this.showChessman.style.height=this.height+'px';
+						this.showChessman.style.position=this.position;
+						this.showChessman.style.borderRadius=this.borderRadius;
+						this.showChessman.style.border=this.border;
+						this.showChessman.style.background=turn==1?this.background1:this.background2;
+						this.showChessman.style.left=(i%10)*eleWH-this.width/2+'px';
+						this.showChessman.style.top=(Math.floor(i/10)+1)*eleWH-this.width/2+'px';
+						// console.log(turn);
+						turn==1?this.chessman1.push(this.showChessman):this.chessman2.push(this.showChessman);
+						box.appendChild(this.showChessman);
+						turn=-turn;
+						console.log('白棋数量'+this.chessman1.length);
+						// console.log('黑棋数量'+this.chessman2.length);
+						var num=1;
+						var step=0;
+						for (var i = this.chessman1.length-1; i >0; i--) {
+							console.log(this.chessman1[i].offsetLeft);
+							if((this.chessman1[i].offsetLeft+2*eleWH-this.width/2)>this.chessman1[i-1].offsetLeft  || (this.chessman1[i].offsetLeft-2*eleWH-this.width/2)<this.chessman1[i-1].offsetLeft){
+								num++;
+								// step=
+								console.log(num+'ddd');
+							}
+				/*			if(i>=4){
+								console.log('胜利了');
+							}*/
+							
+						}
+					}
+					
+				}
+
+				//下棋操作时
+				this.play=function(posX,posY){
+					console.log("POs X 和Y "+posX+','+posY);
+					console.log("BOX 的  X 和  Y"+box.offsetLeft+','+box.offsetTop);
+					console.log("BOX 的  X 和  Y"+(box.offsetLeft+box.offsetWidth)+','+(box.offsetTop+box.offsetHeight));
+					// 在棋盘范围内点击时
+					if (posX>=(box.offsetLeft+eleWH/2)&&posX<=(box.offsetLeft+box.offsetWidth-eleWH/2)&&posY>=(box.offsetTop+eleWH/2) &&posY<=(box.offsetTop+box.offsetHeight-eleWH/2)) {
+							console.log('内');
+							//console.log("鼠标距离左上角left上限"+(posX-box.offsetLeft)+',上限left'+(lis[11].offsetLeft+eleWH/2));
+							for (var i = 0; i < lis.length; i++) {
+									if((lis[i].offsetLeft-eleWH/2)<(posX-box.offsetLeft) &&(posX-box.offsetLeft)< (lis[i].offsetLeft+eleWH/2)  && (lis[i].offsetTop-eleWH/2)<(posY-box.offsetTop)&&(posY-box.offsetTop)< (lis[i].offsetTop+eleWH/2)){
+										this.show(i,turn);
+										
+
+									}
+								
+								
+							}
+							
+					}else{
+						return ;
+					}
+				}
+
+
+			}
+
+
+			var box=$("box");
+			var turn=1;
+			var time=10;
+			var play=new Play();
+			var eleWH=box.children[0].children[0].children[0].children[0].offsetWidth;
+			var ul1lis=$("ul1").children;
+			var lis=[];
+
+			for (var i = 0; i < ul1lis.length; i++) {
+				//console.log(ul1lis[i].children[0].children.length);
+				ul1lis[i].index=i;
+				for(j=0;j<ul1lis[i].children[0].children.length;j++){
+					// console.log(ul1lis[i].children[0].children[j].innerHTML);
+					lis.push(ul1lis[i].children[0].children[j]);
+				}
+			}
+			// console.log(lis.length);
+			// play.show();
+
+			window.onmouseup=function(event){
+				// alert('你下棋了');
+				var event=event||window.event;
+				console.log(event);
+				play.play(event.clientX,event.clientY);
+				// console.log(eleWH+'ddd');
+			}
+
+		}
+
+	</script>
+
+<body>
+<div id="box">
+	<ul id="ul1">
+	<li>
+		<ul>
+			<li>001</li>
+			<li>002</li>
+			<li>003</li>
+			<li>004</li>
+			<li>005</li>
+			<li>006</li>
+			<li>007</li>
+			<li>008</li>
+			<li>009</li>
+			<li>010</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>101</li>
+			<li>102</li>
+			<li>103</li>
+			<li>104</li>
+			<li>105</li>
+			<li>106</li>
+			<li>107</li>
+			<li>108</li>
+			<li>109</li>
+			<li>110</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>201</li>
+			<li>202</li>
+			<li>203</li>
+			<li>204</li>
+			<li>205</li>
+			<li>206</li>
+			<li>207</li>
+			<li>208</li>
+			<li>209</li>
+			<li>210</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>01</li>
+			<li>02</li>
+			<li>03</li>
+			<li>04</li>
+			<li>05</li>
+			<li>06</li>
+			<li>07</li>
+			<li>08</li>
+			<li>09</li>
+			<li>10</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>01</li>
+			<li>02</li>
+			<li>03</li>
+			<li>04</li>
+			<li>05</li>
+			<li>06</li>
+			<li>07</li>
+			<li>08</li>
+			<li>09</li>
+			<li>10</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>01</li>
+			<li>02</li>
+			<li>03</li>
+			<li>04</li>
+			<li>05</li>
+			<li>06</li>
+			<li>07</li>
+			<li>08</li>
+			<li>09</li>
+			<li>10</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>01</li>
+			<li>02</li>
+			<li>03</li>
+			<li>04</li>
+			<li>05</li>
+			<li>06</li>
+			<li>07</li>
+			<li>08</li>
+			<li>09</li>
+			<li>10</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>01</li>
+			<li>02</li>
+			<li>03</li>
+			<li>04</li>
+			<li>05</li>
+			<li>06</li>
+			<li>07</li>
+			<li>08</li>
+			<li>09</li>
+			<li>10</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>01</li>
+			<li>02</li>
+			<li>03</li>
+			<li>04</li>
+			<li>05</li>
+			<li>06</li>
+			<li>07</li>
+			<li>08</li>
+			<li>09</li>
+			<li>10</li>
+		</ul>
+	</li>
+	<li>
+		<ul>
+			<li>01</li>
+			<li>02</li>
+			<li>03</li>
+			<li>04</li>
+			<li>05</li>
+			<li>06</li>
+			<li>07</li>
+			<li>08</li>
+			<li>09</li>
+			<li>10</li>
+		</ul>
+	</li>
+</ul>
+</div>
+
+</body>
+</html>

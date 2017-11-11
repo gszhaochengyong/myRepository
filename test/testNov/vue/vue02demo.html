@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vueo1</title>
+		
+	<link href="bootstrap.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="jquery3.2.1.js"></script>
+	<!-- // <script src="https://cdn.bootcss.com/popper.js/1.11.1/popper.js"></script> -->	
+	<!-- bootstrap.min.js只能用在线的，不然会报popper不存在 -->
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="vue.min.js"></script>
+	<script>
+	window.onload=function(){
+		console.log("ddd");
+		//配置上线不允许vue检测
+		Vue.config.devtools=true;
+		var v=new Vue({
+			el:"#div1",//jq方式选择器  指定关联的元素
+			data:{ //存储数据
+		
+			},
+			methods:{
+			
+			}
+		});
+
+		
+	}
+	
+	</script>
+</head>
+<body>
+	<div id="div1" class="container">
+		<h2 class="text-center">用户管理</h2>
+		<form action="" class="form">
+			<div ><label for="" class="text-left">用户名：</label><input type="text"></div>
+			<div ><label for="" class="text-left">用户名：</label><input type="text"></div>
+
+			
+		</form>
+	</div>
+</body>
+</html>

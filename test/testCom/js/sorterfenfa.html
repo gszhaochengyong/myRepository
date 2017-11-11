@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<script type="text/javascript">
+	window.onload=function(){
+
+		var arr=[29,15,19,10,5,18,6];//原数组
+		//console.log(Math.floor((2+1)/2));
+/*		var  arr1=[];
+		arr1[0]=arr[0];
+		
+		var len=arr.length;
+		for (var i = 1; i < len; i++) {
+			var left=0;
+			var len2=arr1.length;
+			var right=len2;
+			var middle=0;
+			for (var j = 0; j < len2; j++) {
+				middle=Math.floor((left+right)/2);
+				if(arr[i]>arr1[middle]){
+					left=middle+1;
+				}else{
+					right=middle;
+				}
+				if (left==right) {0
+					arr1.splice(left,0, arr[i]);
+					break;
+				} 
+			}
+			console.log(arr1.valueOf());
+		}*/
+		console.log('原数组为');
+		console.log(arr);
+		for (var i = 1; i < arr.length; i++) {
+			var insert=arr[i];
+			var index=i;
+			for (var j = i-1; j >=0; j--) {
+				if (insert<arr[j]) {
+					arr[j+1]=arr[j];
+					index=j;
+				} 
+			}
+			arr[index]=insert;
+			console.log('第'+i+'次排序后结果');
+			console.log(arr);
+
+		}
+		console.log(arr.valueOf());
+	/*	function InsertionSort(array) {
+  var length = array.length;
+  for (var i = 0; i < length - 1; i++) {
+    //i代表已经排序好的序列最后一项下标
+    var insert = array[i+1];
+    var index = i + 1;//记录要被插入的下标
+    for (var j = i; j >= 0; j--) {
+      if (insert < array[j]) {
+        //要插入的项比它小，往后移动
+        array[j+1] = array[j];
+        index = j;
+      }
+    }
+    array[index] = insert;
+    console.log(array);
+    console.log("-----------------------");
+  }
+  return array;
+}
+ 
+var arr = [100,90,80,62,80,8,1,2,39];
+var result = InsertionSort(arr);
+console.log(result);*/
+	}
+	// http://www.jb51.net/article/81520.htm
+	</script>
+</head>
+<body>
+
+</body>
+</html>

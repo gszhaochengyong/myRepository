@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试用</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="js/jquery.contextMenu.css">
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery.contextMenu.js"></script>
+  <script type="text/javascript">
+
+  $(function(){
+
+
+  $('button.add').click(function(event) {
+    $('body').append('<div class="context-menu-one" style="width: 200px;height: 100px;background:yellow"></div>');
+  });
+   /*$.contextMenu({
+        selector: '.context-menu-one',
+        items: {
+            "edit": {name: "编辑", icon: "edit"},
+            "cut": {name: "剪切", icon: "cut"},
+            "copy": {name: "复制", icon: "copy"},
+            "paste": {name: "粘贴", icon: "paste"},
+            "delete": {name: "删除", icon: "delete"},
+            "sep1": "---------",
+            "quit": {name: "取消", icon: "quit"}
+        },
+        callback: function(key,options) {
+             console.log(key);
+        }
+   });*/
+/*    $.contextMenu({
+        selector: '.context-menu-one', 
+        build: function($trigger, e) {
+            console.log($trigger);
+            return {
+                callback: function(key, options) {
+                    console.log(key); 
+                },
+                items: {
+                    "edit": {name: "编辑", icon: "edit"},
+                    "cut": {name: "剪切", icon: "cut"},
+                    "copy": {name: "复制", icon: "copy"},
+                    "paste": {name: "粘贴", icon: "paste"},
+                    "delete": {name: "删除", icon: "delete"},
+                    "sep1": "---------",
+                    "quit": {name: "取消", icon: "quit"}
+                }
+            };
+        }
+    }); */ 
+    /* $.contextMenu({
+        selector: '.context-menu-one', 
+        callback: function(key, options) {
+             console.log(key); 
+        },
+        items: {
+             "edit": {
+                  name: "点击之后关闭", 
+                  icon: "edit", 
+                  callback: function(){ return true; }
+             },
+             "cut": {
+                  name: "点击之后依然显示", 
+                  icon: "cut", 
+                  callback: function(){ return false; }
+             }
+        }
+        //trigger:'none'  //这个不可用
+    });*/
+     $.contextMenu({
+        selector: '.context-menu-one', 
+        callback: function(key, options) {
+            var m = "clicked: " + key;
+            console.log(m); 
+        },
+        items: {
+            "edit": {"name": "Edit", "icon": "edit"},
+            "cut": {"name": "Cut", "icon": "cut"},
+            "sep1": "---------",
+            "quit": {"name": "Quit", "icon": "quit"},
+            "sep2": "---------",
+            "fold1": {
+                "name": "Sub group", 
+                "items": {
+                    "fold1-key1": {"name": "Foo bar"},
+                    "fold2": {
+                        "name": "Sub group 2", 
+                        "items": {
+                            "fold2-key1": {"name": "alpha"},
+                            "fold2-key2": {"name": "bravo"},
+                            "fold2-key3": {"name": "charlie"}
+                         }
+                    },
+                    "fold1-key3": {"name": "delta"}
+                }
+            },
+            "fold1a": {
+                "name": "Other group", 
+                "items": {
+                    "fold1a-key1": {"name": "echo"},
+                    "fold1a-key2": {"name": "foxtrot"},
+                    "fold1a-key3": {"name": "golf"}
+                }
+            }
+        }
+    });
+
+
+  }) 
+
+  </script>
+
+  </style>
+</head>
+<body>
+
+<button class="add">add</button >
+
+<div class="context-menu-one" style="width: 200px;height: 100px;background:yellow;margin-bottom: 5px;"></div>
+</body>
+</html>

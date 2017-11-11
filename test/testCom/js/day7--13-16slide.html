@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>排序</title>
+	<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="ini.js"></script>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul li,ol li{
+		list-style: none;
+	}
+	#box{
+		width: 250px;
+		height: 164px;
+		padding: 5px;
+		margin:100px auto;
+		background: pink;
+		position: relative;
+	}
+	#slide{
+		width: 100%;
+		height: 100%;
+		background: red;
+		position: relative;
+		overflow: hidden;
+	}
+	#slide ul{
+		width: 1000%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	#slide ul li{
+		float: left;
+	}
+	#box ol{
+		position: absolute;
+		bottom: 10px;
+		left: 50%;
+		margin-left: -40px;
+
+	}
+	#box ol li{
+		width: 15px;
+		height: 15px;
+		line-height: 15px;
+		text-align: center;
+		float: left;
+		background: orange;
+		margin-right: 5px;
+		border-radius: 7px;
+		color:red;
+		cursor: pointer;
+	}
+	#box ol li.current{
+		background: pink;
+	}
+	img{
+		display: block;
+	}
+	#clickbox{
+		height: 50px;
+		width: 100%;
+		position: absolute;
+		left: 0px;
+		top:50%;
+		margin-top: -25px;
+		display: none;
+		z-index: 10;
+	}
+	#clickbox span{
+		display: block;
+		width: 10%;
+		height: 100%;
+		background: blue;
+		line-height: 50px;
+		font:700 30px/50px Simsun;
+		cursor: pointer;
+		z-index: 100;
+	}
+	#clickbox #left{
+		float: left;
+	}
+	#clickbox #right{
+		float: right;
+	}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var slide=document.getElementById("slide");//slide盒子
+			var box=document.getElementById("box");//box盒子
+			var numol=document.createElement("ol");//数字ol
+			var time='';
+			var lis=slide.getElementsByTagName("li");//图片数量
+			lis.length>0?box.appendChild(numol):lis.length;//图片数量大于0时添加ol数字
+
+			//根据图片数量添加对应的数字节点元素
+			for (var i = 0; i < lis.length; i++) {
+				//console.log(lis[i].children[0].getAttribute("src"));
+				numli=document.createElement("li");
+				box.children[1].appendChild(numli);
+				box.children[1].children[i].innerHTML=i+1;
+			}
+			//加上点击节点元素
+			var clickbox=document.createElement("div");
+			
+			var span=document.createElement("span");
+			box.appendChild(clickbox);
+			box.children[2].appendChild(span);
+			var span=document.createElement("span");
+			box.children[2].appendChild(span);
+			box.children[2].setAttribute("id","clickbox");
+			box.children[2].children[0].innerHTML="<";
+			box.children[2].children[0].setAttribute("id","left")
+			box.children[2].children[1].innerHTML=">";
+			box.children[2].children[1].setAttribute("id","right")
+
+
+			//左右翻页按钮操作
+			var clickboxs=document.getElementById("clickbox");
+			slide.onmouseover=function(){
+				clickboxs.style.display="block";
+				clearInterval(timer);
+				
+			}
+			slide.onmouseout=function(){
+				clickboxs.style.display="none";
+				timer=setInterval(move, 60);
+			}
+			clickboxs.children[0].onmouseover=clickboxs.children[1].onmouseover=function(){
+				clearInterval(timer);
+			}
+			slide.onclick=function(){
+				alert('slide');
+			}
+			clickboxs.children[0].onclick=function(){
+/*				clickboxs.style.display="block";
+				alert(dd);*///这里要看一下，点击大多数不生效
+				left=slide.children[0].style.left;
+				var leftvalue=parseInt(left.substr(0,left.length-2))+250;
+				leftvalue>0?leftvalue=0:leftvalue;
+				console.log(leftvalue);
+				slide.children[0].style.left=leftvalue+"px";
+			}
+			clickboxs.children[1].onclick=function(){
+/*				clickboxs.style.display="block";
+				alert(dd);*///这里要看一下，点击大多数不生效
+				left=slide.children[0].style.left;
+				var leftvalue=parseInt(left.substr(0,left.length-2))-250;
+				leftvalue<-750?leftvalue=-750:leftvalue;
+				console.log(leftvalue);
+				slide.children[0].style.left=leftvalue+"px";
+			}
+
+			// 给每个数字增加事件处理函数hover时class改成current
+			var olli=box.children[1].children;
+			var index=0;
+			for (var i = 0,lis=olli.length; i < lis; i++) {
+				olli[i].index=i;
+				olli[i].onmouseover=function(){
+					clearInterval(timer);
+					for (var j = 0,lis=olli.length; j < lis; j++) {
+						olli[j].setAttribute("class","");
+					}
+					this.setAttribute("class","current");
+					slide.children[0].style.left=-250*this.index+"px";
+				}
+				olli[i].onmouseout=function(){
+					timer=setInterval(move, 60);
+					for (var j = 0,lis=olli.length; j < lis; j++) {
+						olli[j].setAttribute("class","");
+					}
+				}
+			}
+			//定时器匀速滚动设置
+			var end=-750,step=0;//起点，上限，步长 start用来缓动测试的。暂时不用了
+			timer=setInterval(move, 60);
+			function move(){
+				step-=3;
+				step<=end?step=end:step;
+				slide.children[0].style.left=step+"px";
+			}
+
+
+		}
+
+	</script>
+
+
+</head>
+<body>
+<div id="box">
+	<div id="slide">
+		<ul>
+			<li><img src="imgs/1.jpg" alt=""></li>
+			<li><img src="imgs/2.jpg" alt=""></li>
+			<li><img src="imgs/3.jpg" alt=""></li>
+			<li><img src="imgs/4.jpg" alt=""></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

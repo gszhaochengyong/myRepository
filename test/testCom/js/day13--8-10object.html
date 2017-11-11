@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+   // var obj=new Object();
+/*   var obj={};
+   obj.name="minibaby";
+   obj.age=25;
+   obj.showName=function  (argument) {
+   	console.log(obj.name);
+   }
+   obj.showAge=function(){
+   	console.log(obj.age);
+   };
+
+   console.log(obj.name);//调用 对象属性
+   obj.showAge();//调用 对象方法*/
+
+   function Person(name,age){
+   		//var obj={};//下面的this都可以用ojb代替
+   		this.name=name;
+	   this.age=age;
+	   this.showName=function () {
+	   	console.log("我的名字是"+name);
+	   }
+	   this.showAge=function(){
+	   	console.log("我的年龄是"+age);
+	   };
+	   //return this;
+   }
+   var xiaoMing=new Person("xiaoming",18);
+   console.log(xiaoMing.age+','+xiaoMing.name);
+   xiaoMing.showName();
+   var daMing=new Person("xiaoming",18);
+   console.log(daMing.age+','+daMing.name);
+   daMing.showAge();
+   console.log(xiaoMing.showName==daMing.showName);//false不相等。因为xiaoMing和daMing属性不同的对象实例，里面的this分别是xiaoMing和daMing
+ 
+    function Person2(name,age){
+    	this.name=name;
+    	this.age=age;
+    }
+    Person.prototype.showName = function(){
+    	alert("我的名字是是"+this.name);
+    };
+    Person.prototype.showAge = function(argument){
+    	alert("我的年龄是是"+this.age);
+    };
+    var aaa=new Person2('xiaoMing',14);
+    var bbb=new Person2('xiaoMing',14);
+    console.log(bbb.name);
+    bbb.showAge;
+    console.log(aaa.showAge==bbb.showAge);//true  因为aaa和bbb的this都是Person.protytype是完全一样的。
+
+   function fn1(){  //this指向的是函数或者对象的调用者
+   	alert(this);//winddow
+   }
+   fn1();
+
+   function fn2(){
+   	alert(this);
+   }
+   
+   new fn2;//object
+  	
+
+   function fn3(){
+   	this.x=10;
+   }
+   fn3();
+   console.log(x);//10 因为x是window 这里相当于window.x
+
+   function fn4(){
+   	this.x=20;
+   }
+   var aaa=new fn4;
+   console.log(aaa.x);
+
+
+</script>
