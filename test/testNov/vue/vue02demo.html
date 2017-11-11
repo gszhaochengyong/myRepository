@@ -23,10 +23,34 @@
 		var v=new Vue({
 			el:"#div1",//jq方式选择器  指定关联的元素
 			data:{ //存储数据
-				users:[{"name":"小张","age":"22","email":"333@qq.com"},{"name":"小李","age":"42","email":"555@qq.com"}]
+				users:[{"name":"小张","age":"22","email":"333@qq.com"},{"name":"小李","age":"42","email":"555@qq.com"}],
+				user:{},
+				nowIndex:-1
 			},
 			methods:{
-			
+				addUser(){
+					console.log(this.user);
+/*					if(this.user.name.length>0 && this.user.age.length>0 && this.user.email.length>0){
+						this.users.push(this.user);
+						this.user={};
+					}else{
+						alert("不能有空数值呢！");
+					}*/
+					this.users.push(this.user);
+					this.user={};
+					
+				},
+				reset(){
+					this.user={};
+				},
+				deletes(){
+					alert("不能有空数值呢！");
+					/*if(this.nowIndex===-1){
+						this.users={};
+					}else{
+						this.users.splice(this.nowIndex,1)
+					}*/
+				}
 			}
 		});
 
@@ -38,11 +62,11 @@
 <body>
 	<div id="div1" class="container">
 		<h2 class="text-center">用户添加</h2>
-		<form action="" class="form">
-			<div class="text-center"><label for="" class="text-right col-xs-4">用户名:</label><input type="text" class="text-left col-xs-8" ></div>
-			<div class="text-center"><label for="" class="text-right col-xs-4" >年龄:</label><input type="text" class="text-left col-xs-8"></div>
-			<div class="text-center"><label for="" class="text-right col-xs-4">邮箱:</label><input type="text" class="text-left col-xs-8"></div>
-			<div class="text-center"><button class="btn">添加</button></div>
+		<form action="" class="form" >
+			<div class="text-center"><label for="" class="text-right col-xs-4">用户名:</label><input type="text" name="name" v-model="user.name" class="text-left col-xs-8" ></div>
+			<div class="text-center"><label for="" class="text-right col-xs-4" >年龄:</label><input type="text" name="age" v-model="user.age" class="text-left col-xs-8"></div>
+			<div class="text-center"><label for="" class="text-right col-xs-4">邮箱:</label><input type="text" class="text-left col-xs-8" v-model="user.email" name="email"></div>
+			<div class="text-center"><input type="button" class="btn" v-on:click="addUser()" value="添加"><input type="button" class="btn" v-on:click="reset()" value="重置"></div>
 		</form>
 		<hr>
 		<h2 class="text-center">用户删除</h2>
@@ -58,34 +82,37 @@
 			</thead>
 			<tbody>
 				<tr v-for="(user,index) in users">
-					<td >{{index}}</td>
+					<td >{{index+1}}</td>
 					<td >{{user.name}}</td>
 					<td >{{user.age}}</td>
 					<td >{{user.email}}</td>
-					<td ><button data-toggle="modal" data-target="#myModal">删除</button></td>
+					<td ><button type="button" data-toggle="modal" data-target="#myModal" v-on:click="nowIndex=index;alert(nowIndex);">删除</button></td>
 				</tr>
+				<tr><td colspan="5" class="text-right"><button class="w" data-toggle="modal" data-target="#myModal" v-on:click="nowIndex=-1;alert(nowIndex);">删除所有</button></td></tr>
 			</tbody>
-
+			
 		</table>
-		<div class="text-right"><button class="" >删除所有</button></div>
-		
-	</div>
-	<!-- 模态框（Modal） -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                <h4 class="modal-title" id="myModalLabel">提示</h4>
-	            </div>
-	            <div class="modal-body text-center">确定要删除此项吗？</div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-	                <button type="button" class="btn btn-primary">提交更改</button>
-	            </div>
-	        </div><!-- /.modal-content -->
-	    </div><!-- /.modal -->
-	</div>
+ 
+
+</div> 
+<!-- 模态框（Modal） -->
+<!-- 有问题，放在这里和上面联系不起来，放在上面div里导致页面不显示 -->
+		<div class="modal fade" id="myModal" >
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">提示</h4>
+		            </div>
+		            <div class="modal-body text-center" v-show="nowIndex !== -1)">确定要删除{{users[nowIndex]?users[nowIndex].name:"";}}此项吗？</div>
+		            <div class="modal-body text-center" v-show="nowIndex === -1">确定要删除所有项吗？</div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		                <button type="button" class="btn btn-primary"  data-dismiss="modal" v-on:click="alert(nowIndex)">提交更改</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>	
 
 </body>
 </html>

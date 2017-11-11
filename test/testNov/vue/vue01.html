@@ -4,7 +4,37 @@
 	<meta charset="UTF-8">
 	<title>vueo1</title>
 	<script src="vue.min.js"></script>
+	<style type="text/css">
+	.aa{
+		color: red;
+	}
+	.bb{
+		background: green;
+	}
+	[v-clock]{
+		display: none;
+	}
+	</style>
 	<script>
+	Vue.filter('addZero',function(data){
+		return data<10?"0"+data:data;
+	});
+	Vue.filter('fourFive',function(data,n){
+/*		var data10=data*(Math.pow(10,n));
+		var data10Str=data10.toString();
+		var data10StrDot=data10Str.indexOf(".");
+		var bigger5=data10Str.slice(data10StrDot+1,data10StrDot+2);
+		var data10Tmp=Math.floor(data10)
+		return data10=bigger5>=5?(data10Tmp+1)/100:data10Tmp/100;*/
+/*		var data10=data*(Math.pow(10,n));
+		var data10Str=data10.toString();
+		var data10StrDot=data10Str.indexOf(".");
+		var bigger5=data10Str.slice(0,data10StrDot+2);
+		var data10Tmp=Math.round(bigger5)
+		return data10Tmp/100;*/
+		return Math.round(data*Math.pow(10,n))/Math.pow(10,n);
+
+	})
 	window.onload=function(){
 		console.log("ddd");
 		//配置上线不允许vue检测
@@ -15,7 +45,10 @@
 				username:"张三",
 				arr:[2,3,5,22,23],
 				arr2:{"name1":"111","name2":"2222"},
-				flag:true
+				flag:true,
+				url:"https://www.baidu.com/img/bd_logo1.png",
+				w:"100px",
+				h:"100px"
 			},
 			methods:{
 				show:function(){
@@ -25,7 +58,13 @@
 				},
 				change(){
 					this.flag=!this.flag;
+				},
+				cons(e){
+					console.log(e.target.innerHTML);//e.target是dom对象
 				}
+			},
+			created:function(){//创建时，还没完全加载完
+				// alert("ddd");
 			}
 		});
 
@@ -36,6 +75,7 @@
 			console.log("原始方法点击1");
 		}
 	</script>
+
 </head>
 <body>
 	<div id="div2">
@@ -64,6 +104,20 @@
 			<!-- 循环 对象数组方法一样  index索引值-->
 			<li v-for="(value,index) in arr">{{index}}--{{value}}</li>
 		</ul>
+		<!-- v-bind绑定数据后可以直接访问view中的数据，简写为:    -->
+		<img :src="url" :width="w" :height="h">
+		<!-- 绑定class和style方法不一样，复杂点 json格式，true表示应用，false表示不应用-->
+		<!-- 获得事件对象，动作函数里要传递全局事件$event @click后面加.stop阻止冒泡.prevent默认行为，比原生的在函数里加e.stopPropatation()方便  keydown.13或者keydown.enter-->
+		<p :class="{aa:false,bb:true}" @click="cons($event)">绑定类方法json方法</p>
+		<!-- v-clock要设置css属性display:none 加载完成后就会显示了 v-text v-html v-once一次,v-pre不编译显示{{msg}}原始形态-->
+		<h3> aaa<span v-clock>bbb先不显示，等加载完成后才显示</span></h3>
+		<!-- 双向绑定v-model  单向绑定{{}} -->
+		<!-- 过滤器 语法  {{data|filter1(参数)|filter2(参数)  2.0删除了内置过滤器，只能用第三方工具库或者自定义
+		全局自定义过滤器
+
+		-->
+		<h3>{{8|addZero}}</h3>
+		<h3>{{5.24433565|fourFive(2)}}</h3>
 	</div>
 </body>
 </html>
