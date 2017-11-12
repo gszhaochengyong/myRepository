@@ -142,19 +142,17 @@ $(function(){
 		
 		tips.timer=setInterval(tipsAnimate, 1000);
 		function tipsAnimate(){
-			console.log('111');
 			left=tips.offset().left;
 			if(left<=distance){
 				tips.animate({
 					'left': winWidth-distance-tips.width()+'px',
-					'opacity': "0.6",
+					'opacity': "0.6"
 				},5000);
 			}else if(left>=winWidth-distance-tips.width()){
 				tips.animate({
 					'left': distance+'px',
-					'opacity': "1",
-				},
-					5000);
+					'opacity': "1"
+				},5000);
 			}
 		}
 		tips.hover(function(){
