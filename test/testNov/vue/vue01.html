@@ -15,66 +15,7 @@
 		display: none;
 	}
 	</style>
-	<script>
-	Vue.filter('addZero',function(data){
-		return data<10?"0"+data:data;
-	});
-	Vue.filter('fourFive',function(data,n){
-/*		var data10=data*(Math.pow(10,n));
-		var data10Str=data10.toString();
-		var data10StrDot=data10Str.indexOf(".");
-		var bigger5=data10Str.slice(data10StrDot+1,data10StrDot+2);
-		var data10Tmp=Math.floor(data10)
-		return data10=bigger5>=5?(data10Tmp+1)/100:data10Tmp/100;*/
-/*		var data10=data*(Math.pow(10,n));
-		var data10Str=data10.toString();
-		var data10StrDot=data10Str.indexOf(".");
-		var bigger5=data10Str.slice(0,data10StrDot+2);
-		var data10Tmp=Math.round(bigger5)
-		return data10Tmp/100;*/
-		return Math.round(data*Math.pow(10,n))/Math.pow(10,n);
 
-	})
-	window.onload=function(){
-		console.log("ddd");
-		//配置上线不允许vue检测
-		Vue.config.devtools=true;
-		var v=new Vue({
-			el:"#div2",//jq方式选择器  指定关联的元素
-			data:{ //存储数据
-				username:"张三",
-				arr:[2,3,5,22,23],
-				arr2:{"name1":"111","name2":"2222"},
-				flag:true,
-				url:"https://www.baidu.com/img/bd_logo1.png",
-				w:"100px",
-				h:"100px"
-			},
-			methods:{
-				show:function(){
-					//这个对象里的this是等于v的，代表同一个对象实例，调用基本的方法都要加this
-					console.log("点击了");
-					this.arr.push(333);
-				},
-				change(){
-					this.flag=!this.flag;
-				},
-				cons(e){
-					console.log(e.target.innerHTML);//e.target是dom对象
-				}
-			},
-			created:function(){//创建时，还没完全加载完
-				// alert("ddd");
-			}
-		});
-
-		
-	}
-	//原始onclick方法
-		function shows(){
-			console.log("原始方法点击1");
-		}
-	</script>
 
 </head>
 <body>
@@ -118,6 +59,90 @@
 		-->
 		<h3>{{8|addZero}}</h3>
 		<h3>{{5.24433565|fourFive(2)}}</h3>
+
+		<!-- vue的八个生命阶段created用得比较多一点 
+		计算属性computed 对数据进行处理后再显示。要是一个函数
+		基于依赖更新的，只有有相关依赖发生改变时才能更新变化;计算属性是
+		有缓存的，只要相关依赖没有改变，多次访问之前结果不用多次执行，所以
+		不用普通加一个方法来代替computed  get set二部分组成
+
+		vue实用属性和方法  vm.$el $data $options获取自定义属性 $refs获取添加了refs属性的元素
+		方法 vm.$mount("#div1")  $destrop $nextTick在DOM更新完成后再执行回调函数，在数据修改后使用 $set delete watch
+		-->
+		<h2>计算属性{{msg2}}</h2>
+		<h2>计算属性{{msg2.split(" ").reverse().join(" ")}}</h2>
+		<h2>计算属性{{reverseMsg}}</h2>
+		<input type="text" v-model="msg">
+		{{msg}}
 	</div>
 </body>
+	<script>
+	Vue.filter('addZero',function(data){
+		return data<10?"0"+data:data;
+	});
+	Vue.filter('fourFive',function(data,n){
+/*		var data10=data*(Math.pow(10,n));
+		var data10Str=data10.toString();
+		var data10StrDot=data10Str.indexOf(".");
+		var bigger5=data10Str.slice(data10StrDot+1,data10StrDot+2);
+		var data10Tmp=Math.floor(data10)
+		return data10=bigger5>=5?(data10Tmp+1)/100:data10Tmp/100;*/
+/*		var data10=data*(Math.pow(10,n));
+		var data10Str=data10.toString();
+		var data10StrDot=data10Str.indexOf(".");
+		var bigger5=data10Str.slice(0,data10StrDot+2);
+		var data10Tmp=Math.round(bigger5)
+		return data10Tmp/100;*/
+		return Math.round(data*Math.pow(10,n))/Math.pow(10,n);
+
+	})
+	console.log("ddd");
+	//配置上线不允许vue检测
+	Vue.config.devtools=true;
+	var v=new Vue({
+		el:"#div2",//jq方式选择器  指定关联的元素
+		data:{ //存储数据
+			username:"张三",
+			arr:[2,3,5,22,23],
+			arr2:{"name1":"111","name2":"2222"},
+			flag:true,
+			url:"https://www.baidu.com/img/bd_logo1.png",
+			w:"100px",
+			h:"100px",
+			msg:"msg 1111"
+		},
+		methods:{
+			show:function(){
+				//这个对象里的this是等于v的，代表同一个对象实例，调用基本的方法都要加this
+				console.log("点击了");
+				this.arr.push(333);
+			},
+			change(){
+				this.flag=!this.flag;
+			},
+			cons(e){
+				console.log(e.target.innerHTML);//e.target是dom对象
+			}
+		},
+		created:function(){//创建时，还没完全加载完
+			// alert("ddd");
+		},
+		computed:{
+			msg2:function(){
+				return "msg2 computed";
+			},
+			reverseMsg:function(){
+				return this.msg.split(" ").reverse().join(" ");
+			}
+		}
+	});
+	console.log(v.$el);
+	v.$watch("msg",function(news,old){
+		console.log("新值"+news+",老值"+old);
+	})
+	//原始onclick方法
+	function shows(){
+		console.log("原始方法点击1");
+	}
+	</script>
 </html>
